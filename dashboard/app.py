@@ -9,10 +9,15 @@ import plotly.express as px
 import plotly.graph_objects as go
 import json
 import sys
+import os
 from pathlib import Path
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+# Resolve project root (works both locally and on Streamlit Cloud)
+# Streamlit Cloud sets cwd to repo root; locally we may be in dashboard/
+_project_root = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(_project_root / "src"))
+sys.path.insert(0, str(_project_root))
+os.chdir(_project_root)  # Ensure data/ paths resolve from repo root
 
 from nav_fetcher import fetch_nav_history, save_nav_history, load_nav_history
 from returns_calculator import (
@@ -51,7 +56,8 @@ st.markdown("""
 @st.cache_data(ttl=3600)  # Cache for 1 hour
 def load_data():
     """Load or fetch NAV data."""
-    nav_file = Path(__file__).parent.parent / "data" / "nav_history.csv"
+    nav_file = Path("data/nav_history.csv")
+    nav_file.parent.mkdir(parents=True, exist_ok=True)
     if nav_file.exists():
         df = load_nav_history(str(nav_file))
         # Refresh if data is older than 1 day
@@ -67,7 +73,7 @@ def load_data():
 @st.cache_data(ttl=3600)
 def load_factsheet():
     """Load factsheet data if available."""
-    fs_file = Path(__file__).parent.parent / "data" / "factsheet_data.json"
+    fs_file = Path("data/factsheet_data.json")
     if fs_file.exists():
         return load_factsheet_data(str(fs_file))
     return None
