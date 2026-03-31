@@ -1,6 +1,7 @@
 """
 PPFAS Flexi Cap Fund - Factsheet Parser
 Downloads and extracts data from PPFAS monthly factsheet PDFs.
+Targets ONLY pages 1-4 (Flexi Cap Fund section).
 """
 
 import requests
@@ -15,39 +16,64 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-PPFAS_FACTSHEET_PAGE = "https://www.ppfas.com/mutual-fund/schemes/ppfas-flexi-cap-fund/"
-PPFAS_DOWNLOADS_PAGE = "https://www.ppfas.com/downloads/factsheets/"
+# The actual PPFAS AMC website (not www.ppfas.com which is the PMS/advisory arm)
+PPFAS_FACTSHEET_PAGE = "https://amc.ppfas.com/downloads/factsheet/"
+PPFAS_AMC_BASE = "https://amc.ppfas.com"
+
+# Pages in factsheet that contain Flexi Cap Fund data (0-indexed)
+FLEXI_CAP_PAGES = [0, 1, 2, 3]  # Pages 1-4
 
 
 def find_latest_factsheet_url() -> str:
     """
-    Scrape the PPFAS website to find the latest monthly factsheet PDF URL.
+    Scrape the PPFAS AMC website to find the latest monthly factsheet PDF URL.
+    Factsheets are listed at https://amc.ppfas.com/downloads/factsheet/
+    PDF pattern: /downloads/factsheet/{year}/ppfas-mf-factsheet-for-{Month}-{Year}.pdf
     """
     logger.info("Searching for latest factsheet URL...")
 
-    # Try the downloads/factsheets page first
-    for base_url in [PPFAS_DOWNLOADS_PAGE, PPFAS_FACTSHEET_PAGE]:
-        try:
-            response = requests.get(base_url, timeout=30)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, "html.parser")
+    try:
+        response = requests.get(PPFAS_FACTSHEET_PAGE, timeout=30)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "html.parser")
 
-            # Look for PDF links containing 'factsheet'
-            pdf_links = []
-            for link in soup.find_all("a", href=True):
-                href = link["href"]
-                if ".pdf" in href.lower() and "factsheet" in href.lower():
-                    if not href.startswith("http"):
-                        href = "https://www.ppfas.com" + href
-                    pdf_links.append(href)
+        pdf_links = []
+        for link in soup.find_all("a", href=True):
+            href = link["href"]
+            if ".pdf" in href.lower() and "factsheet" in href.lower():
+                if not href.startswith("http"):
+                    href = PPFAS_AMC_BASE + href
+                pdf_links.append(href)
 
-            if pdf_links:
-                # Return the first (most recent) factsheet
-                logger.info(f"Found factsheet: {pdf_links[0]}")
-                return pdf_links[0]
-        except Exception as e:
-            logger.warning(f"Error fetching {base_url}: {e}")
-            continue
+        if pdf_links:
+            url = pdf_links[0].split("?")[0]
+            logger.info(f"Found factsheet: {url}")
+            return url
+
+    except Exception as e:
+        logger.warning(f"Error fetching {PPFAS_FACTSHEET_PAGE}: {e}")
+
+    # Fallback: construct URL based on previous month
+    now = datetime.now()
+    if now.month == 1:
+        prev_month_name = "December"
+        prev_year = now.year - 1
+    else:
+        prev_month_name = datetime(now.year, now.month - 1, 1).strftime("%B")
+        prev_year = now.year
+
+    fallback_url = (
+        f"{PPFAS_AMC_BASE}/downloads/factsheet/{prev_year}/"
+        f"ppfas-mf-factsheet-for-{prev_month_name}-{prev_year}.pdf"
+    )
+    logger.info(f"Trying fallback factsheet URL: {fallback_url}")
+
+    try:
+        resp = requests.head(fallback_url, timeout=15, allow_redirects=True)
+        if resp.status_code == 200:
+            return fallback_url
+    except Exception:
+        pass
 
     raise ValueError("Could not find factsheet PDF URL on PPFAS website")
 
@@ -65,124 +91,170 @@ def download_pdf(url: str) -> str:
     return tmp.name
 
 
-def extract_aum(text: str) -> str:
-    """Extract AUM from factsheet text."""
-    patterns = [
-        r"AUM[:\s]*(?:Rs\.?|₹|INR)?\s*([\d,]+\.?\d*)\s*(Cr|Crore|crore)",
-        r"Assets Under Management[:\s]*(?:Rs\.?|₹|INR)?\s*([\d,]+\.?\d*)\s*(Cr|Crore|crore)",
-        r"Fund Size[:\s]*(?:Rs\.?|₹|INR)?\s*([\d,]+\.?\d*)\s*(Cr|Crore|crore)",
-        r"Net Assets[:\s]*(?:Rs\.?|₹|INR)?\s*([\d,]+\.?\d*)\s*(Cr|Crore|crore)",
-    ]
-    for pattern in patterns:
-        match = re.search(pattern, text, re.IGNORECASE)
-        if match:
-            return f"₹{match.group(1)} Cr"
+def extract_aum(page2_tables: list) -> str:
+    """
+    Extract AUM from page 2 table.
+    Row format: ['Assets Under Management\\n(AUM) as on ...', '` 1,34,253.17 Crores']
+    PPFAS uses backtick ` as rupee symbol in PDFs.
+    """
+    for table in page2_tables:
+        for row in table:
+            if not row or not row[0]:
+                continue
+            cell = str(row[0]).lower()
+            if "assets under management" in cell or "aum" in cell:
+                if len(row) > 1 and row[1]:
+                    val = str(row[1]).strip()
+                    match = re.search(r"([\d,]+\.?\d*)\s*(Crore|crore|Cr)", val)
+                    if match:
+                        return f"₹{match.group(1)} Cr"
     return "N/A"
 
 
-def extract_sector_allocation(text: str) -> dict:
+def extract_sector_allocation(page2_text: str) -> dict:
     """
-    Extract sector-wise allocation from factsheet.
-    Returns dict like: {"Financial Services": 25.5, "Technology": 18.2, ...}
+    Extract industry/sector allocation from the sidebar on page 2.
+    The factsheet lists industries clearly at the bottom of page 2:
+        Banks 20.04%
+        Debt and Money Market Instruments 14.52%
+        Computer Software 8.54%
+        Power 6.92%
+        IT - Software 6.91%
+        Automobiles 6.71%
+        ...
     """
     sectors = {}
 
-    # Common sector patterns in PPFAS factsheets
-    sector_keywords = [
-        "Financial", "Technology", "Information Technology", "Healthcare",
-        "Consumer", "Automobile", "Auto", "Energy", "Power", "Materials",
-        "Pharma", "FMCG", "Metals", "Cement", "Telecom", "Real Estate",
-        "Capital Goods", "Oil & Gas", "Banking", "Insurance", "Retail",
-        "Chemicals", "Textiles", "Media", "Services", "Others"
-    ]
-
-    # Pattern: Sector Name followed by percentage
-    for line in text.split("\n"):
+    lines = page2_text.split("\n")
+    for line in lines:
         line = line.strip()
-        for keyword in sector_keywords:
-            if keyword.lower() in line.lower():
-                # Look for a percentage value
-                pct_match = re.search(r"(\d+\.?\d*)\s*%", line)
-                if pct_match:
-                    pct = float(pct_match.group(1))
-                    if 0 < pct < 100:
-                        sectors[line.split(str(pct))[0].strip().rstrip("%").strip()] = pct
-                        break
+        # Match: "Sector Name XX.XX%" — name starts with a letter, ends with percentage
+        match = re.match(r"^([A-Za-z][A-Za-z &/\-,]+?)\s+(\d+\.?\d+)%$", line)
+        if match:
+            name = match.group(1).strip()
+            pct = float(match.group(2))
 
-    # Also try table-like extraction
-    if not sectors:
-        rows = re.findall(
-            r"([A-Za-z\s&/]+?)\s+(\d+\.?\d*)\s*%",
-            text
-        )
-        for name, pct in rows:
-            name = name.strip()
-            pct = float(pct)
-            if len(name) > 2 and 0 < pct < 100:
-                sectors[name] = pct
+            if pct <= 0 or pct > 100:
+                continue
+            if len(name) < 3:
+                continue
 
+            # Skip non-sector lines (benchmark labels, ratio labels, etc.)
+            skip_labels = [
+                "ppfcf regular", "ppfcf direct", "nifty", "cagr",
+                "regular plan", "direct plan", "beta", "standard deviation",
+                "sharpe ratio", "portfolio turnover", "since inception",
+                "month end expense",
+            ]
+            if any(skip in name.lower() for skip in skip_labels):
+                continue
+
+            sectors[name] = pct
+
+    if sectors:
+        logger.info(f"Extracted {len(sectors)} sectors from page 2 sidebar")
     return dict(sorted(sectors.items(), key=lambda x: x[1], reverse=True))
 
 
-def extract_category_allocation(text: str) -> dict:
+def extract_category_allocation(page3_tables: list) -> dict:
     """
-    Extract asset category allocation (Equity/Debt/Cash/Foreign Equity).
-    Returns dict like: {"Equity": 65.5, "Foreign Equity": 20.2, ...}
+    Extract asset category allocation from page 3 portfolio disclosure.
+
+    Page 3 has clear section totals in the tables:
+      Core Equity section → 'Total 67.88%'
+      Overseas Securities → 'Total 10.51%'
+      REITs & InvITs      → 'Total 3.52%'
+      Debt & Money Market → 'Total 18.09%'
+      Net Assets           → 100.00%
     """
     categories = {}
 
-    cat_patterns = [
-        (r"(?:Domestic|Indian)\s*Equity[:\s]*(\d+\.?\d*)\s*%", "Domestic Equity"),
-        (r"Foreign\s*(?:Equity|Securities)[:\s]*(\d+\.?\d*)\s*%", "Foreign Equity"),
-        (r"(?:Total\s*)?Equity[:\s]*(\d+\.?\d*)\s*%", "Equity"),
-        (r"Debt[:\s]*(\d+\.?\d*)\s*%", "Debt"),
-        (r"Cash\s*(?:&|and)?\s*(?:Cash\s*)?Equivalents?[:\s]*(\d+\.?\d*)\s*%", "Cash & Equivalents"),
-        (r"Cash[:\s]*(\d+\.?\d*)\s*%", "Cash"),
-        (r"Gold[:\s]*(\d+\.?\d*)\s*%", "Gold"),
-        (r"REITs?[:\s]*(\d+\.?\d*)\s*%", "REITs"),
-        (r"Others?[:\s]*(\d+\.?\d*)\s*%", "Others"),
-    ]
+    # Section headers that appear in the table rows, mapped to display names
+    section_map = {
+        "overseas securities": "Overseas Equity",
+        "units issued by reits": "REITs & InvITs",
+        "debt and money market": "Debt & Money Market",
+    }
 
-    for pattern, label in cat_patterns:
-        match = re.search(pattern, text, re.IGNORECASE)
-        if match:
-            pct = float(match.group(1))
-            if 0 < pct <= 100:
-                categories[label] = pct
+    current_section = "Indian Equity"  # First section in the table is Core Equity
+
+    for table in page3_tables:
+        for row in table:
+            if not row or not row[0]:
+                continue
+            cell = str(row[0]).strip()
+            cell_lower = cell.lower()
+
+            # Detect section transitions
+            for key, label in section_map.items():
+                if key in cell_lower:
+                    current_section = label
+                    break
+
+            # Capture "Total XX.XX%" lines — these are section totals
+            total_match = re.match(r"^Total\s+(\d+\.?\d+)%$", cell)
+            if total_match:
+                pct = float(total_match.group(1))
+                # Only store the first "Total" per section (avoid double-counting)
+                if current_section not in categories:
+                    categories[current_section] = pct
+
+    # Split "Debt & Money Market" into Debt instruments vs Cash if possible.
+    # The TREPS/Cash line (3.57%) is a subset of Debt & Money Market total (18.09%).
+    # We separate them for a cleaner breakdown that sums to 100%.
+    # Look for TREPS/Cash line to split
+    for table in page3_tables:
+        for row in table:
+            if not row or not row[0]:
+                continue
+            cell_lower = str(row[0]).strip().lower()
+            if "treps" in cell_lower and "cash" in cell_lower:
+                treps_match = re.search(r"(\d+\.?\d+)%", str(row[0]))
+                if treps_match and "Debt & Money Market" in categories:
+                    cash_pct = float(treps_match.group(1))
+                    debt_total = categories["Debt & Money Market"]
+                    categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
+                    categories["Cash & Equivalents"] = cash_pct
+                break
+
+    if categories:
+        total = sum(categories.values())
+        logger.info(f"Category allocation total: {total:.2f}% ({len(categories)} categories)")
 
     return categories
 
 
 def parse_factsheet(pdf_path: str) -> dict:
     """
-    Parse a PPFAS factsheet PDF and extract key data.
+    Parse a PPFAS factsheet PDF and extract Flexi Cap Fund data only (pages 1-4).
     """
     logger.info(f"Parsing factsheet: {pdf_path}")
 
-    full_text = ""
-    tables = []
-
     with pdfplumber.open(pdf_path) as pdf:
-        for page in pdf.pages:
-            page_text = page.extract_text() or ""
-            full_text += page_text + "\n"
+        total_pages = len(pdf.pages)
+        logger.info(f"PDF has {total_pages} pages. Parsing pages 1-4 (Flexi Cap Fund).")
 
-            page_tables = page.extract_tables()
-            if page_tables:
-                tables.extend(page_tables)
+        # Page 2 (index 1): Fund details, AUM, Industry Allocation sidebar
+        page2_text = pdf.pages[1].extract_text() or ""
+        page2_tables = pdf.pages[1].extract_tables() or []
+
+        # Page 3 (index 2): Portfolio disclosure with category totals
+        page3_tables = pdf.pages[2].extract_tables() or []
 
     result = {
-        "aum": extract_aum(full_text),
-        "sector_allocation": extract_sector_allocation(full_text),
-        "category_allocation": extract_category_allocation(full_text),
+        "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+        "aum": extract_aum(page2_tables),
+        "sector_allocation": extract_sector_allocation(page2_text),
+        "category_allocation": extract_category_allocation(page3_tables),
         "extraction_date": datetime.now().strftime("%Y-%m-%d"),
-        "raw_text_length": len(full_text),
-        "tables_found": len(tables),
+        "pages_parsed": "1-4 (Flexi Cap Fund only)",
     }
 
-    logger.info(f"Extracted: AUM={result['aum']}, "
-                f"Sectors={len(result['sector_allocation'])}, "
-                f"Categories={len(result['category_allocation'])}")
+    logger.info(
+        f"Extracted: AUM={result['aum']}, "
+        f"Sectors={len(result['sector_allocation'])}, "
+        f"Categories={len(result['category_allocation'])}"
+    )
 
     return result
 
@@ -212,7 +284,6 @@ def fetch_and_parse_factsheet() -> dict:
         return data
     except Exception as e:
         logger.error(f"Factsheet extraction failed: {e}")
-        # Return placeholder data so the pipeline doesn't break
         return {
             "aum": "N/A",
             "sector_allocation": {},
