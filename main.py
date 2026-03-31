@@ -98,7 +98,7 @@ def run_pipeline(send_mail: bool = True, dry_run: bool = False):
     logger.info("STEP 4: Generating charts...")
     logger.info("=" * 60)
 
-    nav_chart = generate_nav_chart_base64(df_nav, months=12)
+    nav_chart = generate_nav_chart_base64(df_nav, months=6)
     rolling_chart = generate_rolling_return_chart_base64(df_rolling, window=3)
     sector_chart = generate_sector_bar_base64(factsheet.get("sector_allocation", {}))
 

@@ -14,7 +14,7 @@ import pandas as pd
 import numpy as np
 
 
-def generate_nav_chart_base64(df: pd.DataFrame, months: int = 12) -> str:
+def generate_nav_chart_base64(df: pd.DataFrame, months: int = 6) -> str:
     """Generate a NAV trend chart and return as base64-encoded PNG."""
     cutoff = df["date"].max() - pd.Timedelta(days=months * 30)
     df_plot = df[df["date"] >= cutoff].copy()
