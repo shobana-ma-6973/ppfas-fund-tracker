@@ -81,17 +81,17 @@ def generate_sector_bar_base64(sectors: dict) -> str:
     if not sectors:
         return ""
 
-    # Top 10 sectors
-    items = sorted(sectors.items(), key=lambda x: x[1], reverse=True)[:10]
+    # Show all sectors
+    items = sorted(sectors.items(), key=lambda x: x[1], reverse=True)
     names = [x[0] for x in items]
     values = [x[1] for x in items]
 
-    fig, ax = plt.subplots(figsize=(7, 4), dpi=150)
+    fig, ax = plt.subplots(figsize=(7, max(4, len(items) * 0.4)), dpi=150)
     bars = ax.barh(names[::-1], values[::-1], color="#3b82f6", edgecolor="white", height=0.6)
     for bar, val in zip(bars, values[::-1]):
         ax.text(bar.get_width() + 0.3, bar.get_y() + bar.get_height() / 2,
                 f"{val:.1f}%", va="center", fontsize=8, color="#333")
-    ax.set_title("Sector Allocation (Top 10)", fontsize=12, fontweight="bold", color="#1e3a5f")
+    ax.set_title("Sector Allocation", fontsize=12, fontweight="bold", color="#1e3a5f")
     ax.set_xlabel("Allocation (%)", fontsize=9)
     ax.tick_params(labelsize=8)
     ax.spines["top"].set_visible(False)
