@@ -1,0 +1,30 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual env
+venv/
+.venv/
+env/
+
+# Data files (generated, not tracked)
+data/*.csv
+data/*.json
+data/*.html
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Secrets (NEVER commit!)
+.env
+*.env
+
+# Temp files
+*.tmp
+*.pdf

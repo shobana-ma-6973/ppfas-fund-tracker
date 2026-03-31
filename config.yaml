@@ -1,0 +1,25 @@
+# PPFAS Flexi Cap Fund Tracker - Configuration
+# ================================================
+
+fund:
+  name: "Parag Parikh Flexi Cap Fund - Direct Growth"
+  scheme_code: 122639  # AMFI scheme code
+  factsheet_base_url: "https://www.ppfas.com/mutual-fund/schemes/ppfas-flexi-cap-fund/"
+  isin: "INF879O01027"
+
+email:
+  sender: "your-email@gmail.com"
+  # Use Gmail App Password (not your regular password)
+  # Generate at: https://myaccount.google.com/apppasswords
+  recipients:
+    - "recipient1@example.com"
+    - "recipient2@example.com"
+  subject_prefix: "[PPFAS Tracker]"
+
+dashboard:
+  url: "https://your-app.streamlit.app"  # Update after deploying to Streamlit Cloud
+
+data:
+  nav_history_file: "data/nav_history.csv"
+  factsheet_data_file: "data/factsheet_data.json"
+  rolling_return_years: 3

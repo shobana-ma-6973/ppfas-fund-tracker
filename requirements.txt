@@ -1,0 +1,21 @@
+# PPFAS Flexi Cap Fund Tracker - Python Dependencies
+
+# Data fetching & parsing
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+pdfplumber>=0.10.0
+PyYAML>=6.0
+
+# Data processing
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Charting (for email)
+matplotlib>=3.8.0
+
+# Dashboard
+streamlit>=1.30.0
+plotly>=5.18.0
+
+# PDF table extraction (fallback)
+tabula-py>=2.9.0

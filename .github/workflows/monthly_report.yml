@@ -1,0 +1,75 @@
+# ============================================================
+# PPFAS Flexi Cap Fund Tracker — Monthly Email Pipeline
+# ============================================================
+# Runs on the 5th of every month (factsheets usually out by then).
+# If the factsheet isn't available, the pipeline still sends NAV
+# and returns data; factsheet fields will show "N/A".
+# ============================================================
+
+name: Monthly Fund Report
+
+on:
+  # Scheduled: 5th of every month at 10:00 AM IST (4:30 AM UTC)
+  schedule:
+    - cron: "30 4 5 * *"
+
+  # Manual trigger for testing
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (skip email sending)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run monthly pipeline
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+          DASHBOARD_URL: ${{ secrets.DASHBOARD_URL }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            python main.py --dry-run
+          else
+            python main.py
+          fi
+
+      - name: Upload email preview
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: email-preview-${{ github.run_number }}
+          path: data/email_preview.html
+          retention-days: 30
+
+      - name: Upload data artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fund-data-${{ github.run_number }}
+          path: |
+            data/nav_history.csv
+            data/factsheet_data.json
+          retention-days: 90
