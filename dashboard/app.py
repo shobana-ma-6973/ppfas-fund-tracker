@@ -74,6 +74,11 @@ st.markdown("""
         border-radius: 10px;
         background: #f8f9fb;
         border: 1px solid #e8eaed;
+        min-height: 110px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     .return-card .period { font-size: 13px; color: #666; margin-bottom: 4px; }
     .return-card .value { font-size: 22px; font-weight: 700; }
