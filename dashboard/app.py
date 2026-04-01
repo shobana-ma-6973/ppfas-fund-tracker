@@ -151,7 +151,8 @@ def main():
     # ── Key Metrics Row ──────────────────────────────────────
     p2p = calculate_point_to_point_returns(df)
 
-    col1, col2, col3, col4 = st.columns(4)
+    # Row 1: NAV and AUM
+    col1, col2 = st.columns(2)
     with col1:
         st.metric(
             "Latest NAV",
@@ -161,6 +162,9 @@ def main():
     with col2:
         aum = factsheet.get("aum", "N/A") if factsheet else "N/A"
         st.metric("AUM", aum)
+
+    # Row 2: Returns
+    col3, col4 = st.columns(2)
     with col3:
         ret_1y = p2p.get("1Y")
         st.metric(
