@@ -32,7 +32,7 @@ st.set_page_config(
     page_title="PPFAS Flexi Cap Fund Tracker",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # ── Custom CSS ───────────────────────────────────────────────
@@ -134,19 +134,6 @@ def main():
 
     factsheet = load_factsheet()
 
-    # ── Sidebar ──────────────────────────────────────────────
-    with st.sidebar:
-        st.header("⚙️ Settings")
-        rolling_window = st.selectbox("Rolling Return Window", [1, 2, 3, 5], index=2)
-
-        st.divider()
-        st.caption(f"Data from: {df['date'].min().strftime('%d %b %Y')}")
-        st.caption(f"Data to: {df['date'].max().strftime('%d %b %Y')}")
-        st.caption(f"Total records: {len(df):,}")
-
-        if st.button("🔄 Refresh Data"):
-            st.cache_data.clear()
-            st.rerun()
 
     # ── Key Metrics Row ──────────────────────────────────────
     p2p = calculate_point_to_point_returns(df)
@@ -245,11 +232,20 @@ def main():
     st.write("")
 
     # ── Rolling Returns ──────────────────────────────────────
-    df_rolling = calculate_rolling_returns(df, window_years=rolling_window)
+    st.subheader("📉 Rolling Returns")
+    rolling_window = st.radio(
+        "Window",
+        ["1Y", "2Y", "3Y", "5Y"],
+        index=2,
+        horizontal=True,
+        label_visibility="collapsed",
+    )
+    rolling_window_years = int(rolling_window.replace("Y", ""))
+
+    df_rolling = calculate_rolling_returns(df, window_years=rolling_window_years)
     summary = get_return_summary(df_rolling)
 
     if "error" not in summary:
-        st.markdown(f"**{rolling_window}-Year Rolling Return**")
         roll_cols = st.columns(4)
         roll_items = [
             ("Current", summary['current_rolling_return'], None),
@@ -275,7 +271,7 @@ def main():
     if not df_rolling_valid.empty:
         fig_rolling = px.line(
             df_rolling_valid, x="date", y="rolling_return_pct",
-            title=f"{rolling_window}-Year Rolling Returns (%)",
+            title=f"{rolling_window_years}-Year Rolling Returns (%)",
             labels={"date": "Date", "rolling_return_pct": "Return (%)"},
         )
         fig_rolling.update_layout(
@@ -351,10 +347,17 @@ def main():
 
     # ── Footer ───────────────────────────────────────────────
     st.divider()
-    st.caption(
-        "Data source: MFAPI (NAV) | PPFAS Mutual Fund (Factsheet) | "
-        "Disclaimer: This is for informational purposes only, not investment advice."
-    )
+    foot_col1, foot_col2 = st.columns([3, 1])
+    with foot_col1:
+        st.caption(
+            f"Data: {df['date'].min().strftime('%d %b %Y')} — {df['date'].max().strftime('%d %b %Y')} "
+            f"({len(df):,} records) | Source: MFAPI (NAV), PPFAS Mutual Fund (Factsheet) | "
+            "Disclaimer: For informational purposes only, not investment advice."
+        )
+    with foot_col2:
+        if st.button("🔄 Refresh Data"):
+            st.cache_data.clear()
+            st.rerun()
 
 
 if __name__ == "__main__":
