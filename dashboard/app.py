@@ -105,11 +105,6 @@ def main():
     # ── Sidebar ──────────────────────────────────────────────
     with st.sidebar:
         st.header("⚙️ Settings")
-        date_range = st.selectbox(
-            "NAV Chart Range",
-            ["1 Month", "3 Months", "6 Months", "1 Year", "3 Years", "5 Years", "All Time"],
-            index=4,
-        )
         rolling_window = st.selectbox("Rolling Return Window", [1, 2, 3, 5], index=2)
 
         st.divider()
@@ -152,7 +147,15 @@ def main():
     st.divider()
 
     # ── NAV Chart ────────────────────────────────────────────
-    st.subheader("📈 NAV History")
+    nav_header_col, nav_filter_col = st.columns([3, 1])
+    with nav_header_col:
+        st.subheader("📈 NAV History")
+    with nav_filter_col:
+        date_range = st.selectbox(
+            "Chart Range",
+            ["1 Month", "3 Months", "6 Months", "1 Year", "3 Years", "5 Years", "All Time"],
+            index=4,
+        )
 
     range_days = {
         "1 Month": 30, "3 Months": 91, "6 Months": 182,
