@@ -309,11 +309,18 @@ def main():
                     orientation="h", title="Sector Allocation",
                     color="Allocation (%)",
                     color_continuous_scale="Blues",
+                    text=df_sectors["Allocation (%)"].apply(lambda v: f"{v:.2f}%"),
+                )
+                fig_sector.update_traces(
+                    textposition="outside",
+                    textfont_size=12,
+                    cliponaxis=False,
                 )
                 fig_sector.update_layout(
                     showlegend=False, plot_bgcolor="white",
                     yaxis=dict(autorange="reversed"),
                     height=max(400, len(sectors) * 35),
+                    xaxis=dict(range=[0, df_sectors["Allocation (%)"].max() * 1.3]),
                 )
                 st.plotly_chart(fig_sector, use_container_width=True)
             else:
