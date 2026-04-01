@@ -10,8 +10,12 @@ env/
 
 # Data files (generated, not tracked)
 data/*.csv
-data/*.json
 data/*.html
+# Allow sent_status.json (needed for daily retry tracking)
+# Allow factsheet_data.json (needed for dashboard on Streamlit Cloud)
+data/*.json
+!data/sent_status.json
+!data/factsheet_data.json
 
 # OS files
 .DS_Store

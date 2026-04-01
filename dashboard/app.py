@@ -25,7 +25,7 @@ from returns_calculator import (
     get_return_summary,
     calculate_point_to_point_returns,
 )
-from factsheet_parser import load_factsheet_data
+from factsheet_parser import load_factsheet_data, fetch_and_parse_factsheet
 
 # ── Page Config ──────────────────────────────────────────────
 st.set_page_config(
@@ -72,8 +72,20 @@ def load_data():
 
 @st.cache_data(ttl=3600)
 def load_factsheet():
-    """Load factsheet data if available."""
+    """Load factsheet data — try cached file first, then fetch live."""
     fs_file = Path("data/factsheet_data.json")
+    if fs_file.exists():
+        data = load_factsheet_data(str(fs_file))
+        if data and data.get("aum") and data["aum"] != "N/A":
+            return data
+    # No cached data or AUM missing — fetch fresh from PPFAS website
+    try:
+        data = fetch_and_parse_factsheet()
+        if data and data.get("aum") and data["aum"] != "N/A":
+            return data
+    except Exception:
+        pass
+    # Return cached data even if AUM is N/A, or None
     if fs_file.exists():
         return load_factsheet_data(str(fs_file))
     return None
