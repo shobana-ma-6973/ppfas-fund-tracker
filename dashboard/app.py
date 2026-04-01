@@ -48,6 +48,38 @@ st.markdown("""
     .metric-card h3 { margin: 0; font-size: 14px; opacity: 0.8; }
     .metric-card h1 { margin: 5px 0 0 0; font-size: 28px; }
     .stMetric > div { background-color: #f0f2f6; border-radius: 10px; padding: 10px; }
+    /* Screener-style inline pill buttons for radio */
+    div[data-testid="stHorizontalBlock"] .stRadio > div {
+        flex-direction: row !important;
+        gap: 0px !important;
+    }
+    div[data-testid="stHorizontalBlock"] .stRadio > div > label {
+        background: #f0f2f6;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 4px 14px;
+        margin: 0 2px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    div[data-testid="stHorizontalBlock"] .stRadio > div > label[data-checked="true"] {
+        background: #5b5ea6;
+        color: white;
+        border-color: #5b5ea6;
+    }
+    /* Return card styling */
+    .return-card {
+        text-align: center;
+        padding: 16px 12px;
+        border-radius: 10px;
+        background: #f8f9fb;
+        border: 1px solid #e8eaed;
+    }
+    .return-card .period { font-size: 13px; color: #666; margin-bottom: 4px; }
+    .return-card .value { font-size: 22px; font-weight: 700; }
+    .return-card .type { font-size: 11px; color: #999; margin-top: 2px; }
+    .return-positive .value { color: #0d9d5c; }
+    .return-negative .value { color: #e23636; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -147,19 +179,18 @@ def main():
     st.divider()
 
     # ── NAV Chart ────────────────────────────────────────────
-    nav_header_col, nav_filter_col = st.columns([3, 1])
-    with nav_header_col:
-        st.subheader("📈 NAV History")
-    with nav_filter_col:
-        date_range = st.selectbox(
-            "Chart Range",
-            ["1 Month", "3 Months", "6 Months", "1 Year", "3 Years", "5 Years", "All Time"],
-            index=4,
-        )
+    st.subheader("📈 NAV History")
+    date_range = st.radio(
+        "Period",
+        ["1M", "6M", "1Y", "3Y", "5Y", "Max"],
+        index=2,
+        horizontal=True,
+        label_visibility="collapsed",
+    )
 
     range_days = {
-        "1 Month": 30, "3 Months": 91, "6 Months": 182,
-        "1 Year": 365, "3 Years": 1095, "5 Years": 1825, "All Time": None,
+        "1M": 30, "6M": 182,
+        "1Y": 365, "3Y": 1095, "5Y": 1825, "Max": None,
     }
     days = range_days[date_range]
 
@@ -180,36 +211,60 @@ def main():
         xaxis=dict(gridcolor="#eee"),
         yaxis=dict(gridcolor="#eee"),
     )
-    fig_nav.update_traces(line_color="#1e3a5f", line_width=2)
+    fig_nav.update_traces(line_color="#5b5ea6", line_width=2)
     st.plotly_chart(fig_nav, use_container_width=True)
 
-    # ── Returns Section ──────────────────────────────────────
+    # ── Returns Section (Screener-style cards) ───────────────
     st.subheader("📊 Returns")
 
-    col_ret1, col_ret2 = st.columns(2)
+    periods = ["1M", "3M", "6M", "1Y", "3Y", "5Y"]
+    ret_cols = st.columns(len(periods))
+    for col, period in zip(ret_cols, periods):
+        val = p2p.get(period)
+        ret_type = "Absolute" if period in ["1M", "3M", "6M"] else "CAGR"
+        if val is not None:
+            css_class = "return-positive" if val >= 0 else "return-negative"
+            display_val = f"{val:+.2f}%"
+        else:
+            css_class = ""
+            display_val = "N/A"
+        with col:
+            st.markdown(
+                f'<div class="return-card {css_class}">'
+                f'<div class="period">{period}</div>'
+                f'<div class="value">{display_val}</div>'
+                f'<div class="type">{ret_type}</div>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
 
-    with col_ret1:
-        st.markdown("**Point-to-Point Returns**")
-        returns_data = []
-        for period in ["1M", "3M", "6M", "1Y", "3Y", "5Y"]:
-            val = p2p.get(period)
-            returns_data.append({
-                "Period": period,
-                "Return (%)": f"{val:.2f}%" if val is not None else "N/A",
-                "Type": "Absolute" if period in ["1M", "3M", "6M"] else "CAGR",
-            })
-        st.dataframe(pd.DataFrame(returns_data), use_container_width=True, hide_index=True)
+    st.write("")
 
-    with col_ret2:
+    # ── Rolling Returns ──────────────────────────────────────
+    df_rolling = calculate_rolling_returns(df, window_years=rolling_window)
+    summary = get_return_summary(df_rolling)
+
+    if "error" not in summary:
         st.markdown(f"**{rolling_window}-Year Rolling Return**")
-        df_rolling = calculate_rolling_returns(df, window_years=rolling_window)
-        summary = get_return_summary(df_rolling)
-
-        if "error" not in summary:
-            st.write(f"Current: **{summary['current_rolling_return']:.2f}%**")
-            st.write(f"Average: **{summary['average_rolling_return']:.2f}%**")
-            st.write(f"Min: **{summary['min_rolling_return']:.2f}%** ({summary['min_date']})")
-            st.write(f"Max: **{summary['max_rolling_return']:.2f}%** ({summary['max_date']})")
+        roll_cols = st.columns(4)
+        roll_items = [
+            ("Current", summary['current_rolling_return'], None),
+            ("Average", summary['average_rolling_return'], None),
+            ("Min", summary['min_rolling_return'], summary['min_date']),
+            ("Max", summary['max_rolling_return'], summary['max_date']),
+        ]
+        for col, (label, val, date) in zip(roll_cols, roll_items):
+            css_class = "return-positive" if val >= 0 else "return-negative"
+            date_str = f'<div class="type">{date}</div>' if date else ''
+            with col:
+                st.markdown(
+                    f'<div class="return-card {css_class}">'
+                    f'<div class="period">{label}</div>'
+                    f'<div class="value">{val:+.2f}%</div>'
+                    f'{date_str}'
+                    f'</div>',
+                    unsafe_allow_html=True,
+                )
 
     # Rolling Returns Chart
     df_rolling_valid = df_rolling.dropna(subset=["rolling_return_pct"])
