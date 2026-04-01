@@ -1,29 +1,33 @@
 # ============================================================
-# PPFAS Flexi Cap Fund Tracker — Monthly Email Pipeline
+# PPFAS Flexi Cap Fund Tracker — Smart Monthly Email Pipeline
 # ============================================================
-# Runs on the 5th of every month (factsheets usually out by then).
-# If the factsheet isn't available, the pipeline still sends NAV
-# and returns data; factsheet fields will show "N/A".
+# Runs DAILY from the 1st–15th of each month.
+# Checks if the previous month's factsheet is available:
+#   - If NOT available → exits gracefully (retries next day)
+#   - If available AND not already sent → runs pipeline & sends email
+#   - If already sent → skips (no duplicate emails)
+# Sent status is committed to data/sent_status.json in the repo.
 # ============================================================
 
 name: Monthly Fund Report
 
 on:
-  # Scheduled: 5th of every month at 10:00 AM IST (4:30 AM UTC)
+  # Daily check from 1st to 15th of every month at 10:00 AM IST (4:30 AM UTC)
   schedule:
-    - cron: "30 4 5 * *"
+    - cron: "30 4 1-15 * *"
 
   # Manual trigger for testing
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Dry run (skip email sending)"
-        required: false
-        default: "false"
+      mode:
+        description: "Run mode"
+        required: true
+        default: "check-and-send"
         type: choice
         options:
-          - "false"
-          - "true"
+          - "check-and-send"
+          - "force-send"
+          - "dry-run"
 
 jobs:
   send-report:
@@ -33,6 +37,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -43,18 +49,35 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run monthly pipeline
+      - name: Run smart check-and-send pipeline
         env:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
           DASHBOARD_URL: ${{ secrets.DASHBOARD_URL }}
         run: |
-          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+          MODE="${{ github.event.inputs.mode || 'check-and-send' }}"
+          
+          if [ "$MODE" = "check-and-send" ]; then
+            echo "🔍 Smart mode: checking factsheet & sent status..."
+            python main.py --check-and-send
+          elif [ "$MODE" = "dry-run" ]; then
+            echo "🧪 Dry run mode..."
             python main.py --dry-run
-          else
+          elif [ "$MODE" = "force-send" ]; then
+            echo "📧 Force send mode..."
             python main.py
           fi
+
+      - name: Commit sent status
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/sent_status.json
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "📊 Update sent status [skip ci]"
+          git push || echo "Nothing to push"
 
       - name: Upload email preview
         if: always()
@@ -62,6 +85,7 @@ jobs:
         with:
           name: email-preview-${{ github.run_number }}
           path: data/email_preview.html
+          if-no-files-found: ignore
           retention-days: 30
 
       - name: Upload data artifacts
@@ -72,4 +96,6 @@ jobs:
           path: |
             data/nav_history.csv
             data/factsheet_data.json
+            data/sent_status.json
+          if-no-files-found: ignore
           retention-days: 90

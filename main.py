@@ -15,7 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from nav_fetcher import fetch_nav_history, save_nav_history, get_current_nav
-from factsheet_parser import fetch_and_parse_factsheet, load_factsheet_data
+from factsheet_parser import fetch_and_parse_factsheet, load_factsheet_data, check_factsheet_available
 from returns_calculator import (
     calculate_rolling_returns,
     get_return_summary,
@@ -28,6 +28,7 @@ from email_builder import (
     generate_sector_bar_base64,
 )
 from email_sender import send_email
+from sent_tracker import get_target_month, is_already_sent, mark_as_sent
 
 logging.basicConfig(
     level=logging.INFO,
@@ -206,6 +207,50 @@ def run_pipeline(send_mail: bool = True, dry_run: bool = False):
     return True
 
 
+def check_and_send():
+    """
+    Smart daily check mode:
+    1. Determine target month (previous month from today)
+    2. If report already sent for that month → skip
+    3. Check if factsheet is available → if not → exit (retry tomorrow)
+    4. If available → run full pipeline → mark as sent
+    
+    Returns exit code: 0=success/skip, 1=error
+    """
+    target_year, target_month = get_target_month()
+    month_label = datetime(target_year, target_month, 1).strftime("%B %Y")
+    
+    logger.info("=" * 60)
+    logger.info(f"SMART CHECK: Looking for {month_label} factsheet")
+    logger.info("=" * 60)
+    
+    # Step 1: Check if already sent
+    if is_already_sent(target_year, target_month):
+        logger.info(f"⏭️  Report for {month_label} already sent. Nothing to do.")
+        return 0
+    
+    # Step 2: Check factsheet availability
+    available, factsheet_url = check_factsheet_available(target_year, target_month)
+    
+    if not available:
+        logger.info(f"⏳ Factsheet for {month_label} not yet released. Will retry tomorrow.")
+        return 0
+    
+    # Step 3: Factsheet is available! Run the full pipeline
+    logger.info(f"🎯 Factsheet for {month_label} is available! Running full pipeline...")
+    
+    success = run_pipeline(send_mail=True, dry_run=False)
+    
+    if success:
+        # Step 4: Mark as sent so we don't send again
+        mark_as_sent(target_year, target_month, factsheet_url)
+        logger.info(f"✅ Report for {month_label} sent and marked as done!")
+        return 0
+    else:
+        logger.error(f"❌ Pipeline failed for {month_label}. Will retry tomorrow.")
+        return 1
+
+
 if __name__ == "__main__":
     import argparse
 
@@ -220,11 +265,20 @@ if __name__ == "__main__":
         action="store_true",
         help="Skip email sending entirely",
     )
+    parser.add_argument(
+        "--check-and-send",
+        action="store_true",
+        help="Smart mode: check factsheet availability, send if available, skip if already sent",
+    )
     args = parser.parse_args()
 
-    success = run_pipeline(
-        send_mail=not args.no_email,
-        dry_run=args.dry_run,
-    )
+    if args.check_and_send:
+        exit_code = check_and_send()
+    else:
+        success = run_pipeline(
+            send_mail=not args.no_email,
+            dry_run=args.dry_run,
+        )
+        exit_code = 0 if success else 1
 
-    sys.exit(0 if success else 1)
+    sys.exit(exit_code)

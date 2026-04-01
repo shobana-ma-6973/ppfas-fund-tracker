@@ -78,6 +78,73 @@ def find_latest_factsheet_url() -> str:
     raise ValueError("Could not find factsheet PDF URL on PPFAS website")
 
 
+def get_target_month_url(year: int, month: int) -> str:
+    """
+    Build the expected factsheet URL for a specific month/year.
+    PPFAS pattern: ppfas-mf-factsheet-for-{Month}-{Year}.pdf
+    """
+    month_name = datetime(year, month, 1).strftime("%B")
+    return (
+        f"{PPFAS_AMC_BASE}/downloads/factsheet/{year}/"
+        f"ppfas-mf-factsheet-for-{month_name}-{year}.pdf"
+    )
+
+
+def check_factsheet_available(target_year: int = None, target_month: int = None) -> tuple:
+    """
+    Lightweight check: is the factsheet for the target month available?
+    Defaults to previous month from today.
+
+    Returns:
+        (available: bool, url: str or None)
+    """
+    now = datetime.now()
+    if target_year is None or target_month is None:
+        if now.month == 1:
+            target_month = 12
+            target_year = now.year - 1
+        else:
+            target_month = now.month - 1
+            target_year = now.year
+
+    target_url = get_target_month_url(target_year, target_month)
+    month_name = datetime(target_year, target_month, 1).strftime("%B %Y")
+    logger.info(f"Checking factsheet availability for {month_name}...")
+    logger.info(f"URL: {target_url}")
+
+    # Method 1: Try HEAD request on the constructed URL
+    try:
+        resp = requests.head(target_url, timeout=15, allow_redirects=True)
+        if resp.status_code == 200:
+            logger.info(f"✅ Factsheet for {month_name} is AVAILABLE")
+            return True, target_url
+    except Exception as e:
+        logger.debug(f"HEAD request failed: {e}")
+
+    # Method 2: Scrape the factsheet page to see if it's listed
+    try:
+        response = requests.get(PPFAS_FACTSHEET_PAGE, timeout=30)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        month_str = datetime(target_year, target_month, 1).strftime("%B").lower()
+        for link in soup.find_all("a", href=True):
+            href = link["href"].lower()
+            if ".pdf" in href and "factsheet" in href:
+                if month_str in href and str(target_year) in href:
+                    full_url = link["href"]
+                    if not full_url.startswith("http"):
+                        full_url = PPFAS_AMC_BASE + full_url
+                    full_url = full_url.split("?")[0]
+                    logger.info(f"✅ Factsheet for {month_name} found via scrape: {full_url}")
+                    return True, full_url
+    except Exception as e:
+        logger.debug(f"Scrape check failed: {e}")
+
+    logger.info(f"❌ Factsheet for {month_name} is NOT yet available")
+    return False, None
+
+
 def download_pdf(url: str) -> str:
     """Download PDF to a temp file and return the path."""
     logger.info(f"Downloading factsheet PDF: {url}")
