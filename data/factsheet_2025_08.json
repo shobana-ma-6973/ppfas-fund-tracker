@@ -14,9 +14,11 @@
     "Vice President & Fund Manager - Equity Healthcare Services": 0.3
   },
   "category_allocation": {
-    "Indian Equity": 22.15,
+    "Indian Equity": 65.57,
     "Overseas Equity": 11.7,
-    "REITs & InvITs": 0.58
+    "REITs & InvITs": 0.58,
+    "Debt & Money Market": 11.09,
+    "Cash & Equivalents": 11.06
   },
   "extraction_date": "2026-04-02",
   "pages_parsed": "pages 2-3 (Flexi Cap Fund)",

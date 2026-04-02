@@ -238,64 +238,94 @@ def extract_sector_allocation(page2_text: str) -> dict:
 
 def extract_category_allocation(page3_tables: list) -> dict:
     """
-    Extract asset category allocation from page 3 portfolio disclosure.
+    Extract asset category allocation from portfolio disclosure tables.
 
-    Page 3 has clear section totals in the tables:
-      Core Equity section → 'Total 67.88%'
-      Overseas Securities → 'Total 10.51%'
-      REITs & InvITs      → 'Total 3.52%'
-      Debt & Money Market → 'Total 18.09%'
-      Net Assets           → 100.00%
+    The page has two column areas extracted as separate tables:
+    - Equity table (left column): Core Equity → Overseas → REITs, each with "Total XX.XX%"
+    - Debt table  (right column): CDs, CPs, T-Bills, TREPS → "Total XX.XX%"
+
+    pdfplumber may return tables in any order, so we process each table
+    independently — tracking section headers within each table.
     """
     categories = {}
+    cash_pct = None
 
-    # Section headers that appear in the table rows, mapped to display names
     section_map = {
         "overseas securities": "Overseas Equity",
         "units issued by reits": "REITs & InvITs",
         "debt and money market": "Debt & Money Market",
     }
 
-    current_section = "Indian Equity"  # First section in the table is Core Equity
+    # --- Pass 1: Find the equity table (contains "Overseas Securities" header)
+    #     and the debt table (contains "TREPS" row) ---
+    equity_table = None
+    debt_table = None
 
     for table in page3_tables:
-        for row in table:
+        table_text = " ".join(
+            str(row[0]).lower() for row in table if row and row[0]
+        )
+        if "overseas securities" in table_text:
+            equity_table = table
+        if "treps" in table_text:
+            debt_table = table
+
+    # Ensure debt_table is not the same object as equity_table
+    if debt_table is equity_table:
+        debt_table = None
+
+    # --- Pass 2: Process equity table (Indian Equity, Overseas, REITs) ---
+    if equity_table:
+        current_section = "Indian Equity"
+        for row in equity_table:
             if not row or not row[0]:
                 continue
             cell = str(row[0]).strip()
             cell_lower = cell.lower()
 
-            # Detect section transitions
             for key, label in section_map.items():
                 if key in cell_lower:
                     current_section = label
                     break
 
-            # Capture "Total XX.XX%" lines — these are section totals
             total_match = re.match(r"^Total\s+(\d+\.?\d+)%$", cell)
             if total_match:
                 pct = float(total_match.group(1))
-                # Only store the first "Total" per section (avoid double-counting)
                 if current_section not in categories:
                     categories[current_section] = pct
 
-    # Split "Debt & Money Market" into Debt instruments vs Cash if possible.
-    # The TREPS/Cash line (3.57%) is a subset of Debt & Money Market total (18.09%).
-    # We separate them for a cleaner breakdown that sums to 100%.
-    # Look for TREPS/Cash line to split
-    for table in page3_tables:
-        for row in table:
+    # --- Pass 3: Process debt table ---
+    if debt_table:
+        for row in debt_table:
             if not row or not row[0]:
                 continue
-            cell_lower = str(row[0]).strip().lower()
+            cell = str(row[0]).strip()
+            cell_lower = cell.lower()
+
+            # Capture TREPS/Cash sub-total
             if "treps" in cell_lower and "cash" in cell_lower:
-                treps_match = re.search(r"(\d+\.?\d+)%", str(row[0]))
-                if treps_match and "Debt & Money Market" in categories:
-                    cash_pct = float(treps_match.group(1))
-                    debt_total = categories["Debt & Money Market"]
-                    categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
-                    categories["Cash & Equivalents"] = cash_pct
-                break
+                m = re.search(r"(\d+\.?\d+)%", cell)
+                if m:
+                    cash_pct = float(m.group(1))
+
+            total_match = re.match(r"^Total\s+(\d+\.?\d+)%$", cell)
+            if total_match:
+                pct = float(total_match.group(1))
+                if "Debt & Money Market" not in categories:
+                    categories["Debt & Money Market"] = pct
+
+    # --- Split Debt into Debt + Cash ---
+    if cash_pct and "Debt & Money Market" in categories:
+        debt_total = categories["Debt & Money Market"]
+        categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
+        categories["Cash & Equivalents"] = cash_pct
+
+    # --- Safety net: compute Indian Equity by subtraction if missing ---
+    if "Indian Equity" not in categories:
+        other_total = sum(categories.values())
+        if 0 < other_total < 100:
+            categories["Indian Equity"] = round(100 - other_total, 2)
+            logger.info(f"Computed Indian Equity by subtraction: {categories['Indian Equity']}%")
 
     if categories:
         total = sum(categories.values())

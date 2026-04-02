@@ -15,9 +15,11 @@
     "Vice President & Fund Manager - Equity Industrial Products": 0.02
   },
   "category_allocation": {
-    "Indian Equity": 19.47,
+    "Indian Equity": 68.96,
     "Overseas Equity": 11.14,
-    "REITs & InvITs": 0.43
+    "REITs & InvITs": 0.43,
+    "Debt & Money Market": 11.25,
+    "Cash & Equivalents": 8.22
   },
   "extraction_date": "2026-04-02",
   "pages_parsed": "pages 2-3 (Flexi Cap Fund)",

@@ -25,9 +25,11 @@
     "Commercial Services & Supplies": 0.01
   },
   "category_allocation": {
-    "Indian Equity": 21.43,
+    "Indian Equity": 67.3,
     "Overseas Equity": 10.92,
-    "REITs & InvITs": 0.35
+    "REITs & InvITs": 0.35,
+    "Debt & Money Market": 11.4,
+    "Cash & Equivalents": 10.03
   },
   "extraction_date": "2026-04-02",
   "pages_parsed": "pages 2-3 (Flexi Cap Fund)",
