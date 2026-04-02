@@ -27,7 +27,6 @@ from returns_calculator import (
 )
 from factsheet_parser import load_factsheet_data, fetch_and_parse_factsheet
 from nav_averages import calculate_monthly_averages, calculate_rolling_averages as calc_rolling_avg
-import numpy as np
 
 # ── Page Config ──────────────────────────────────────────────
 st.set_page_config(
@@ -444,74 +443,64 @@ def main():
 
     st.write("")
 
-    # --- Monthly NAV Heatmap ---
+    # --- Monthly NAV Trend (Year-over-Year overlay) ---
     monthly_df = calculate_monthly_averages(df, years=5)
     if not monthly_df.empty:
-        st.markdown("**Monthly Average NAV Heatmap** (Last 5 Years)")
-        st.caption("Each cell shows the monthly average NAV. Color intensity: red (lower) → green (higher).")
+        st.markdown("**Monthly Average NAV — Year over Year**")
+        st.caption("Each line represents a year. Compare NAV growth trajectory and seasonal patterns across years.")
 
-        # Pivot for heatmap: rows=year, cols=month
-        hm = monthly_df.copy()
-        month_map = {1:"Jan",2:"Feb",3:"Mar",4:"Apr",5:"May",6:"Jun",7:"Jul",8:"Aug",9:"Sep",10:"Oct",11:"Nov",12:"Dec"}
-        hm_pivot_full = hm.pivot(index="year", columns="month", values="avg_nav").sort_index(ascending=True)
-        hm_pivot_full = hm_pivot_full.reindex(columns=range(1,13))
-        hm_pivot_full.columns = [month_map[c] for c in hm_pivot_full.columns]
+        hm = monthly_df.copy().sort_values(["year", "month"])
+        month_names = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-        # Compute threshold for top 10% (dark green cells need white text)
-        nav_vals = hm_pivot_full.values.flatten()
-        valid_vals = [v for v in nav_vals if pd.notna(v)]
-        threshold_90 = np.percentile(valid_vals, 90) if valid_vals else float("inf")
+        years = sorted(hm["year"].unique())
+        # Color palette: progressively darker/more saturated for recent years
+        palette = px.colors.qualitative.Set2 + px.colors.qualitative.Pastel1
+        year_colors = {}
+        for i, yr in enumerate(years):
+            year_colors[yr] = palette[i % len(palette)]
+        # Make latest year stand out with a bold dark color
+        if years:
+            year_colors[years[-1]] = "#1e3a5f"
 
-        x_labels = hm_pivot_full.columns.tolist()
-        y_labels = [str(int(y)) for y in hm_pivot_full.index]
+        fig_yoy = go.Figure()
+        for yr in years:
+            yr_data = hm[hm["year"] == yr].sort_values("month")
+            is_latest = (yr == years[-1])
+            fig_yoy.add_trace(go.Scatter(
+                x=[month_names[int(m) - 1] for m in yr_data["month"]],
+                y=yr_data["avg_nav"],
+                mode="lines+markers",
+                name=str(int(yr)),
+                line=dict(
+                    color=year_colors[yr],
+                    width=3 if is_latest else 1.5,
+                ),
+                marker=dict(size=7 if is_latest else 4),
+                hovertemplate=f"<b>{int(yr)}</b> %{{x}}<br>Avg NAV: ₹%{{y:.2f}}<extra></extra>",
+            ))
 
-        fig_hm = go.Figure(data=go.Heatmap(
-            z=hm_pivot_full.values,
-            x=x_labels,
-            y=y_labels,
-            hovertemplate="<b>%{y} %{x}</b><br>Avg NAV: ₹%{z:.1f}<extra></extra>",
-            showscale=True,
-            colorscale=[
-                [0, "#f5a0a0"],
-                [0.4, "#f0f0b0"],
-                [0.85, "#8cdc8c"],
-                [1, "#1a7a3a"],
-            ],
-            colorbar=dict(title="NAV (₹)", thickness=15),
-        ))
-
-        # Per-cell text annotations with adaptive color
-        annotations = []
-        for i, yr in enumerate(y_labels):
-            for j, mo in enumerate(x_labels):
-                val = hm_pivot_full.values[i][j]
-                if pd.notna(val):
-                    txt = f"{val:.1f}"
-                    fc = "#ffffff" if val >= threshold_90 else "#333333"
-                    fw = "bold" if val >= threshold_90 else "normal"
-                else:
-                    txt = "—"
-                    fc = "#cccccc"
-                    fw = "normal"
-                annotations.append(dict(
-                    x=mo, y=yr, text=txt, showarrow=False,
-                    font=dict(size=10, color=fc, weight=fw),
-                ))
-
-        num_rows = len(y_labels)
-        fig_hm.update_layout(
-            title="Monthly Average NAV Heatmap",
-            annotations=annotations,
-            height=max(300, num_rows * 55 + 100),
+        fig_yoy.update_layout(
+            height=450,
             plot_bgcolor="white",
-            xaxis=dict(side="top", dtick=1, tickfont=dict(size=11)),
-            yaxis=dict(autorange="reversed", dtick=1, tickfont=dict(size=11)),
-            margin=dict(l=50, r=40, t=80, b=30),
+            xaxis=dict(
+                title="Month",
+                gridcolor="#eee",
+                dtick=1,
+                categoryorder="array",
+                categoryarray=month_names,
+            ),
+            yaxis=dict(title="Avg NAV (₹)", gridcolor="#eee"),
+            legend=dict(
+                orientation="h",
+                yanchor="bottom", y=1.02,
+                xanchor="center", x=0.5,
+                font=dict(size=12),
+            ),
+            margin=dict(l=50, r=20, t=60, b=40),
+            hovermode="x unified",
         )
-        # Wrap in scrollable container for mobile
-        st.markdown('<div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">', unsafe_allow_html=True)
-        st.plotly_chart(fig_hm, use_container_width=True, config={"scrollZoom": True})
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.plotly_chart(fig_yoy, use_container_width=True)
 
     # --- Monthly Momentum ---
     st.markdown("**Monthly Momentum** (Last 12 Months)")
