@@ -160,13 +160,14 @@ def load_factsheet():
     return None
 
 
-_FS_CACHE_VER = 2  # bump to invalidate Streamlit Cloud cache
-
-
 @st.cache_data(ttl=3600, show_spinner="Fetching factsheet...")
-def load_factsheet_month(year: int, month: int, _ver: int = _FS_CACHE_VER):
+def load_factsheet_month_v3(year: int, month: int):
     """Load factsheet for a specific month (cached for 1h)."""
-    return fetch_factsheet_for_month(year, month)
+    data = fetch_factsheet_for_month(year, month)
+    # Don't cache empty results — return None so next call re-fetches
+    if data and not data.get("sector_allocation"):
+        return None
+    return data
 
 
 # ── Main App ─────────────────────────────────────────────────
@@ -657,7 +658,7 @@ def main():
     sel_year, sel_month = fs_months[sel_idx]
 
     # Load factsheet for selected month
-    fs_data = load_factsheet_month(sel_year, sel_month)
+    fs_data = load_factsheet_month_v3(sel_year, sel_month)
 
     if fs_data and not fs_data.get("error"):
         sectors = fs_data.get("sector_allocation", {})
