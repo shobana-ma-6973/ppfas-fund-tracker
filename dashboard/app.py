@@ -26,6 +26,8 @@ from returns_calculator import (
     calculate_point_to_point_returns,
 )
 from factsheet_parser import load_factsheet_data, fetch_and_parse_factsheet
+from nav_averages import calculate_monthly_averages, calculate_rolling_averages as calc_rolling_avg
+import numpy as np
 
 # ── Page Config ──────────────────────────────────────────────
 st.set_page_config(
@@ -48,6 +50,13 @@ st.markdown("""
     .metric-card h3 { margin: 0; font-size: 14px; opacity: 0.8; }
     .metric-card h1 { margin: 5px 0 0 0; font-size: 28px; }
     .stMetric > div { background-color: #f0f2f6; border-radius: 10px; padding: 10px; }
+    /* Uniform height for stat metric cards */
+    [data-testid="stMetric"] {
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
     /* Screener-style inline pill buttons for radio */
     div[data-testid="stHorizontalBlock"] .stRadio > div {
         flex-direction: row !important;
@@ -174,6 +183,100 @@ def main():
 
     st.divider()
 
+    # ── Daily NAV Movements ──────────────────────────────────
+    st.subheader("📈 Daily NAV Movements")
+
+    # Build list of available year-month combos from data
+    df_nav_months = df.copy()
+    df_nav_months["ym"] = df_nav_months["date"].dt.to_period("M")
+    available_periods = sorted(df_nav_months["ym"].unique(), reverse=True)
+    month_labels = [p.strftime("%B %Y") for p in available_periods]
+
+    # Inline month selector
+    hdr_col, sel_col = st.columns([2, 1])
+    with hdr_col:
+        st.markdown("View daily NAV values for any month — bars are colored "
+                     "**green** (up from previous day) or **red** (down).")
+    with sel_col:
+        selected_label = st.selectbox(
+            "Select Month", month_labels, index=0, label_visibility="collapsed"
+        )
+    selected_period = available_periods[month_labels.index(selected_label)]
+
+    # Filter data for that month
+    df_month = df_nav_months[df_nav_months["ym"] == selected_period].sort_values("date").copy()
+
+    if not df_month.empty:
+        # Compute daily change; first day uses previous available NAV
+        prev_row = df_nav_months[df_nav_months["date"] < df_month["date"].min()].sort_values("date").tail(1)
+        if not prev_row.empty:
+            prev_nav = prev_row["nav"].iloc[0]
+        else:
+            prev_nav = df_month["nav"].iloc[0]
+
+        df_month["prev_nav"] = df_month["nav"].shift(1)
+        df_month.iloc[0, df_month.columns.get_loc("prev_nav")] = prev_nav
+        df_month["change"] = df_month["nav"] - df_month["prev_nav"]
+        df_month["pct_change"] = (df_month["change"] / df_month["prev_nav"]) * 100
+        df_month["color"] = df_month["change"].apply(lambda c: "#2d8a4e" if c >= 0 else "#d9534f")
+        df_month["day_label"] = df_month["date"].dt.strftime("%d %b")
+
+        # Plotly bar chart
+        fig_daily = go.Figure()
+        fig_daily.add_trace(go.Bar(
+            x=df_month["day_label"],
+            y=df_month["nav"],
+            marker_color=df_month["color"],
+            text=df_month["nav"].apply(lambda v: f"₹{v:,.2f}"),
+            textposition="outside",
+            hovertemplate=(
+                "<b>%{x}</b><br>"
+                "NAV: ₹%{y:,.2f}<br>"
+                "Change: %{customdata[0]:+.2f} (%{customdata[1]:+.2f}%)"
+                "<extra></extra>"
+            ),
+            customdata=list(zip(df_month["change"], df_month["pct_change"])),
+        ))
+
+        nav_min = df_month["nav"].min()
+        nav_max = df_month["nav"].max()
+        y_pad = (nav_max - nav_min) * 0.15 if nav_max != nav_min else nav_max * 0.01
+        fig_daily.update_layout(
+            title=f"Daily NAV — {selected_label}",
+            xaxis_title="Date",
+            yaxis_title="NAV (₹)",
+            plot_bgcolor="white",
+            yaxis=dict(
+                range=[nav_min - y_pad * 3, nav_max + y_pad * 3],
+                gridcolor="#eee",
+            ),
+            xaxis=dict(gridcolor="#eee", tickangle=-45),
+            height=450,
+            showlegend=False,
+        )
+        st.plotly_chart(fig_daily, use_container_width=True)
+
+        # Summary stats row
+        open_nav = df_month["nav"].iloc[0]
+        close_nav = df_month["nav"].iloc[-1]
+        high_nav = df_month["nav"].max()
+        low_nav = df_month["nav"].min()
+        avg_nav = df_month["nav"].mean()
+        total_chg = close_nav - open_nav
+        total_pct = (total_chg / open_nav) * 100
+
+        s1, s2, s3, s4, s5, s6 = st.columns(6)
+        s1.metric("Open", f"₹{open_nav:,.2f}")
+        s2.metric("Close", f"₹{close_nav:,.2f}")
+        s3.metric("High", f"₹{high_nav:,.2f}")
+        s4.metric("Low", f"₹{low_nav:,.2f}")
+        s5.metric("Average", f"₹{avg_nav:,.2f}")
+        s6.metric("Month Change", f"{total_pct:+.2f}%", delta=f"₹{total_chg:+.2f}")
+    else:
+        st.info("No NAV data available for the selected month.")
+
+    st.divider()
+
     # ── NAV Chart ────────────────────────────────────────────
     st.subheader("📈 NAV History")
     date_range = st.radio(
@@ -295,97 +398,157 @@ def main():
 
     st.divider()
 
-    # ── Daily NAV Movements ──────────────────────────────────
-    st.subheader("📈 Daily NAV Movements")
+    # ── NAV Analytics ────────────────────────────────────────
+    st.subheader("📊 NAV Analytics")
 
-    # Build list of available year-month combos from data
-    df_nav_months = df.copy()
-    df_nav_months["ym"] = df_nav_months["date"].dt.to_period("M")
-    available_periods = sorted(df_nav_months["ym"].unique(), reverse=True)
-    month_labels = [p.strftime("%B %Y") for p in available_periods]
+    # --- Rolling Averages (1M - 5Y) ---
+    rolling_avgs = calc_rolling_avg(df)
+    st.markdown("**Average NAV (Rolling Windows)**")
+    st.caption("Average NAV over each period and how today's NAV compares.")
 
-    # Inline month selector
-    hdr_col, sel_col = st.columns([2, 1])
-    with hdr_col:
-        st.markdown("View daily NAV values for any month — bars are colored "
-                     "**green** (up from previous day) or **red** (down).")
-    with sel_col:
-        selected_label = st.selectbox(
-            "Select Month", month_labels, index=0, label_visibility="collapsed"
-        )
-    selected_period = available_periods[month_labels.index(selected_label)]
+    ra_cols = st.columns(7)
+    for col, period in zip(ra_cols, ["1M", "3M", "6M", "1Y", "2Y", "3Y", "5Y"]):
+        data = rolling_avgs.get(period, {})
+        avg = data.get("avg_nav")
+        chg = data.get("change_pct")
+        with col:
+            if avg is not None:
+                css_class = "return-positive" if chg >= 0 else "return-negative"
+                sign = "+" if chg >= 0 else ""
+                st.markdown(
+                    f'<div class="return-card {css_class}">'
+                    f'<div class="period">{period}</div>'
+                    f'<div class="value" style="font-size:18px;">₹{avg:,.2f}</div>'
+                    f'<div class="type">{sign}{chg:.2f}% vs current</div>'
+                    f'</div>',
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    '<div class="return-card"><div class="period">' + period + '</div>'
+                    '<div class="value">N/A</div></div>',
+                    unsafe_allow_html=True,
+                )
 
-    # Filter data for that month
-    df_month = df_nav_months[df_nav_months["ym"] == selected_period].sort_values("date").copy()
+    st.write("")
 
-    if not df_month.empty:
-        # Compute daily change; first day uses previous available NAV
-        prev_row = df_nav_months[df_nav_months["date"] < df_month["date"].min()].sort_values("date").tail(1)
-        if not prev_row.empty:
-            prev_nav = prev_row["nav"].iloc[0]
-        else:
-            prev_nav = df_month["nav"].iloc[0]
+    # --- Monthly NAV Heatmap ---
+    monthly_df = calculate_monthly_averages(df, years=5)
+    if not monthly_df.empty:
+        st.markdown("**Monthly Average NAV Heatmap** (Last 5 Years)")
+        st.caption("Each cell shows the monthly average NAV. Color intensity: red (lower) → green (higher).")
 
-        df_month["prev_nav"] = df_month["nav"].shift(1)
-        df_month.iloc[0, df_month.columns.get_loc("prev_nav")] = prev_nav
-        df_month["change"] = df_month["nav"] - df_month["prev_nav"]
-        df_month["pct_change"] = (df_month["change"] / df_month["prev_nav"]) * 100
-        df_month["color"] = df_month["change"].apply(lambda c: "#2d8a4e" if c >= 0 else "#d9534f")
-        df_month["day_label"] = df_month["date"].dt.strftime("%d %b")
+        # Pivot for heatmap: rows=year, cols=month
+        hm = monthly_df.copy()
+        hm["month_short"] = hm["month"].apply(lambda m: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1])
+        hm_pivot = hm.pivot(index="year", columns="month", values="avg_nav").sort_index(ascending=True)
+        hm_pivot.columns = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][:len(hm_pivot.columns)] if len(hm_pivot.columns) == 12 else [f"{c}" for c in hm_pivot.columns]
 
-        # Plotly bar chart
-        fig_daily = go.Figure()
-        fig_daily.add_trace(go.Bar(
-            x=df_month["day_label"],
-            y=df_month["nav"],
-            marker_color=df_month["color"],
-            text=df_month["nav"].apply(lambda v: f"₹{v:,.2f}"),
-            textposition="outside",
-            hovertemplate=(
-                "<b>%{x}</b><br>"
-                "NAV: ₹%{y:,.2f}<br>"
-                "Change: %{customdata[0]:+.2f} (%{customdata[1]:+.2f}%)"
-                "<extra></extra>"
-            ),
-            customdata=list(zip(df_month["change"], df_month["pct_change"])),
+        # Proper column names
+        month_map = {1:"Jan",2:"Feb",3:"Mar",4:"Apr",5:"May",6:"Jun",7:"Jul",8:"Aug",9:"Sep",10:"Oct",11:"Nov",12:"Dec"}
+        hm_pivot_full = hm.pivot(index="year", columns="month", values="avg_nav").sort_index(ascending=True)
+        hm_pivot_full = hm_pivot_full.reindex(columns=range(1,13))
+        hm_pivot_full.columns = [month_map[c] for c in hm_pivot_full.columns]
+
+        # Text annotations (₹ formatted)
+        text_vals = hm_pivot_full.map(lambda v: f"₹{v:,.1f}" if pd.notna(v) else "—")
+
+        fig_hm = go.Figure(data=go.Heatmap(
+            z=hm_pivot_full.values,
+            x=hm_pivot_full.columns.tolist(),
+            y=[str(int(y)) for y in hm_pivot_full.index],
+            text=text_vals.values,
+            texttemplate="%{text}",
+            textfont={"size": 11},
+            colorscale=[
+                [0, "#f5a0a0"],
+                [0.5, "#f0f0b0"],
+                [1, "#8cdc8c"],
+            ],
+            hovertemplate="<b>%{y} %{x}</b><br>Avg NAV: %{text}<extra></extra>",
+            showscale=True,
+            colorbar=dict(title="NAV (₹)", thickness=15),
         ))
-
-        nav_min = df_month["nav"].min()
-        nav_max = df_month["nav"].max()
-        y_pad = (nav_max - nav_min) * 0.15 if nav_max != nav_min else nav_max * 0.01
-        fig_daily.update_layout(
-            title=f"Daily NAV — {selected_label}",
-            xaxis_title="Date",
-            yaxis_title="NAV (₹)",
+        fig_hm.update_layout(
+            title="Monthly Average NAV Heatmap",
+            height=max(300, len(hm_pivot_full) * 50 + 100),
             plot_bgcolor="white",
-            yaxis=dict(
-                range=[nav_min - y_pad * 3, nav_max + y_pad * 3],
-                gridcolor="#eee",
-            ),
-            xaxis=dict(gridcolor="#eee", tickangle=-45),
-            height=450,
-            showlegend=False,
+            xaxis=dict(side="top", dtick=1),
+            yaxis=dict(autorange="reversed", dtick=1),
+            margin=dict(l=60, r=40, t=80, b=40),
         )
-        st.plotly_chart(fig_daily, use_container_width=True)
+        st.plotly_chart(fig_hm, use_container_width=True)
 
-        # Summary stats row
-        open_nav = df_month["nav"].iloc[0]
-        close_nav = df_month["nav"].iloc[-1]
-        high_nav = df_month["nav"].max()
-        low_nav = df_month["nav"].min()
-        avg_nav = df_month["nav"].mean()
-        total_chg = close_nav - open_nav
-        total_pct = (total_chg / open_nav) * 100
+    # --- Side-by-side: Monthly Momentum + Yearly Summary ---
+    col_mom, col_yr = st.columns(2)
 
-        s1, s2, s3, s4, s5, s6 = st.columns(6)
-        s1.metric("Open", f"₹{open_nav:,.2f}")
-        s2.metric("Close", f"₹{close_nav:,.2f}")
-        s3.metric("High", f"₹{high_nav:,.2f}")
-        s4.metric("Low", f"₹{low_nav:,.2f}")
-        s5.metric("Average", f"₹{avg_nav:,.2f}")
-        s6.metric("Month Change", f"{total_pct:+.2f}%", delta=f"₹{total_chg:+.2f}")
-    else:
-        st.info("No NAV data available for the selected month.")
+    # Monthly Momentum (last 12 months)
+    with col_mom:
+        st.markdown("**Monthly Momentum** (Last 12 Months)")
+        if not monthly_df.empty:
+            mom = monthly_df.copy().sort_values(["year", "month"]).reset_index(drop=True)
+            mom["mom_pct"] = mom["avg_nav"].pct_change() * 100
+            mom_recent = mom.tail(12).dropna(subset=["mom_pct"])
+
+            if not mom_recent.empty:
+                mom_recent = mom_recent.copy()
+                mom_recent["color"] = mom_recent["mom_pct"].apply(lambda v: "#0d9d5c" if v >= 0 else "#e23636")
+                mom_recent["label"] = mom_recent["mom_pct"].apply(lambda v: f"{v:+.1f}%")
+
+                fig_mom = go.Figure()
+                fig_mom.add_trace(go.Bar(
+                    y=mom_recent["month_name"],
+                    x=mom_recent["mom_pct"],
+                    orientation="h",
+                    marker_color=mom_recent["color"],
+                    text=mom_recent["label"],
+                    textposition="outside",
+                    hovertemplate="<b>%{y}</b><br>MoM: %{x:+.2f}%<extra></extra>",
+                ))
+                fig_mom.update_layout(
+                    height=400,
+                    plot_bgcolor="white",
+                    xaxis=dict(title="MoM Change (%)", gridcolor="#eee", zeroline=True, zerolinecolor="#ccc"),
+                    yaxis=dict(autorange="reversed"),
+                    margin=dict(l=80, r=60, t=20, b=40),
+                    showlegend=False,
+                )
+                st.plotly_chart(fig_mom, use_container_width=True)
+            else:
+                st.info("Not enough data for momentum calculation.")
+
+    # Yearly Summary
+    with col_yr:
+        st.markdown("**Yearly Summary**")
+        if not monthly_df.empty:
+            ym = monthly_df.copy()
+            years = sorted(ym["year"].unique())
+            yearly_data = []
+            prev_avg = None
+            for yr in years:
+                yr_data = ym[ym["year"] == yr]
+                avg = yr_data["avg_nav"].mean()
+                high = yr_data["max_nav"].max()
+                low = yr_data["min_nav"].min()
+                spread = high - low
+                yoy = ((avg - prev_avg) / prev_avg * 100) if prev_avg else None
+                prev_avg = avg
+                yearly_data.append({
+                    "Year": int(yr),
+                    "Avg NAV": f"₹{avg:,.2f}",
+                    "High": f"₹{high:,.2f}",
+                    "Low": f"₹{low:,.2f}",
+                    "Spread": f"₹{spread:,.2f}",
+                    "YoY": f"{yoy:+.1f}%" if yoy is not None else "—",
+                })
+
+            df_yearly = pd.DataFrame(yearly_data[::-1])  # newest first
+            st.dataframe(
+                df_yearly,
+                hide_index=True,
+                use_container_width=True,
+                height=400,
+            )
 
     st.divider()
 
