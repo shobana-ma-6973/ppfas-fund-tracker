@@ -534,21 +534,59 @@ def main():
                 yoy = ((avg - prev_avg) / prev_avg * 100) if prev_avg else None
                 prev_avg = avg
                 yearly_data.append({
-                    "Year": int(yr),
-                    "Avg NAV": f"₹{avg:,.2f}",
-                    "High": f"₹{high:,.2f}",
-                    "Low": f"₹{low:,.2f}",
-                    "Spread": f"₹{spread:,.2f}",
-                    "YoY": f"{yoy:+.1f}%" if yoy is not None else "—",
+                    "year": int(yr), "avg": avg, "high": high,
+                    "low": low, "spread": spread, "yoy": yoy,
                 })
 
-            df_yearly = pd.DataFrame(yearly_data[::-1])  # newest first
-            st.dataframe(
-                df_yearly,
-                hide_index=True,
-                use_container_width=True,
-                height=400,
-            )
+            yearly_data = yearly_data[::-1]  # newest first
+
+            # Build styled HTML table
+            table_rows = ""
+            for d in yearly_data:
+                # YoY cell with color + pill badge
+                if d["yoy"] is not None:
+                    yoy_val = d["yoy"]
+                    yoy_color = "#0d9d5c" if yoy_val >= 0 else "#e23636"
+                    yoy_bg = "rgba(13,157,92,0.1)" if yoy_val >= 0 else "rgba(226,54,54,0.1)"
+                    yoy_arrow = "▲" if yoy_val >= 0 else "▼"
+                    yoy_html = (
+                        f'<span style="background:{yoy_bg}; color:{yoy_color}; '
+                        f'padding:3px 10px; border-radius:12px; font-weight:600; font-size:13px;">'
+                        f'{yoy_arrow} {yoy_val:+.1f}%</span>'
+                    )
+                else:
+                    yoy_html = '<span style="color:#bbb;">—</span>'
+
+                table_rows += f"""
+                <tr>
+                    <td style="padding:10px 12px; font-weight:700; color:#1e3a5f; border-bottom:1px solid #f0f0f0;">{d['year']}</td>
+                    <td style="padding:10px 12px; text-align:right; font-weight:600; border-bottom:1px solid #f0f0f0;">₹{d['avg']:,.2f}</td>
+                    <td style="padding:10px 12px; text-align:right; color:#0d9d5c; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d['high']:,.2f}</td>
+                    <td style="padding:10px 12px; text-align:right; color:#e23636; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d['low']:,.2f}</td>
+                    <td style="padding:10px 12px; text-align:right; color:#666; border-bottom:1px solid #f0f0f0;">₹{d['spread']:,.2f}</td>
+                    <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #f0f0f0;">{yoy_html}</td>
+                </tr>"""
+
+            yearly_html = f"""
+            <div style="border:1px solid #e8eaed; border-radius:10px; overflow:hidden; background:white;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; font-size:14px;">
+                <thead>
+                    <tr style="background:#f8f9fb;">
+                        <th style="padding:10px 12px; text-align:left; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">Year</th>
+                        <th style="padding:10px 12px; text-align:right; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">Avg NAV</th>
+                        <th style="padding:10px 12px; text-align:right; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">High</th>
+                        <th style="padding:10px 12px; text-align:right; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">Low</th>
+                        <th style="padding:10px 12px; text-align:right; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">Spread</th>
+                        <th style="padding:10px 14px; text-align:center; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">YoY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {table_rows}
+                </tbody>
+            </table>
+            </div>
+            """
+            st.markdown(yearly_html, unsafe_allow_html=True)
 
     st.divider()
 
