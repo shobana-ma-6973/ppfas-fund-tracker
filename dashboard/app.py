@@ -295,6 +295,100 @@ def main():
 
     st.divider()
 
+    # ── Daily NAV Movements ──────────────────────────────────
+    st.subheader("📈 Daily NAV Movements")
+
+    # Build list of available year-month combos from data
+    df_nav_months = df.copy()
+    df_nav_months["ym"] = df_nav_months["date"].dt.to_period("M")
+    available_periods = sorted(df_nav_months["ym"].unique(), reverse=True)
+    month_labels = [p.strftime("%B %Y") for p in available_periods]
+
+    # Inline month selector
+    hdr_col, sel_col = st.columns([2, 1])
+    with hdr_col:
+        st.markdown("View daily NAV values for any month — bars are colored "
+                     "**green** (up from previous day) or **red** (down).")
+    with sel_col:
+        selected_label = st.selectbox(
+            "Select Month", month_labels, index=0, label_visibility="collapsed"
+        )
+    selected_period = available_periods[month_labels.index(selected_label)]
+
+    # Filter data for that month
+    df_month = df_nav_months[df_nav_months["ym"] == selected_period].sort_values("date").copy()
+
+    if not df_month.empty:
+        # Compute daily change; first day uses previous available NAV
+        prev_row = df_nav_months[df_nav_months["date"] < df_month["date"].min()].sort_values("date").tail(1)
+        if not prev_row.empty:
+            prev_nav = prev_row["nav"].iloc[0]
+        else:
+            prev_nav = df_month["nav"].iloc[0]
+
+        df_month["prev_nav"] = df_month["nav"].shift(1)
+        df_month.iloc[0, df_month.columns.get_loc("prev_nav")] = prev_nav
+        df_month["change"] = df_month["nav"] - df_month["prev_nav"]
+        df_month["pct_change"] = (df_month["change"] / df_month["prev_nav"]) * 100
+        df_month["color"] = df_month["change"].apply(lambda c: "#2d8a4e" if c >= 0 else "#d9534f")
+        df_month["day_label"] = df_month["date"].dt.strftime("%d %b")
+
+        # Plotly bar chart
+        fig_daily = go.Figure()
+        fig_daily.add_trace(go.Bar(
+            x=df_month["day_label"],
+            y=df_month["nav"],
+            marker_color=df_month["color"],
+            text=df_month["nav"].apply(lambda v: f"₹{v:,.2f}"),
+            textposition="outside",
+            hovertemplate=(
+                "<b>%{x}</b><br>"
+                "NAV: ₹%{y:,.2f}<br>"
+                "Change: %{customdata[0]:+.2f} (%{customdata[1]:+.2f}%)"
+                "<extra></extra>"
+            ),
+            customdata=list(zip(df_month["change"], df_month["pct_change"])),
+        ))
+
+        nav_min = df_month["nav"].min()
+        nav_max = df_month["nav"].max()
+        y_pad = (nav_max - nav_min) * 0.15 if nav_max != nav_min else nav_max * 0.01
+        fig_daily.update_layout(
+            title=f"Daily NAV — {selected_label}",
+            xaxis_title="Date",
+            yaxis_title="NAV (₹)",
+            plot_bgcolor="white",
+            yaxis=dict(
+                range=[nav_min - y_pad * 3, nav_max + y_pad * 3],
+                gridcolor="#eee",
+            ),
+            xaxis=dict(gridcolor="#eee", tickangle=-45),
+            height=450,
+            showlegend=False,
+        )
+        st.plotly_chart(fig_daily, use_container_width=True)
+
+        # Summary stats row
+        open_nav = df_month["nav"].iloc[0]
+        close_nav = df_month["nav"].iloc[-1]
+        high_nav = df_month["nav"].max()
+        low_nav = df_month["nav"].min()
+        avg_nav = df_month["nav"].mean()
+        total_chg = close_nav - open_nav
+        total_pct = (total_chg / open_nav) * 100
+
+        s1, s2, s3, s4, s5, s6 = st.columns(6)
+        s1.metric("Open", f"₹{open_nav:,.2f}")
+        s2.metric("Close", f"₹{close_nav:,.2f}")
+        s3.metric("High", f"₹{high_nav:,.2f}")
+        s4.metric("Low", f"₹{low_nav:,.2f}")
+        s5.metric("Average", f"₹{avg_nav:,.2f}")
+        s6.metric("Month Change", f"{total_pct:+.2f}%", delta=f"₹{total_chg:+.2f}")
+    else:
+        st.info("No NAV data available for the selected month.")
+
+    st.divider()
+
     # ── Factsheet Data (Allocations) ─────────────────────────
     if factsheet:
         st.subheader("📋 Portfolio Allocation (from Factsheet)")
