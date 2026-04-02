@@ -419,10 +419,14 @@ def fetch_factsheet_for_month(year: int, month: int) -> dict:
     cache_path = f"data/factsheet_{year}_{month:02d}.json"
     cache_file = Path(cache_path)
 
-    # Return cached data if available
+    # Return cached data if available AND valid (has sector data)
     if cache_file.exists():
         try:
-            return load_factsheet_data(cache_path)
+            cached = load_factsheet_data(cache_path)
+            if cached and cached.get("sector_allocation"):
+                return cached
+            else:
+                logger.info(f"Cached data for {year}-{month:02d} has empty sectors, re-fetching...")
         except Exception:
             pass
 

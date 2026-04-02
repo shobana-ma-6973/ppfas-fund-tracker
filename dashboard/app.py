@@ -160,9 +160,12 @@ def load_factsheet():
     return None
 
 
-@st.cache_data(ttl=86400, show_spinner="Fetching factsheet...")
-def load_factsheet_month(year: int, month: int):
-    """Load factsheet for a specific month (cached for 24h)."""
+_FS_CACHE_VER = 2  # bump to invalidate Streamlit Cloud cache
+
+
+@st.cache_data(ttl=3600, show_spinner="Fetching factsheet...")
+def load_factsheet_month(year: int, month: int, _ver: int = _FS_CACHE_VER):
+    """Load factsheet for a specific month (cached for 1h)."""
     return fetch_factsheet_for_month(year, month)
 
 
