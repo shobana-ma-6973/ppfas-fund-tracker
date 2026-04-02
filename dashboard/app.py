@@ -94,6 +94,27 @@ st.markdown("""
     .return-card .type { font-size: 11px; color: #999; margin-top: 2px; }
     .return-positive .value { color: #0d9d5c; }
     .return-negative .value { color: #e23636; }
+
+    /* ── Mobile responsive: stack columns on small screens ── */
+    @media (max-width: 767px) {
+        /* Stack all column layouts vertically */
+        [data-testid="stHorizontalBlock"] {
+            flex-wrap: wrap !important;
+        }
+        [data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
+            flex: 0 0 100% !important;
+            width: 100% !important;
+        }
+        /* Smaller metric cards on mobile */
+        [data-testid="stMetric"] {
+            min-height: 90px;
+        }
+        .return-card {
+            min-height: 90px;
+            padding: 12px 8px;
+        }
+        .return-card .value { font-size: 18px; }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -407,10 +428,8 @@ def main():
     st.caption("Average NAV over each period and how today's NAV compares.")
 
     ra_periods = ["1M", "3M", "6M", "1Y", "2Y", "3Y", "5Y"]
-    ra_row1 = st.columns(4)
-    ra_row2 = st.columns(4)
-    ra_all_cols = ra_row1 + ra_row2[:3]  # 4 + 3 = 7
-    for col, period in zip(ra_all_cols, ra_periods):
+    ra_cols = st.columns(7)
+    for col, period in zip(ra_cols, ra_periods):
         data = rolling_avgs.get(period, {})
         avg = data.get("avg_nav")
         chg = data.get("change_pct")
@@ -452,71 +471,61 @@ def main():
         nav_vals = hm_pivot_full.values.flatten()
         valid_vals = [v for v in nav_vals if pd.notna(v)]
         threshold_90 = np.percentile(valid_vals, 90) if valid_vals else float("inf")
-        global_zmin = min(valid_vals) if valid_vals else 0
-        global_zmax = max(valid_vals) if valid_vals else 100
 
-        # Split into two halves for mobile readability
-        half1_cols = ["Jan","Feb","Mar","Apr","May","Jun"]
-        half2_cols = ["Jul","Aug","Sep","Oct","Nov","Dec"]
+        x_labels = hm_pivot_full.columns.tolist()
+        y_labels = [str(int(y)) for y in hm_pivot_full.index]
 
-        hm_tab1, hm_tab2 = st.tabs(["Jan – Jun", "Jul – Dec"])
+        fig_hm = go.Figure(data=go.Heatmap(
+            z=hm_pivot_full.values,
+            x=x_labels,
+            y=y_labels,
+            hovertemplate="<b>%{y} %{x}</b><br>Avg NAV: ₹%{z:.1f}<extra></extra>",
+            showscale=True,
+            colorscale=[
+                [0, "#f5a0a0"],
+                [0.4, "#f0f0b0"],
+                [0.85, "#8cdc8c"],
+                [1, "#1a7a3a"],
+            ],
+            colorbar=dict(title="NAV (₹)", thickness=15),
+        ))
 
-        for tab, cols, tab_label in [(hm_tab1, half1_cols, "Jan–Jun"), (hm_tab2, half2_cols, "Jul–Dec")]:
-            with tab:
-                hm_half = hm_pivot_full[cols]
-                x_labels = cols
-                y_labels = [str(int(y)) for y in hm_half.index]
-
-                fig_hm = go.Figure(data=go.Heatmap(
-                    z=hm_half.values,
-                    x=x_labels,
-                    y=y_labels,
-                    zmin=global_zmin,
-                    zmax=global_zmax,
-                    hovertemplate="<b>%{y} %{x}</b><br>Avg NAV: ₹%{z:.1f}<extra></extra>",
-                    showscale=True,
-                    colorscale=[
-                        [0, "#f5a0a0"],
-                        [0.4, "#f0f0b0"],
-                        [0.85, "#8cdc8c"],
-                        [1, "#1a7a3a"],
-                    ],
-                    colorbar=dict(title="NAV", thickness=12, len=0.8),
+        # Per-cell text annotations with adaptive color
+        annotations = []
+        for i, yr in enumerate(y_labels):
+            for j, mo in enumerate(x_labels):
+                val = hm_pivot_full.values[i][j]
+                if pd.notna(val):
+                    txt = f"{val:.1f}"
+                    fc = "#ffffff" if val >= threshold_90 else "#333333"
+                    fw = "bold" if val >= threshold_90 else "normal"
+                else:
+                    txt = "—"
+                    fc = "#cccccc"
+                    fw = "normal"
+                annotations.append(dict(
+                    x=mo, y=yr, text=txt, showarrow=False,
+                    font=dict(size=10, color=fc, weight=fw),
                 ))
 
-                annotations = []
-                for i, yr in enumerate(y_labels):
-                    for j, mo in enumerate(x_labels):
-                        val = hm_half.values[i][j]
-                        if pd.notna(val):
-                            txt = f"{val:.0f}"
-                            fc = "#ffffff" if val >= threshold_90 else "#333333"
-                            fw = "bold" if val >= threshold_90 else "normal"
-                        else:
-                            txt = "—"
-                            fc = "#cccccc"
-                            fw = "normal"
-                        annotations.append(dict(
-                            x=mo, y=yr, text=txt, showarrow=False,
-                            font=dict(size=12, color=fc, weight=fw),
-                        ))
+        num_rows = len(y_labels)
+        fig_hm.update_layout(
+            title="Monthly Average NAV Heatmap",
+            annotations=annotations,
+            height=max(300, num_rows * 55 + 100),
+            plot_bgcolor="white",
+            xaxis=dict(side="top", dtick=1, tickfont=dict(size=11)),
+            yaxis=dict(autorange="reversed", dtick=1, tickfont=dict(size=11)),
+            margin=dict(l=50, r=40, t=80, b=30),
+        )
+        st.plotly_chart(fig_hm, use_container_width=True)
 
-                num_rows = len(y_labels)
-                fig_hm.update_layout(
-                    annotations=annotations,
-                    height=max(280, num_rows * 60 + 80),
-                    plot_bgcolor="white",
-                    xaxis=dict(side="top", dtick=1, tickfont=dict(size=12)),
-                    yaxis=dict(autorange="reversed", dtick=1, tickfont=dict(size=12)),
-                    margin=dict(l=50, r=50, t=40, b=20),
-                )
-                st.plotly_chart(fig_hm, use_container_width=True)
-
-    # --- Monthly Momentum + Yearly Summary (tabs for mobile) ---
-    tab_mom, tab_yr = st.tabs(["📊 Monthly Momentum", "📋 Yearly Summary"])
+    # --- Monthly Momentum + Yearly Summary (side-by-side; auto-stacks on mobile via CSS) ---
+    col_mom, col_yr = st.columns(2)
 
     # Monthly Momentum (last 12 months)
-    with tab_mom:
+    with col_mom:
+        st.markdown("**Monthly Momentum** (Last 12 Months)")
         if not monthly_df.empty:
             mom = monthly_df.copy().sort_values(["year", "month"]).reset_index(drop=True)
             mom["mom_pct"] = mom["avg_nav"].pct_change() * 100
@@ -550,7 +559,7 @@ def main():
                 st.info("Not enough data for momentum calculation.")
 
     # Yearly Summary
-    with tab_yr:
+    with col_yr:
         st.markdown("**Yearly Summary**")
         if not monthly_df.empty:
             ym = monthly_df.copy()
