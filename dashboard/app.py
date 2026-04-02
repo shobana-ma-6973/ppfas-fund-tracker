@@ -162,12 +162,29 @@ def load_factsheet():
 
 @st.cache_data(ttl=3600, show_spinner="Fetching factsheet...")
 def load_factsheet_month_v3(year: int, month: int):
-    """Load factsheet for a specific month (cached for 1h)."""
-    data = fetch_factsheet_for_month(year, month)
-    # Don't cache empty results — return None so next call re-fetches
-    if data and not data.get("sector_allocation"):
-        return None
-    return data
+    """Load factsheet for a specific month (cached for 1h).
+    Tries pre-committed JSON cache first, then live fetch.
+    """
+    # 1. Try loading from committed JSON cache (works even without pdfplumber)
+    cache_path = Path(f"data/factsheet_{year}_{month:02d}.json")
+    if cache_path.exists():
+        try:
+            data = load_factsheet_data(str(cache_path))
+            if data and data.get("sector_allocation"):
+                return data
+        except Exception:
+            pass
+
+    # 2. Try live fetch (needs pdfplumber — may not work on Streamlit Cloud)
+    if FACTSHEET_AVAILABLE:
+        try:
+            data = fetch_factsheet_for_month(year, month)
+            if data and data.get("sector_allocation"):
+                return data
+        except Exception:
+            pass
+
+    return None
 
 
 # ── Main App ─────────────────────────────────────────────────

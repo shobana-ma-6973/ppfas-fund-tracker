@@ -1,0 +1,26 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "\u20b91,19,723.32 Cr",
+  "sector_allocation": {
+    "To seek to generate long-term capital growth from an Banks": 20.0,
+    "foreign equities and related instruments and debt Cash & Cash Equivalent": 9.97,
+    "Power": 5.99,
+    "Type of the Scheme An open-ended dynamic Equity scheme Finance": 5.56,
+    "Consumable Fuels": 5.28,
+    "Diversified FMCG": 4.55,
+    "Pharmaceuticals & Biotechnology": 3.73,
+    "Telecom - Services": 3.32,
+    "Food Products": 1.27,
+    "Vice President & Fund Manager - Equity Commercial Services & Supplies": 0.02,
+    "Industrial Products": 0.02
+  },
+  "category_allocation": {
+    "Indian Equity": 22.21,
+    "Overseas Equity": 11.69,
+    "REITs & InvITs": 0.66
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "pages 2-3 (Flexi Cap Fund)",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2025/ppfas-mf-factsheet-for-September-2025.pdf",
+  "factsheet_month": "September 2025"
+}
