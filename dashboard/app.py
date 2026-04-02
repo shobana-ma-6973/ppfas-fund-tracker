@@ -557,35 +557,32 @@ def main():
                 else:
                     yoy_html = '<span style="color:#bbb;">—</span>'
 
-                table_rows += f"""
-                <tr>
-                    <td style="padding:10px 12px; font-weight:700; color:#1e3a5f; border-bottom:1px solid #f0f0f0;">{d['year']}</td>
-                    <td style="padding:10px 12px; text-align:right; font-weight:600; border-bottom:1px solid #f0f0f0;">₹{d['avg']:,.2f}</td>
-                    <td style="padding:10px 12px; text-align:right; color:#0d9d5c; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d['high']:,.2f}</td>
-                    <td style="padding:10px 12px; text-align:right; color:#e23636; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d['low']:,.2f}</td>
-                    <td style="padding:10px 12px; text-align:right; color:#666; border-bottom:1px solid #f0f0f0;">₹{d['spread']:,.2f}</td>
-                    <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #f0f0f0;">{yoy_html}</td>
-                </tr>"""
+                table_rows += (
+                    f'<tr>'
+                    f'<td style="padding:10px 12px; font-weight:700; color:#1e3a5f; border-bottom:1px solid #f0f0f0;">{d["year"]}</td>'
+                    f'<td style="padding:10px 12px; text-align:right; font-weight:600; border-bottom:1px solid #f0f0f0;">₹{d["avg"]:,.2f}</td>'
+                    f'<td style="padding:10px 12px; text-align:right; color:#0d9d5c; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d["high"]:,.2f}</td>'
+                    f'<td style="padding:10px 12px; text-align:right; color:#e23636; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d["low"]:,.2f}</td>'
+                    f'<td style="padding:10px 12px; text-align:right; color:#666; border-bottom:1px solid #f0f0f0;">₹{d["spread"]:,.2f}</td>'
+                    f'<td style="padding:10px 14px; text-align:center; border-bottom:1px solid #f0f0f0;">{yoy_html}</td>'
+                    f'</tr>'
+                )
 
-            yearly_html = f"""
-            <div style="border:1px solid #e8eaed; border-radius:10px; overflow:hidden; background:white;">
-            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; font-size:14px;">
-                <thead>
-                    <tr style="background:#f8f9fb;">
-                        <th style="padding:10px 12px; text-align:left; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">Year</th>
-                        <th style="padding:10px 12px; text-align:right; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">Avg NAV</th>
-                        <th style="padding:10px 12px; text-align:right; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">High</th>
-                        <th style="padding:10px 12px; text-align:right; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">Low</th>
-                        <th style="padding:10px 12px; text-align:right; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">Spread</th>
-                        <th style="padding:10px 14px; text-align:center; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;">YoY</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {table_rows}
-                </tbody>
-            </table>
-            </div>
-            """
+            th_style = 'padding:10px 12px; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;'
+            yearly_html = (
+                '<div style="border:1px solid #e8eaed; border-radius:10px; overflow:hidden; background:white;">'
+                '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; font-size:14px;">'
+                '<thead><tr style="background:#f8f9fb;">'
+                f'<th style="{th_style} text-align:left;">Year</th>'
+                f'<th style="{th_style} text-align:right;">Avg NAV</th>'
+                f'<th style="{th_style} text-align:right;">High</th>'
+                f'<th style="{th_style} text-align:right;">Low</th>'
+                f'<th style="{th_style} text-align:right;">Spread</th>'
+                f'<th style="{th_style} text-align:center;">YoY</th>'
+                '</tr></thead>'
+                f'<tbody>{table_rows}</tbody>'
+                '</table></div>'
+            )
             st.markdown(yearly_html, unsafe_allow_html=True)
 
     st.divider()
