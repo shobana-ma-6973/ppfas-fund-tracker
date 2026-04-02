@@ -29,6 +29,8 @@ from email_builder import (
 )
 from email_sender import send_email
 from sent_tracker import get_target_month, is_already_sent, mark_as_sent
+from nav_averages import get_nav_summary
+from daily_nav_email import build_daily_nav_email
 
 logging.basicConfig(
     level=logging.INFO,
@@ -251,6 +253,89 @@ def check_and_send():
         return 1
 
 
+def run_daily_nav(send_mail: bool = True, dry_run: bool = False):
+    """
+    Daily NAV email pipeline:
+    1. Fetch latest NAV data
+    2. Calculate rolling & monthly averages
+    3. Build daily NAV email
+    4. Send email
+    """
+    config = load_config()
+    scheme_code = config["fund"]["scheme_code"]
+    data_dir = Path(__file__).parent / "data"
+    data_dir.mkdir(exist_ok=True)
+
+    logger.info("=" * 60)
+    logger.info("DAILY NAV EMAIL PIPELINE")
+    logger.info("=" * 60)
+
+    # Step 1: Fetch NAV
+    logger.info("Step 1: Fetching NAV data...")
+    df_nav = fetch_nav_history(scheme_code)
+    current_nav = float(df_nav.iloc[-1]["nav"])
+    nav_date = df_nav.iloc[-1]["date"].strftime("%d %b %Y")
+    logger.info(f"Latest NAV: ₹{current_nav:.4f} as of {nav_date}")
+
+    # Step 2: Calculate averages
+    logger.info("Step 2: Calculating NAV averages...")
+    nav_summary = get_nav_summary(df_nav)
+    rolling = nav_summary["rolling_averages"]
+    for period in ["1M", "3M", "6M", "1Y", "3Y", "5Y"]:
+        avg = rolling.get(period, {}).get("avg_nav")
+        if avg:
+            logger.info(f"  {period} avg: ₹{avg:.4f}")
+
+    # Step 3: Build email
+    logger.info("Step 3: Building daily NAV email...")
+    html_body = build_daily_nav_email(nav_summary)
+
+    # Save preview
+    preview_path = data_dir / "daily_nav_preview.html"
+    with open(preview_path, "w") as f:
+        f.write(html_body)
+    logger.info(f"Preview saved to {preview_path}")
+
+    # Step 4: Send email
+    if send_mail and not dry_run:
+        logger.info("Step 4: Sending daily NAV email...")
+
+        sender_email = os.environ.get("GMAIL_ADDRESS", config["email"]["sender"])
+        sender_password = os.environ.get("GMAIL_APP_PASSWORD")
+        recipients_env = os.environ.get("EMAIL_RECIPIENTS", "")
+
+        if recipients_env:
+            recipients = [r.strip() for r in recipients_env.split(",") if r.strip()]
+        else:
+            recipients = config["email"]["recipients"]
+
+        if not sender_password:
+            logger.error("GMAIL_APP_PASSWORD not set!")
+            return False
+
+        today_str = datetime.now().strftime("%d %b %Y")
+        subject = f"PPFAS Flexi Cap — Daily NAV ₹{current_nav:.4f} — {today_str}"
+
+        success = send_email(
+            sender_email=sender_email,
+            sender_password=sender_password,
+            recipients=recipients,
+            subject=subject,
+            html_body=html_body,
+        )
+
+        if success:
+            logger.info("✅ Daily NAV email sent!")
+        else:
+            logger.error("❌ Failed to send daily NAV email")
+            return False
+    else:
+        logger.info("Email not sent (dry-run or disabled). Preview saved.")
+
+    logger.info("Daily NAV pipeline completed!")
+    return True
+
+
 if __name__ == "__main__":
     import argparse
 
@@ -270,10 +355,21 @@ if __name__ == "__main__":
         action="store_true",
         help="Smart mode: check factsheet availability, send if available, skip if already sent",
     )
+    parser.add_argument(
+        "--daily-nav",
+        action="store_true",
+        help="Send daily NAV email with rolling and monthly averages",
+    )
     args = parser.parse_args()
 
     if args.check_and_send:
         exit_code = check_and_send()
+    elif args.daily_nav:
+        success = run_daily_nav(
+            send_mail=not args.no_email,
+            dry_run=args.dry_run,
+        )
+        exit_code = 0 if success else 1
     else:
         success = run_pipeline(
             send_mail=not args.no_email,

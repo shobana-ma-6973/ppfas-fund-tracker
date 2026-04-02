@@ -1,0 +1,65 @@
+# ============================================================
+# PPFAS Flexi Cap Fund Tracker — Daily NAV Email
+# ============================================================
+# Runs every weekday at 9:30 PM IST (4:00 PM UTC)
+# after NAV is typically published by AMFI.
+# Sends today's NAV with rolling & monthly averages.
+# ============================================================
+
+name: Daily NAV Email
+
+on:
+  # Weekdays at 9:30 PM IST (4:00 PM UTC) — NAV published by ~9 PM
+  schedule:
+    - cron: "0 16 * * 1-5"
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (skip email sending)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  daily-nav:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send daily NAV email
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            python main.py --daily-nav --dry-run
+          else
+            python main.py --daily-nav
+          fi
+
+      - name: Upload preview
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-nav-preview-${{ github.run_number }}
+          path: data/daily_nav_preview.html
+          if-no-files-found: ignore
+          retention-days: 7
