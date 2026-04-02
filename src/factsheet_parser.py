@@ -4,15 +4,28 @@ Downloads and extracts data from PPFAS monthly factsheet PDFs.
 Targets ONLY pages 1-4 (Flexi Cap Fund section).
 """
 
-import requests
-import pdfplumber
 import re
 import json
 import tempfile
 from datetime import datetime
 from pathlib import Path
-from bs4 import BeautifulSoup
 import logging
+
+# Lazy imports — these may not be available on all platforms (e.g. Streamlit Cloud)
+try:
+    import requests
+except ImportError:
+    requests = None
+
+try:
+    import pdfplumber
+except ImportError:
+    pdfplumber = None
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    BeautifulSoup = None
 
 logger = logging.getLogger(__name__)
 
