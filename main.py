@@ -277,6 +277,15 @@ def run_daily_nav(send_mail: bool = True, dry_run: bool = False):
     nav_date = df_nav.iloc[-1]["date"].strftime("%d %b %Y")
     logger.info(f"Latest NAV: ₹{current_nav:.4f} as of {nav_date}")
 
+    # Check: only send if NAV dropped from previous day
+    if len(df_nav) >= 2:
+        prev_nav = float(df_nav.iloc[-2]["nav"])
+        day_change = current_nav - prev_nav
+        logger.info(f"Previous NAV: ₹{prev_nav:.4f}, Change: {day_change:+.4f}")
+        if day_change >= 0 and not dry_run:
+            logger.info(f"⏭️  NAV did not drop (change: {day_change:+.4f}). Skipping email.")
+            return True
+
     # Step 2: Calculate averages
     logger.info("Step 2: Calculating NAV averages...")
     nav_summary = get_nav_summary(df_nav)
