@@ -1,0 +1,26 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "\u20b91,338.25 Cr",
+  "sector_allocation": {
+    "Pharmaceuticals Net Assets": 100.0,
+    "Debt and Money Market Total": 27.67,
+    "HDFC Bank Ltd Banks": 5.53,
+    "Internet & Technology": 5.06,
+    "scheme investing across large cap, mid cap, Persistent Systems Ltd Software": 4.16,
+    "Hotels": 2.28,
+    "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 1.97,
+    "Assets Under Management Sun Pharmaceuticals Industries Ltd Pharmaceuticals": 1.52,
+    "Mahindra Holidays & Resorts India Ltd Hotels": 1.38,
+    "Gas": 1.38,
+    "for the Month Indraprastha Gas Ltd Gas": 1.23,
+    "ICRA Ltd Finance": 0.97,
+    "Entry Load Not Applicable Pfizer Ltd Pharmaceuticals": 0.75
+  },
+  "category_allocation": {
+    "Indian Equity": 65.01
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "info=2, portfolio=2",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2018/ppfas-factsheet-september-2018.pdf",
+  "factsheet_month": "September 2018"
+}

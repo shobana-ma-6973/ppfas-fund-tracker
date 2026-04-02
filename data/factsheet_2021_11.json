@@ -1,0 +1,18 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "\u20b918,298.80 Cr",
+  "sector_allocation": {
+    "Net Assets": 100.0,
+    "Arbitrage Load Structure Total": 65.37,
+    "TREPS Including Cash & Cash Equivalent and Net Current Asset": 3.88,
+    "FDR": 0.4
+  },
+  "category_allocation": {
+    "Indian Equity": 65.37,
+    "Overseas Equity": 30.35
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "pages 2-2 (Flexi Cap Fund)",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2021/ppfas-mf-factsheet-november-2021.pdf",
+  "factsheet_month": "November 2021"
+}

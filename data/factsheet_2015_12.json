@@ -1,0 +1,43 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "N/A",
+  "sector_allocation": {
+    "Total": 65.64,
+    "Internet & Technology": 13.13,
+    "Banks": 11.65,
+    "Finance": 9.45,
+    "Maharashtra Scooters Ltd Auto Ancillaries": 8.48,
+    "Gas": 5.8,
+    "Debt and Money Market Instruments": 5.33,
+    "Zydus Wellness Ltd Consumer Non Durables": 4.95,
+    "Arbitrage/Special situation": 4.59,
+    "Persistent Systems Ltd Software": 4.26,
+    "Axis Bank Banks": 4.03,
+    "Logistics": 3.95,
+    "ICICI Bank Ltd Banks": 3.75,
+    "HDFC Bank Banks": 3.38,
+    "Transportation": 3.37,
+    "Selan Exploration Technology Pharmaceuticals": 3.36,
+    "IL&FS Investment Managers Finance": 3.35,
+    "Diversified Consumer IT Consulting & Other Services": 2.99,
+    "Indraprastha Gas Ltd Gas": 2.9,
+    "Arbitrage Packaged Foods": 2.88,
+    "Mphasis Ltd Software": 2.81,
+    "Industrial Conglomerates": 2.76,
+    "Balkrishna Industries Auto Ancillaries": 2.3,
+    "IPCA Laboratories Ltd Pharmaceuticals": 2.13,
+    "Cash & Cash Equivalent": 1.75,
+    "Cash and Cash Equivalent": 1.75,
+    "Pfizer Ltd Pharmaceuticals": 1.23,
+    "Brewers": 1.08,
+    "Oil": 0.53,
+    "MT Educare Ltd": 0.51
+  },
+  "category_allocation": {
+    "Indian Equity": 65.64
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "info=2, portfolio=2",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2015/pltvf-factsheet-december-2015.pdf",
+  "factsheet_month": "December 2015"
+}

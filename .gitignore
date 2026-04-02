@@ -17,6 +17,7 @@ data/*.json
 !data/sent_status.json
 !data/factsheet_data.json
 !data/factsheet_*.json
+!data/allocation_history.json
 
 # OS files
 .DS_Store

@@ -1,0 +1,43 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "N/A",
+  "sector_allocation": {
+    "Net Assets": 100.0,
+    "Total": 26.39,
+    "Banks": 14.31,
+    "Internet & Technology": 12.86,
+    "Arbitrage/Special Situation": 7.85,
+    "HDFC Bank Banks": 7.61,
+    "Auto Ancillaries": 7.61,
+    "Software": 6.84,
+    "Bajaj Holdings & Investment Ltd Finance": 6.78,
+    "Debt and Money Market Instruments": 6.53,
+    "CBLO": 5.32,
+    "Balkrishna Industries Auto Ancillaries": 4.65,
+    "Consumer Non durables": 4.3,
+    "Persistent Systems Ltd Software": 4.24,
+    "Pharmaceuticals": 4.06,
+    "Arbitrage Logistics": 3.7,
+    "Mahindra Holidays & Resorts India Ltd Hotels": 3.45,
+    "Axis Bank Ltd Banks": 3.43,
+    "Gujarat Gas Ltd Gas": 3.36,
+    "Maharashtra Scooters Ltd Auto Ancillaries": 2.96,
+    "ICICI Bank Ltd Banks": 2.8,
+    "Packaged Foods": 2.71,
+    "Mphasis Ltd Software": 2.6,
+    "ICRA Ltd Finance": 2.16,
+    "IPCA Laboratories Ltd Pharmaceuticals": 1.89,
+    "Services Cash & Cash Equivalent": 1.65,
+    "Cash and Cash Equivalent": 1.65,
+    "FDR": 1.21,
+    "Pfizer Ltd Pharmaceuticals": 0.78,
+    "IL&FS Investment Managers Ltd Finance": 0.2
+  },
+  "category_allocation": {
+    "Indian Equity": 65.43
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "info=2, portfolio=2",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2017/pltvf-factsheet-april-2017.pdf",
+  "factsheet_month": "April 2017"
+}

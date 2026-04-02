@@ -1,0 +1,42 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "N/A",
+  "sector_allocation": {
+    "Invested Total": 97.51,
+    "Total": 27.38,
+    "Internet & Technology": 14.88,
+    "Arbitrage/Special Situation": 10.88,
+    "Finance": 9.58,
+    "HDFC Bank Ltd Banks": 7.75,
+    "Software": 7.42,
+    "Indraprastha Gas Ltd Gas": 6.05,
+    "Gas": 6.05,
+    "Persistent Systems Ltd Software": 5.02,
+    "Balkrishna Industries Auto Ancillaries": 4.55,
+    "Consumer Non durables": 3.88,
+    "Logistics": 3.6,
+    "Maharashtra Scooters Ltd Auto Ancillaries": 3.57,
+    "Mahindra Holidays & Resorts India Ltd Hotels": 3.41,
+    "Hotels": 3.41,
+    "Pharmaceuticals": 3.13,
+    "Axis Bank Ltd Banks": 2.99,
+    "Industrial Conglomerates": 2.83,
+    "ICICI Bank Ltd Banks": 2.67,
+    "Packaged Foods": 2.58,
+    "Cash & Cash Equivalent": 2.49,
+    "Cash and Cash Equivalent": 2.49,
+    "ICRA Ltd Finance": 1.76,
+    "IPCA Laboratories Ltd Pharmaceuticals": 1.34,
+    "FDR": 1.05,
+    "Brewers": 0.75,
+    "Pfizer Ltd Pharmaceuticals": 0.71,
+    "Standard Chartered PLC Banks": 0.43
+  },
+  "category_allocation": {
+    "Indian Equity": 65.88
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "info=2, portfolio=2",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2017/pltvf-factsheet-september-2017.pdf",
+  "factsheet_month": "September 2017"
+}

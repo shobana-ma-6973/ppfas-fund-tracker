@@ -1,0 +1,18 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "\u20b92,205.09 Cr",
+  "sector_allocation": {
+    "Technology": 9.88,
+    "Arbitrage/Special": 4.47,
+    "FDR": 1.86
+  },
+  "category_allocation": {
+    "Indian Equity": 65.36,
+    "Overseas Equity": 28.8,
+    "Cash & Equivalents": 1.86
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "pages 2-2",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2019/ppfas-mf-factsheet-september-2019.pdf",
+  "factsheet_month": "September 2019"
+}

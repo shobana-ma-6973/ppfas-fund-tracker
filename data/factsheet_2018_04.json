@@ -1,0 +1,43 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "N/A",
+  "sector_allocation": {
+    "Invested Total": 96.97,
+    "Total": 26.6,
+    "Internet & Technology": 14.48,
+    "Auto & Auto Ancillaries": 13.01,
+    "Banks": 11.5,
+    "Software": 8.67,
+    "Finance": 7.56,
+    "HDFC Bank Ltd Banks": 6.79,
+    "Bajaj Holdings & Investment Ltd Finance": 6.16,
+    "Balkrishna Industries Auto & Auto Ancillaries": 5.54,
+    "Persistent Systems Ltd Software": 5.4,
+    "Zydus Wellness Ltd Consumer Non Durables": 4.98,
+    "Consumer Non durables": 4.98,
+    "Debt and Money Market Instruments": 3.94,
+    "Mphasis Ltd Software": 3.27,
+    "CBLO": 3.09,
+    "Cash & Cash Equivalent": 3.03,
+    "Cash and Cash Equivalent Cash & Cash Equivalent": 3.03,
+    "Mahindra Holidays & Resorts India Ltd Hotels": 2.67,
+    "Hotels": 2.67,
+    "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 2.48,
+    "Axis Bank Ltd Banks": 2.47,
+    "ICICI Bank Ltd Banks": 2.24,
+    "IT Consulting & Other Services": 1.93,
+    "Indraprastha Gas Ltd Gas": 1.85,
+    "IPCA Laboratories Ltd Pharmaceuticals": 1.68,
+    "ICRA Ltd Finance": 1.4,
+    "Lupin Ltd Pharmaceuticals": 1.11,
+    "FDR": 0.85,
+    "Pfizer Ltd Pharmaceuticals": 0.73
+  },
+  "category_allocation": {
+    "Indian Equity": 66.43
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "info=2, portfolio=2",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2018/pltef-factsheet-april-2018.pdf",
+  "factsheet_month": "April 2018"
+}

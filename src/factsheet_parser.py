@@ -194,18 +194,31 @@ def extract_aum(page2_tables: list) -> str:
 def extract_sector_allocation(page2_text: str) -> dict:
     """
     Extract industry/sector allocation from the sidebar on page 2.
-    The factsheet lists industries clearly at the bottom of page 2:
+    The factsheet lists industries clearly in the "Industry Allocation"
+    or "Sectoral Allocation" section:
         Banks 20.04%
         Debt and Money Market Instruments 14.52%
         Computer Software 8.54%
-        Power 6.92%
-        IT - Software 6.91%
-        Automobiles 6.71%
         ...
+
+    For reliability, we try to narrow to only the sector section of the text.
     """
     sectors = {}
 
-    lines = page2_text.split("\n")
+    # Try to narrow down to sector section only
+    text = page2_text
+    sector_start = None
+    for marker in ["Industry Allocation", "Sectoral Allocation"]:
+        idx = text.find(marker)
+        if idx >= 0:
+            sector_start = idx
+            break
+
+    if sector_start is not None:
+        # Grab text from the marker onwards (sector data follows it)
+        text = text[sector_start:]
+
+    lines = text.split("\n")
     for line in lines:
         line = line.strip()
         # Match: "Sector Name XX.XX%" — name starts with a letter, ends with percentage
@@ -219,14 +232,23 @@ def extract_sector_allocation(page2_text: str) -> dict:
             if len(name) < 3:
                 continue
 
-            # Skip non-sector lines (benchmark labels, ratio labels, etc.)
+            # Skip non-sector lines (benchmark labels, ratio labels, holdings, etc.)
             skip_labels = [
                 "ppfcf regular", "ppfcf direct", "nifty", "cagr",
                 "regular plan", "direct plan", "beta", "standard deviation",
                 "sharpe ratio", "portfolio turnover", "since inception",
-                "month end expense",
+                "month end expense", "invested total", "net assets",
+                "total", "core equity", "multi cap", "open ended",
+                "treps including", "cash and cash", "cash equivalent",
+                "portfolio disclosure",
             ]
             if any(skip in name.lower() for skip in skip_labels):
+                continue
+
+            # Skip lines that look like individual holdings (contain Ltd, Inc, etc.)
+            holding_markers = [" ltd", " inc", " limited", " corp", " plc",
+                             " bank ", " nv ", " sa ", " ag "]
+            if any(hm in name.lower() for hm in holding_markers):
                 continue
 
             sectors[name] = pct
@@ -246,6 +268,10 @@ def extract_category_allocation(page3_tables: list) -> dict:
 
     pdfplumber may return tables in any order, so we process each table
     independently — tracking section headers within each table.
+
+    For older formats (pre-2021), data may be spread across many small tables.
+    We try the targeted 2-table approach first, then fall back to processing
+    ALL tables as a merged stream.
     """
     categories = {}
     cash_pct = None
@@ -314,14 +340,110 @@ def extract_category_allocation(page3_tables: list) -> dict:
                 if "Debt & Money Market" not in categories:
                     categories["Debt & Money Market"] = pct
 
-    # --- Split Debt into Debt + Cash ---
+    # --- If targeted approach found >= 2 categories, we're good ---
+    if len(categories) >= 2:
+        # Split Debt into Debt + Cash
+        if cash_pct and "Debt & Money Market" in categories:
+            debt_total = categories["Debt & Money Market"]
+            categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
+            categories["Cash & Equivalents"] = cash_pct
+
+        # Safety net: compute Indian Equity by subtraction if missing
+        if "Indian Equity" not in categories:
+            other_total = sum(categories.values())
+            if 0 < other_total < 100:
+                categories["Indian Equity"] = round(100 - other_total, 2)
+                logger.info(f"Computed Indian Equity by subtraction: {categories['Indian Equity']}%")
+
+        if categories:
+            total = sum(categories.values())
+            logger.info(f"Category allocation total: {total:.2f}% ({len(categories)} categories)")
+        return categories
+
+    # --- Fallback: merge ALL tables into one row stream (for old formats) ---
+    logger.info("Trying merged-table category extraction...")
+    categories = {}
+    cash_pct = None
+    current_section = "Indian Equity"
+    tracking_active = False  # Only start tracking after "Core Equity" / "Portfolio Disclosure"
+
+    # Filter out non-portfolio tables (fund info, quantitative indicators, chart tables, etc.)
+    skip_table_markers = ["investment objective", "date of allotment",
+                          "quantitative indicator", "riskometer",
+                          "industry allocation", "sectoral allocation"]
+
+    for table in page3_tables:
+        # Check if this table is a non-portfolio table we should skip
+        table_first_cells = " ".join(
+            str(row[0]).lower() for row in table if row and row[0]
+        )
+        if any(m in table_first_cells for m in skip_table_markers):
+            continue
+
+        # Activate tracking when we see portfolio content
+        if "core equity" in table_first_cells or "portfolio disclosure" in table_first_cells:
+            tracking_active = True
+
+        if not tracking_active:
+            continue
+
+        for row in table:
+            if not row:
+                continue
+            # Check all cells in the row for content
+            for cell_raw in row:
+                if not cell_raw:
+                    continue
+                cell = str(cell_raw).strip()
+                cell_lower = cell.lower()
+
+                # Check for section transitions
+                for key, label in section_map.items():
+                    if key in cell_lower:
+                        current_section = label
+                        break
+
+                # Check for multi-line cells: "Total 66.94%\nOverseas Securities..."
+                for subline in cell.split("\n"):
+                    subline = subline.strip()
+                    sub_lower = subline.lower()
+
+                    for key, label in section_map.items():
+                        if key in sub_lower:
+                            current_section = label
+                            break
+
+                    total_match = re.match(r"^(?:Invested\s+)?Total\s+(\d+\.?\d+)%$", subline)
+                    if total_match:
+                        pct = float(total_match.group(1))
+                        if pct < 100 and current_section not in categories:
+                            categories[current_section] = pct
+
+                    # TREPS/Cash detection
+                    if ("treps" in sub_lower or "cash and cash" in sub_lower) and "equivalent" in sub_lower:
+                        m = re.search(r"(\d+\.?\d+)%", subline)
+                        if m:
+                            val = float(m.group(1))
+                            if val < 30:
+                                cash_pct = val
+
+                    # FDR (old format for cash)
+                    if sub_lower.startswith("fdr") and "%" in subline:
+                        m = re.search(r"(\d+\.?\d+)%", subline)
+                        if m:
+                            cash_pct = float(m.group(1))
+
+    # Split Debt into Debt + Cash
     if cash_pct and "Debt & Money Market" in categories:
         debt_total = categories["Debt & Money Market"]
-        categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
+        if cash_pct < debt_total:
+            categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
+            categories["Cash & Equivalents"] = cash_pct
+    elif cash_pct and "Debt & Money Market" not in categories:
         categories["Cash & Equivalents"] = cash_pct
 
-    # --- Safety net: compute Indian Equity by subtraction if missing ---
-    if "Indian Equity" not in categories:
+    # Safety net: compute Indian Equity by subtraction if missing
+    if "Indian Equity" not in categories and categories:
         other_total = sum(categories.values())
         if 0 < other_total < 100:
             categories["Indian Equity"] = round(100 - other_total, 2)
@@ -329,70 +451,194 @@ def extract_category_allocation(page3_tables: list) -> dict:
 
     if categories:
         total = sum(categories.values())
-        logger.info(f"Category allocation total: {total:.2f}% ({len(categories)} categories)")
+        logger.info(f"Category allocation total (merged): {total:.2f}% ({len(categories)} categories)")
 
     return categories
 
 
+def extract_category_from_text(page_text: str) -> dict:
+    """
+    Fallback: extract category allocation from page TEXT
+    when table-based extraction fails. Works across all factsheet eras.
+
+    Looks for patterns like:
+        Total 66.94%    (after Core Equity section → Indian Equity)
+        Total 27.97%    (after Overseas Securities section → Overseas Equity)
+        Total 5.09%     (after Debt and Money Market section → Debt)
+        Invested Total 100.00%
+        Net Assets 100.00%
+    """
+    categories = {}
+    lines = page_text.split("\n")
+
+    current_section = "Indian Equity"
+    section_map = {
+        "overseas securities": "Overseas Equity",
+        "units issued by reits": "REITs & InvITs",
+        "debt and money market": "Debt & Money Market",
+    }
+    cash_pct = None
+
+    for line in lines:
+        line_stripped = line.strip()
+        line_lower = line_stripped.lower()
+
+        # Detect section changes
+        for key, label in section_map.items():
+            if key in line_lower:
+                current_section = label
+                break
+
+        # Match "Total XX.XX%" (not "Invested Total" or "Net Assets")
+        total_match = re.match(r"^Total\s+(\d+\.?\d+)%$", line_stripped)
+        if total_match:
+            pct = float(total_match.group(1))
+            if current_section not in categories:
+                categories[current_section] = pct
+
+        # TREPS / Cash detection
+        if "treps" in line_lower or ("cash" in line_lower and "equivalent" in line_lower):
+            m = re.search(r"(\d+\.?\d+)%", line_stripped)
+            if m:
+                val = float(m.group(1))
+                if val < 30:  # sanity check
+                    cash_pct = val
+
+    # Split Debt into Debt + Cash
+    if cash_pct and "Debt & Money Market" in categories:
+        debt_total = categories["Debt & Money Market"]
+        if cash_pct < debt_total:
+            categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
+            categories["Cash & Equivalents"] = cash_pct
+
+    # For very old formats: "Cash and Cash Equivalent X.XX%"  "Net Assets 100.00%"
+    if not categories:
+        for line in lines:
+            m = re.match(r"^Cash and Cash Equivalent\s+(\d+\.?\d+)%$", line.strip())
+            if m:
+                cash_pct = float(m.group(1))
+                categories["Cash & Equivalents"] = cash_pct
+
+    # Safety net: compute Indian Equity by subtraction if missing
+    if categories and "Indian Equity" not in categories:
+        other_total = sum(categories.values())
+        if 0 < other_total < 100:
+            categories["Indian Equity"] = round(100 - other_total, 2)
+
+    return categories
+
+
+def _is_ppfas_fund_page(text_lower: str) -> bool:
+    """Check if a page belongs to the PPFAS flagship equity fund (any era)."""
+    fund_names = [
+        "flexi cap",
+        "long term value",
+        "long term equity",
+        "pltvf",
+        "pltef",
+        "ppfcf",
+        "ppfas long term",
+    ]
+    return any(name in text_lower for name in fund_names)
+
+
 def parse_factsheet(pdf_path: str) -> dict:
     """
-    Parse a PPFAS factsheet PDF and extract Flexi Cap Fund data.
-    Dynamically finds the Flexi Cap pages (PDF layout varies month to month).
+    Parse a PPFAS factsheet PDF and extract fund data.
+    Dynamically finds pages across ALL fund name eras:
+      - 2013-2019: "PPFAS Long Term Value Fund" / "PLTVF"
+      - 2019-2020: "Parag Parikh Long Term Equity Fund" / "PLTEF"
+      - 2021+:     "Parag Parikh Flexi Cap Fund" / "PPFCF"
     """
     logger.info(f"Parsing factsheet: {pdf_path}")
 
     with pdfplumber.open(pdf_path) as pdf:
         total_pages = len(pdf.pages)
-        logger.info(f"PDF has {total_pages} pages. Scanning for Flexi Cap Fund pages...")
+        logger.info(f"PDF has {total_pages} pages. Scanning for fund pages...")
 
-        # ── Find the Flexi Cap Fund pages dynamically ──
-        # Strategy: scan for pages containing "Flexi Cap" AND "Industry Allocation"
-        # or "Portfolio Disclosure".  The fund data typically spans 2-3 consecutive pages.
-        flexi_info_page = None   # page with AUM + Industry Allocation sidebar
-        flexi_portfolio_page = None  # page with Portfolio Disclosure / category table
+        # ── Find the fund pages dynamically ──
+        # The "info" page has Industry/Sectoral Allocation + AUM
+        # The "portfolio" page has Portfolio Disclosure / category tables
+        fund_info_page = None
+        fund_portfolio_page = None
 
         for i, page in enumerate(pdf.pages):
             text = page.extract_text() or ""
             text_lower = text.lower()
 
-            # Skip if not a Flexi Cap page
-            if "flexi cap" not in text_lower:
+            # Skip if not a PPFAS fund page
+            if not _is_ppfas_fund_page(text_lower):
                 continue
 
-            # The "info" page has Industry Allocation (sector data) + AUM
-            if "industry allocation" in text_lower and flexi_info_page is None:
-                flexi_info_page = i
-                logger.info(f"Found Flexi Cap info page (Industry Allocation): page {i+1}")
+            # The "info" page has Industry Allocation or Sectoral Allocation
+            has_sectors = ("industry allocation" in text_lower or
+                          "sectoral allocation" in text_lower)
+            if has_sectors and fund_info_page is None:
+                fund_info_page = i
+                logger.info(f"Found fund info page (sector allocation): page {i+1}")
 
             # The "portfolio" page has detailed holdings + category totals
-            if "portfolio disclosure" in text_lower and flexi_portfolio_page is None:
-                flexi_portfolio_page = i
-                logger.info(f"Found Flexi Cap portfolio page: page {i+1}")
+            if "portfolio disclosure" in text_lower and fund_portfolio_page is None:
+                fund_portfolio_page = i
+                logger.info(f"Found fund portfolio page: page {i+1}")
 
-            # Stop once we hit a different fund (e.g., ELSS Tax Saver)
-            if flexi_info_page is not None and "elss" in text_lower:
-                break
+            # Stop once we hit a different fund (e.g., ELSS, Liquid, Tax Saver)
+            if fund_info_page is not None:
+                other_funds = ["elss", "tax saver", "liquid fund"]
+                if any(of in text_lower for of in other_funds):
+                    # Only break if this page is NOT our info/portfolio page
+                    if i != fund_info_page and i != fund_portfolio_page:
+                        break
 
-        # Fallback to legacy positions (pages 2-3, 0-indexed 1-2) if scan fails
-        if flexi_info_page is None:
-            flexi_info_page = 1
-            logger.warning("Could not find Flexi Cap info page; falling back to page 2")
-        if flexi_portfolio_page is None:
-            flexi_portfolio_page = flexi_info_page + 1
-            logger.warning(f"Could not find Flexi Cap portfolio page; using page {flexi_portfolio_page + 1}")
+        # Fallback to page 2 if scan fails
+        if fund_info_page is None:
+            fund_info_page = min(1, total_pages - 1)
+            logger.warning("Could not find fund info page; falling back to page 2")
+        if fund_portfolio_page is None:
+            # In many eras, info and portfolio are on the SAME page
+            fund_portfolio_page = fund_info_page
+            logger.info(f"Portfolio page same as info page: page {fund_portfolio_page + 1}")
 
         # Extract from identified pages
-        info_text = pdf.pages[flexi_info_page].extract_text() or ""
-        info_tables = pdf.pages[flexi_info_page].extract_tables() or []
-        portfolio_tables = pdf.pages[flexi_portfolio_page].extract_tables() or []
+        info_page = pdf.pages[fund_info_page]
+        info_text = info_page.extract_text() or ""
+        info_tables = info_page.extract_tables() or []
 
-        pages_desc = f"pages {flexi_info_page+1}-{flexi_portfolio_page+1} (Flexi Cap Fund)"
+        # Collect portfolio tables from all fund pages (info page + portfolio page)
+        all_portfolio_tables = []
+        pages_to_scan = sorted(set([fund_info_page, fund_portfolio_page]))
+        for pi in pages_to_scan:
+            tables = pdf.pages[pi].extract_tables() or []
+            all_portfolio_tables.extend(tables)
+
+        portfolio_text = ""
+        for pi in pages_to_scan:
+            portfolio_text += (pdf.pages[pi].extract_text() or "") + "\n"
+
+        pages_desc = f"pages {fund_info_page+1}-{fund_portfolio_page+1}"
+
+    # Extract sectors
+    sector_allocation = extract_sector_allocation(info_text)
+
+    # Extract categories: try table-based first, then text-based fallback
+    category_allocation = extract_category_allocation(all_portfolio_tables)
+
+    # If table-based is incomplete (< 2 real categories or total < 95%), try text fallback
+    cat_total = sum(category_allocation.values()) if category_allocation else 0
+    if not category_allocation or cat_total < 95:
+        logger.info(f"Table-based categories incomplete (total={cat_total:.1f}%), trying text-based...")
+        text_categories = extract_category_from_text(portfolio_text)
+        text_total = sum(text_categories.values()) if text_categories else 0
+        # Use whichever result is more complete
+        if text_total > cat_total:
+            category_allocation = text_categories
+            logger.info(f"Using text-based categories (total={text_total:.1f}%)")
 
     result = {
         "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
         "aum": extract_aum(info_tables),
-        "sector_allocation": extract_sector_allocation(info_text),
-        "category_allocation": extract_category_allocation(portfolio_tables),
+        "sector_allocation": sector_allocation,
+        "category_allocation": category_allocation,
         "extraction_date": datetime.now().strftime("%Y-%m-%d"),
         "pages_parsed": pages_desc,
     }

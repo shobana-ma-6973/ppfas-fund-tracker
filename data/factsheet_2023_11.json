@@ -1,0 +1,32 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "N/A",
+  "sector_allocation": {
+    "Banks": 18.99,
+    "Cash & Cash Equivalent": 13.7,
+    "Internet and Technology": 12.41,
+    "Capital Markets": 7.84,
+    "Finance": 6.98,
+    "IT - Software": 6.83,
+    "Diversified FMCG": 5.48,
+    "Automobiles": 4.98,
+    "Consumable Fuels": 4.91,
+    "Power": 4.9,
+    "Pharmaceuticals & Biotechnology": 3.76,
+    "Consumer Services": 3.43,
+    "Auto Components": 2.23,
+    "Minerals & Mining": 1.97,
+    "Arbitrage/Special Situation": 1.03,
+    "Debt and Money Market Instruments": 0.31,
+    "Ferrous Metals": 0.25
+  },
+  "category_allocation": {
+    "Indian Equity": 69.12,
+    "Overseas Equity": 15.84,
+    "Debt & Money Market": 0.25
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "pages 3-2 (Flexi Cap Fund)",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2023/ppfas-mf-factsheet-for-november-2023.pdf",
+  "factsheet_month": "November 2023"
+}

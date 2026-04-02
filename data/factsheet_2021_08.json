@@ -1,0 +1,18 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "\u20b914,590.35 Cr",
+  "sector_allocation": {
+    "Total": 65.59,
+    "India Energy Exchange Ltd Capital Markets": 5.1,
+    "Pharmaceuticals TREPS Including Cash & Cash Equivalent and Net Current Asset": 4.62,
+    "FDR": 0.44
+  },
+  "category_allocation": {
+    "Indian Equity": 65.59,
+    "Overseas Equity": 29.35
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "pages 2-2 (Flexi Cap Fund)",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2021/ppfas-mf-factsheet-august-2021.pdf",
+  "factsheet_month": "August 2021"
+}

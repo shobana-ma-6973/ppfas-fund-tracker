@@ -1,0 +1,3854 @@
+{
+  "generated": "2026-04-02 23:07:38",
+  "total_months": 143,
+  "date_range": {
+    "start": "2013-06-01",
+    "end": "2026-02-01"
+  },
+  "quality_summary": {
+    "good": 53,
+    "approximate": 11,
+    "incomplete": 74,
+    "overcounted": 5
+  },
+  "records": [
+    {
+      "date": "2013-06-01",
+      "year": 2013,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 66.0,
+        "Overseas Equity": 14.2
+      },
+      "category_total": 80.2,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9152.45 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2013-07-01",
+      "year": 2013,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 69.44,
+        "Overseas Equity": 14.39
+      },
+      "category_total": 83.83,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9225.42 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2013-08-01",
+      "year": 2013,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 65.85,
+        "Overseas Equity": 21.21
+      },
+      "category_total": 87.06,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9255.26 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2013-09-01",
+      "year": 2013,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 66.04,
+        "Overseas Equity": 20.48
+      },
+      "category_total": 86.52,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9273.90 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2013-10-01",
+      "year": 2013,
+      "month": 10,
+      "categories": {
+        "Overseas Equity": 19.22,
+        "Indian Equity": 80.78
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9302.68 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2013-11-01",
+      "year": 2013,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 65.63
+      },
+      "category_total": 65.63,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9310.61 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2013-12-01",
+      "year": 2013,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 66.2
+      },
+      "category_total": 66.2,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9323.14 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2014-01-01",
+      "year": 2014,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 65.57
+      },
+      "category_total": 65.57,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9312.75 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2014-02-01",
+      "year": 2014,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 67.82
+      },
+      "category_total": 67.82,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9332.37 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2014-03-01",
+      "year": 2014,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 66.46
+      },
+      "category_total": 66.46,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9351.22 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2014-04-01",
+      "year": 2014,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 63.99,
+        "Debt & Money Market": 98.6
+      },
+      "category_total": 162.59,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9384.46 Cr",
+      "quality": "overcounted"
+    },
+    {
+      "date": "2014-05-01",
+      "year": 2014,
+      "month": 5,
+      "categories": {
+        "Debt & Money Market": 96.63,
+        "Indian Equity": 3.37
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9426.03 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2014-06-01",
+      "year": 2014,
+      "month": 6,
+      "categories": {
+        "Overseas Equity": 21.03,
+        "Indian Equity": 78.97
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9451.86 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2014-07-01",
+      "year": 2014,
+      "month": 7,
+      "categories": {
+        "Overseas Equity": 68.25,
+        "Indian Equity": 31.75
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9472.99 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2014-08-01",
+      "year": 2014,
+      "month": 8,
+      "categories": {
+        "Overseas Equity": 66.14,
+        "Indian Equity": 33.86
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9475.72 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2014-10-01",
+      "year": 2014,
+      "month": 10,
+      "categories": {
+        "Overseas Equity": 65.99,
+        "Indian Equity": 34.01
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9501.43 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2014-11-01",
+      "year": 2014,
+      "month": 11,
+      "categories": {
+        "Debt & Money Market": 98.39,
+        "Indian Equity": 1.61
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9528.04 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2014-12-01",
+      "year": 2014,
+      "month": 12,
+      "categories": {
+        "Debt & Money Market": 68.44,
+        "Overseas Equity": 25.32,
+        "Cash & Equivalents": 1.66,
+        "Indian Equity": 4.58
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9563.49 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2015-01-01",
+      "year": 2015,
+      "month": 1,
+      "categories": {
+        "Debt & Money Market": 66.28,
+        "Overseas Equity": 24.68,
+        "Cash & Equivalents": 1.11,
+        "Indian Equity": 7.93
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9575.49 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2015-02-01",
+      "year": 2015,
+      "month": 2,
+      "categories": {
+        "Debt & Money Market": 64.71,
+        "Cash & Equivalents": 1.76,
+        "Indian Equity": 33.53
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9588.47 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2015-03-01",
+      "year": 2015,
+      "month": 3,
+      "categories": {
+        "Debt & Money Market": 66.3,
+        "Overseas Equity": 25.97,
+        "Cash & Equivalents": 2.02,
+        "Indian Equity": 5.71
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9571.87 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2015-04-01",
+      "year": 2015,
+      "month": 4,
+      "categories": {
+        "Debt & Money Market": 64.3,
+        "Overseas Equity": 25.62,
+        "Cash & Equivalents": 2.0,
+        "Indian Equity": 8.08
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9595.52 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2015-05-01",
+      "year": 2015,
+      "month": 5,
+      "categories": {
+        "Overseas Equity": 25.26,
+        "Indian Equity": 74.74
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9602.71 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2015-06-01",
+      "year": 2015,
+      "month": 6,
+      "categories": {
+        "Debt & Money Market": 64.3,
+        "Cash & Equivalents": 2.12,
+        "Indian Equity": 33.58
+      },
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b9592.61 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2015-07-01",
+      "year": 2015,
+      "month": 7,
+      "categories": {
+        "Cash & Equivalents": 1.53,
+        "Indian Equity": 98.47
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 14.42,
+        "Internet & Technology": 10.98,
+        "Google - C Class Internet & Technology": 10.98,
+        "Finance": 10.51,
+        "Gas": 6.41,
+        "Software": 6.05,
+        "Consumer Non durables": 5.19,
+        "Logistics": 4.21,
+        "IL&FS Investment Managers Finance": 4.06,
+        "Transportation": 3.56,
+        "Packaged Foods": 2.91,
+        "Hotels": 2.69,
+        "Brewers": 1.04,
+        "Oil": 0.76
+      },
+      "sector_count": 14,
+      "aum": "N/A",
+      "quality": "good"
+    },
+    {
+      "date": "2015-08-01",
+      "year": 2015,
+      "month": 8,
+      "categories": {
+        "Debt & Money Market": 64.69,
+        "Overseas Equity": 27.03,
+        "Cash & Equivalents": 1.0,
+        "Indian Equity": 7.28
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 13.29,
+        "Internet & Technology": 11.62,
+        "Finance": 9.22,
+        "Gas": 6.53,
+        "Software": 6.42,
+        "Debt and Money Market Instruments": 6.28,
+        "Consumer Non durables": 5.22,
+        "Logistics": 4.35,
+        "Transportation": 3.52,
+        "IT Consulting & Other Services": 3.43,
+        "IL&FS Investment Managers Finance": 3.19,
+        "Packaged Foods": 3.03,
+        "Hotels": 2.88,
+        "Industrial Conglomerates": 2.84,
+        "Balkrishna Industries Auto Ancillaries": 2.46,
+        "FDR": 1.01,
+        "Diversified Consumer Services": 0.41
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "good"
+    },
+    {
+      "date": "2015-09-01",
+      "year": 2015,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 65.75
+      },
+      "category_total": 65.75,
+      "sectors": {
+        "Banks": 13.26,
+        "Finance": 9.6,
+        "Debt and Money Market Instruments": 6.26,
+        "Software": 6.24,
+        "Gas": 5.5,
+        "CBLO": 5.25,
+        "Logistics": 4.34,
+        "Pharmaceuticals": 3.9,
+        "Selan Exploration Technology Transportation": 3.66,
+        "IL&FS Investment Managers Finance": 3.4,
+        "Diversified Consumer IT Consulting & Other Services": 3.32,
+        "Hotels": 2.93,
+        "Industrial Conglomerates": 2.8,
+        "Balkrishna Industries Auto Ancillaries": 2.61,
+        "FDR": 1.01,
+        "Brewers": 0.96,
+        "Oil": 0.61
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2015-10-01",
+      "year": 2015,
+      "month": 10,
+      "categories": {
+        "Debt & Money Market": 64.06,
+        "Cash & Equivalents": 1.09,
+        "Indian Equity": 34.85
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 12.46,
+        "Internet & Technology": 12.3,
+        "Auto Ancillaries": 10.45,
+        "Mahindra Holidays & Resorts Debt and Money Market Instruments": 6.69,
+        "Arbitrage/Special situation": 6.13,
+        "CBLO": 5.74,
+        "Gas": 5.37,
+        "Logistics": 4.25,
+        "Hotels": 3.55,
+        "Selan Exploration Technology Hotels": 3.55,
+        "Diversified Consumer Transportation": 3.45,
+        "IL&FS Investment Managers Finance": 3.23,
+        "Arbitrage IT Consulting & Other Services": 3.04,
+        "Packaged Foods": 2.94,
+        "Industrial Conglomerates": 2.89,
+        "Balkrishna Industries Auto Ancillaries": 2.37,
+        "Brewers": 1.01,
+        "FDR": 0.95,
+        "Oil": 0.64
+      },
+      "sector_count": 19,
+      "aum": "N/A",
+      "quality": "good"
+    },
+    {
+      "date": "2015-11-01",
+      "year": 2015,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 65.8
+      },
+      "category_total": 65.8,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 65.8,
+        "Internet & Technology": 12.7,
+        "Auto Ancillaries": 11.22,
+        "Finance": 9.17,
+        "India Ltd Debt and Money Market Instruments": 6.57,
+        "ICRA Ltd Finance": 5.98,
+        "CBLO": 5.65,
+        "Gas": 5.24,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.72,
+        "Consumer Non durables": 4.72,
+        "Axis Bank Banks": 4.15,
+        "Persistent Systems Ltd Software": 3.84,
+        "Hotels, Resorts": 3.79,
+        "Hotels": 3.79,
+        "Noida Toll Bridge Co Ltd Transportation": 3.35,
+        "Services Transportation": 3.35,
+        "IL&FS Investment Managers Finance": 3.19,
+        "Industrial Conglomerates": 2.86,
+        "Packaged Foods": 2.8,
+        "Mphasis Ltd Software": 2.77,
+        "Gujarat Gas Ltd Gas": 2.63,
+        "Indraprastha Gas Ltd Gas": 2.61,
+        "IPCA Laboratories Ltd Pharmaceuticals": 2.24,
+        "Pfizer Ltd Pharmaceuticals": 1.27,
+        "Brewers": 1.1,
+        "FDR": 0.92,
+        "Oil": 0.61,
+        "MT Educare Ltd": 0.39,
+        "Diversified Consumer Services": 0.39,
+        "Standard Chartered PLC IDR Banks": 0.21,
+        "Standard Chartered PLC Banks": 0.2
+      },
+      "sector_count": 32,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2015-12-01",
+      "year": 2015,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 65.64
+      },
+      "category_total": 65.64,
+      "sectors": {
+        "Total": 65.64,
+        "Internet & Technology": 13.13,
+        "Banks": 11.65,
+        "Finance": 9.45,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 8.48,
+        "Gas": 5.8,
+        "Debt and Money Market Instruments": 5.33,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.95,
+        "Arbitrage/Special situation": 4.59,
+        "Persistent Systems Ltd Software": 4.26,
+        "Axis Bank Banks": 4.03,
+        "Logistics": 3.95,
+        "ICICI Bank Ltd Banks": 3.75,
+        "HDFC Bank Banks": 3.38,
+        "Transportation": 3.37,
+        "Selan Exploration Technology Pharmaceuticals": 3.36,
+        "IL&FS Investment Managers Finance": 3.35,
+        "Diversified Consumer IT Consulting & Other Services": 2.99,
+        "Indraprastha Gas Ltd Gas": 2.9,
+        "Arbitrage Packaged Foods": 2.88,
+        "Mphasis Ltd Software": 2.81,
+        "Industrial Conglomerates": 2.76,
+        "Balkrishna Industries Auto Ancillaries": 2.3,
+        "IPCA Laboratories Ltd Pharmaceuticals": 2.13,
+        "Cash & Cash Equivalent": 1.75,
+        "Cash and Cash Equivalent": 1.75,
+        "Pfizer Ltd Pharmaceuticals": 1.23,
+        "Brewers": 1.08,
+        "Oil": 0.53,
+        "MT Educare Ltd": 0.51
+      },
+      "sector_count": 30,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-01-01",
+      "year": 2016,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 65.96
+      },
+      "category_total": 65.96,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 98.36,
+        "Total": 27.55,
+        "Internet & Technology": 13.39,
+        "Banks": 11.88,
+        "Consumer Non Finance": 8.88,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 7.72,
+        "Arbitrage/Special situation": 6.42,
+        "Gas": 6.0,
+        "Debt and Money Market Instruments": 4.85,
+        "Persistent Systems Ltd Software": 4.63,
+        "Zydus Wellness Ltd": 4.52,
+        "Logistics": 3.99,
+        "CBLO": 3.88,
+        "ICICI Bank Ltd Banks": 3.85,
+        "Hotels": 3.73,
+        "HDFC Bank Banks": 3.44,
+        "Noida Toll Bridge Co Ltd Transportation": 3.36,
+        "Transportation": 3.36,
+        "IL&FS Investment Managers Finance": 3.33,
+        "Industrial Conglomerates": 2.89,
+        "Gujarat Gas Ltd Gas": 2.78,
+        "Mphasis Ltd Software": 2.7,
+        "IPCA Laboratories Ltd Pharmaceuticals": 2.03,
+        "Cash & Cash Equivalent": 1.64,
+        "Pfizer Ltd Pharmaceuticals": 1.22,
+        "Brewers": 1.12,
+        "Oil": 0.53,
+        "Diversified Consumer Services": 0.48,
+        "Standard Chartered PLC Banks": 0.23,
+        "Standard Chartered PLC IDR Banks": 0.18
+      },
+      "sector_count": 31,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-02-01",
+      "year": 2016,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 65.62
+      },
+      "category_total": 65.62,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 97.73,
+        "Total": 65.62,
+        "Internet & Technology": 13.62,
+        "Assets Banks": 11.83,
+        "Auto Ancillaries": 9.7,
+        "Arbitrage/Special Situation": 8.54,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 7.48,
+        "Software": 7.05,
+        "ICRA Ltd Finance": 5.59,
+        "Logistics": 4.5,
+        "HDFC Bank Banks": 4.11,
+        "Zydus Wellness Ltd": 4.08,
+        "Consumer Non durables": 4.08,
+        "Axis Bank Banks": 4.01,
+        "ICICI Bank Ltd Banks": 3.32,
+        "Noida Toll Bridge Co Ltd Transportation": 3.31,
+        "Transportation": 3.31,
+        "IT Consulting & Other Services": 3.21,
+        "Indraprastha Gas Ltd Gas": 3.06,
+        "Mphasis Ltd Software": 2.6,
+        "Gujarat Gas Ltd Gas": 2.45,
+        "Cash & Cash Equivalent": 2.27,
+        "Cash and Cash Equivalent": 2.27,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.99,
+        "Pfizer Ltd Pharmaceuticals": 1.05,
+        "Oil": 0.44,
+        "Diversified Consumer Services": 0.42,
+        "Standard Chartered PLC IDR Banks": 0.17
+      },
+      "sector_count": 29,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-03-01",
+      "year": 2016,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 65.29
+      },
+      "category_total": 65.29,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 97.99,
+        "Total": 27.39,
+        "Internet & Technology": 12.68,
+        "Assets Banks": 12.67,
+        "Auto Ancillaries": 9.53,
+        "Consumer Arbitrage/Special Situation": 7.7,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 7.31,
+        "Gas": 5.63,
+        "ICRA Ltd Finance": 5.29,
+        "Logistics": 4.27,
+        "HDFC Bank Banks": 4.25,
+        "Zydus Wellness Ltd": 4.17,
+        "Consumer Non durables": 4.17,
+        "ICICI Bank Ltd Banks": 3.75,
+        "Indraprastha Gas Ltd Gas": 3.09,
+        "Noida Toll Bridge Co Ltd Transportation": 3.01,
+        "Industrial Conglomerates": 3.01,
+        "IL&FS Investment Managers Finance": 2.8,
+        "Balkrishna Industries Auto Ancillaries": 2.22,
+        "Cash & Cash Equivalent": 2.01,
+        "Cash and Cash Equivalent": 2.01,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.85,
+        "Oil": 0.44,
+        "FDR": 0.3,
+        "Standard Chartered PLC IDR Banks": 0.16
+      },
+      "sector_count": 26,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-04-01",
+      "year": 2016,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 65.85
+      },
+      "category_total": 65.85,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 25.91,
+        "Banks": 13.02,
+        "Internet & Technology": 11.46,
+        "Finance": 8.65,
+        "Arbitrage/Special Situation": 7.78,
+        "Software": 7.49,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 7.4,
+        "CBLO": 6.21,
+        "Gas": 5.46,
+        "Persistent Systems Ltd Software": 4.81,
+        "Axis Bank Banks": 4.47,
+        "HDFC Bank Banks": 4.41,
+        "Zydus Wellness Ltd": 4.19,
+        "Consumer Non durables": 4.19,
+        "ICICI Bank Ltd Banks": 3.67,
+        "Hotels": 3.45,
+        "IL&FS Investment Managers Finance": 3.14,
+        "Indraprastha Gas Ltd Gas": 3.05,
+        "Noida Toll Bridge Co Ltd Transportation": 2.98,
+        "Diversified Consumer Transportation": 2.98,
+        "Arbitrage Industrial Conglomerates": 2.96,
+        "Packaged Foods": 2.75,
+        "Mphasis Ltd Software": 2.68,
+        "Balkrishna Industries Auto Ancillaries": 2.3,
+        "Cash & Cash Equivalent": 1.88,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.77,
+        "Brewers": 1.04,
+        "Selan Exploration Technology Ltd Oil": 0.5,
+        "Overseas Securities, IDRS and ADRs Oil": 0.5,
+        "Standard Chartered PLC Banks": 0.47,
+        "MT Educare Ltd": 0.45,
+        "Diversified Consumer Services": 0.45,
+        "FDR": 0.15
+      },
+      "sector_count": 34,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-05-01",
+      "year": 2016,
+      "month": 5,
+      "categories": {
+        "Indian Equity": 66.27
+      },
+      "category_total": 66.27,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 66.27,
+        "Banks": 13.3,
+        "Internet & Technology": 12.14,
+        "Auto Ancillaries": 9.58,
+        "Finance": 8.16,
+        "Software": 7.42,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 7.35,
+        "ICRA Ltd Finance": 5.59,
+        "Gas": 5.17,
+        "Axis Bank Banks": 4.73,
+        "HDFC Bank Banks": 4.46,
+        "Zydus Wellness Ltd": 4.2,
+        "Consumer Non durables": 4.2,
+        "ICICI Bank Ltd Banks": 3.67,
+        "CBLO": 3.54,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.48,
+        "Hotels": 3.48,
+        "Services Industrial Conglomerates": 2.95,
+        "Noida Toll Bridge Co Ltd Transportation": 2.94,
+        "Transportation": 2.94,
+        "Mphasis Ltd Software": 2.79,
+        "Packaged Foods": 2.73,
+        "IL&FS Investment Managers Finance": 2.57,
+        "Pharmaceuticals": 2.42,
+        "Cash and Cash Equivalent": 2.42,
+        "Balkrishna Industries Auto Ancillaries": 2.23,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.49,
+        "FDR": 1.32,
+        "MT Educare Ltd": 0.48,
+        "Diversified Consumer Services": 0.48,
+        "Selan Exploration Technology Ltd Oil": 0.46,
+        "Standard Chartered PLC Banks": 0.44
+      },
+      "sector_count": 33,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-06-01",
+      "year": 2016,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 65.7
+      },
+      "category_total": 65.7,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 28.31,
+        "Banks": 14.1,
+        "Internet & Technology": 13.05,
+        "Auto Ancillaries": 10.39,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 8.04,
+        "Software": 7.85,
+        "HDFC Bank Banks": 6.7,
+        "Gas": 5.99,
+        "Persistent Systems Ltd Software": 4.63,
+        "Zydus Wellness Ltd": 4.57,
+        "Logistics": 4.39,
+        "Axis Bank Banks": 4.16,
+        "Hotels": 3.67,
+        "Indraprastha Gas Ltd Gas": 3.42,
+        "IT Consulting & Other Services": 3.24,
+        "Mphasis Ltd Software": 3.22,
+        "Transportation": 3.17,
+        "Industrial Conglomerates": 3.17,
+        "IL&FS Investment Managers Finance": 2.98,
+        "ICICI Bank Ltd Banks": 2.8,
+        "Cash & Cash Equivalent": 2.78,
+        "Cash and Cash Equivalent": 2.78,
+        "Pharmaceuticals": 2.76,
+        "Gujarat Gas Ltd Gas": 2.57,
+        "CBLO": 1.82,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.78,
+        "FDR": 1.39,
+        "Pfizer Ltd Pharmaceuticals": 0.98,
+        "Selan Exploration Technology Ltd Oil": 0.51,
+        "Oil": 0.51,
+        "Diversified Consumer Services": 0.47
+      },
+      "sector_count": 32,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-07-01",
+      "year": 2016,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 65.84
+      },
+      "category_total": 65.84,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 96.08,
+        "Total": 28.07,
+        "Banks": 14.53,
+        "Internet & Technology": 12.67,
+        "Auto Ancillaries": 11.92,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 9.4,
+        "Finance": 7.72,
+        "HDFC Bank Banks": 6.93,
+        "Gas": 6.11,
+        "ICRA Ltd Finance": 4.87,
+        "Persistent Systems Ltd Software": 4.44,
+        "Logistics": 4.35,
+        "Axis Bank Banks": 4.15,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.8,
+        "Hotels": 3.8,
+        "Arbitrage/Special Situation": 3.51,
+        "IT Consulting & Other Services": 3.4,
+        "Industrial Conglomerates": 3.19,
+        "Noida Toll Bridge Co Ltd Transportation": 3.1,
+        "Transportation": 3.1,
+        "ICICI Bank Ltd Banks": 2.99,
+        "IL&FS Investment Managers Finance": 2.85,
+        "Pharmaceuticals": 2.85,
+        "Gujarat Gas Ltd Gas": 2.66,
+        "Balkrishna Industries Auto Ancillaries": 2.52,
+        "Debt and Money Market Instruments": 2.17,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.84,
+        "FDR": 1.36,
+        "Brewers": 1.06,
+        "Pfizer Ltd Pharmaceuticals": 1.01,
+        "CBLO": 0.81,
+        "Selan Exploration Technology Ltd Oil": 0.51,
+        "Services Oil": 0.51,
+        "Standard Chartered PLC Banks": 0.46,
+        "MT Educare Ltd": 0.42,
+        "Diversified Consumer Services": 0.42
+      },
+      "sector_count": 37,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-08-01",
+      "year": 2016,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 66.3
+      },
+      "category_total": 66.3,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 97.84,
+        "Total": 66.3,
+        "Core Equity Banks": 14.61,
+        "Internet & Technology": 12.61,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 8.76,
+        "Consumer Non Software": 7.35,
+        "Gas": 6.89,
+        "ICRA Ltd Finance": 4.92,
+        "Zydus Wellness Ltd": 4.75,
+        "Consumer Non durables": 4.75,
+        "Persistent Systems Ltd Software": 4.35,
+        "Indraprastha Gas Ltd Gas": 4.12,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 4.08,
+        "Hotels": 4.08,
+        "Arbitrage/Special Situation": 3.55,
+        "IT Consulting & Other Services": 3.25,
+        "Mphasis Ltd Software": 3.0,
+        "Noida Toll Bridge Co Ltd Transportation": 2.89,
+        "Transportation": 2.89,
+        "ICICI Bank Ltd Banks": 2.83,
+        "Pharmaceuticals": 2.83,
+        "CBLO": 2.69,
+        "IL&FS Investment Managers Finance": 2.37,
+        "Cash & Cash Equivalent": 2.16,
+        "Cash and Cash Equivalent": 2.16,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.86,
+        "FDR": 1.31,
+        "IT Consulting & Other Brewers": 1.02,
+        "Pfizer Ltd Pharmaceuticals": 0.97,
+        "Selan Exploration Technology Ltd Oil": 0.48,
+        "Standard Chartered PLC Banks": 0.46,
+        "Diversified Consumer Services": 0.35
+      },
+      "sector_count": 33,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-09-01",
+      "year": 2016,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 65.69
+      },
+      "category_total": 65.69,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 97.09,
+        "Total": 65.69,
+        "Banks": 14.28,
+        "Internet & Technology": 12.91,
+        "Auto Ancillaries": 11.73,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 8.29,
+        "Finance": 7.31,
+        "HDFC Bank Banks": 6.95,
+        "Gas": 6.61,
+        "ICRA Ltd Finance": 5.07,
+        "Consumer Non durables": 4.89,
+        "Persistent Systems Ltd Software": 4.55,
+        "Indraprastha Gas Ltd Gas": 4.07,
+        "Axis Bank Banks": 4.05,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.79,
+        "Hotels": 3.79,
+        "Debt and Money Market Instruments": 3.5,
+        "Balkrishna Industries Auto Ancillaries": 3.44,
+        "IT Consulting & Other Services": 3.26,
+        "Pharmaceuticals": 3.05,
+        "Packaged Foods": 2.9,
+        "ICICI Bank Ltd Banks": 2.82,
+        "Mphasis Ltd Software": 2.79,
+        "IL&FS Investment Managers Finance": 2.24,
+        "CBLO": 2.17,
+        "IPCA Laboratories Ltd Pharmaceuticals": 2.1,
+        "FDR": 1.33,
+        "IT Consulting & Other Brewers": 1.07,
+        "Pfizer Ltd Pharmaceuticals": 0.95,
+        "Standard Chartered PLC Banks": 0.46,
+        "Selan Exploration Technology Ltd Oil": 0.44,
+        "Diversified Consumer Services": 0.34
+      },
+      "sector_count": 33,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2016-10-01",
+      "year": 2016,
+      "month": 10,
+      "categories": {
+        "Overseas Equity": 27.14,
+        "Debt & Money Market": 91.98,
+        "Cash & Equivalents": 4.01
+      },
+      "category_total": 123.13,
+      "sectors": {
+        "Banks": 13.77,
+        "Auto Ancillaries": 7.53,
+        "Software": 7.18,
+        "Consumer Non durables": 4.7,
+        "Arbitrage/Special Situation": 4.36,
+        "Hotels": 3.7,
+        "Balkrishna Industries Auto Ancillaries": 3.52,
+        "IT Consulting & Other Services": 3.1,
+        "Pharmaceuticals": 2.98,
+        "CBLO": 2.03,
+        "IL&FS Investment Managers Finance": 2.02,
+        "FDR": 1.3,
+        "Brewers": 0.98,
+        "Diversified Consumer Services": 0.36
+      },
+      "sector_count": 14,
+      "aum": "N/A",
+      "quality": "overcounted"
+    },
+    {
+      "date": "2016-11-01",
+      "year": 2016,
+      "month": 11,
+      "categories": {
+        "Overseas Equity": 28.57,
+        "Debt & Money Market": 97.12,
+        "Cash & Equivalents": 1.44
+      },
+      "category_total": 127.13,
+      "sectors": {
+        "Banks": 13.49,
+        "Internet & Technology": 13.2,
+        "Gas": 6.76,
+        "Auto Ancillaries": 6.36,
+        "Logistics": 4.67,
+        "Hotels": 3.4,
+        "IL&FS Investment Managers Finance": 1.9,
+        "FDR": 1.33,
+        "Brewers": 0.88,
+        "Oil": 0.31
+      },
+      "sector_count": 10,
+      "aum": "N/A",
+      "quality": "overcounted"
+    },
+    {
+      "date": "2016-12-01",
+      "year": 2016,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 65.69
+      },
+      "category_total": 65.69,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 65.69,
+        "Internet & Technology": 13.64,
+        "Software": 8.17,
+        "Gas": 7.27,
+        "Bajaj Holdings & Investment Ltd Finance": 6.62,
+        "Auto Ancillaries": 6.43,
+        "Persistent Systems Ltd Software": 5.06,
+        "Indraprastha Gas Ltd Gas": 4.91,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.87,
+        "Consumer Non durables": 4.87,
+        "Balkrishna Industries Auto Ancillaries": 3.82,
+        "IT Consulting & Other Services": 3.58,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.46,
+        "Hotels": 3.46,
+        "Axis Bank Banks": 3.44,
+        "Mphasis Ltd Software": 3.11,
+        "Overseas Securities, IDRS and ADRs Packaged Foods": 2.99,
+        "ICICI Bank Ltd Banks": 2.92,
+        "Gujarat Gas Ltd Gas": 2.36,
+        "CBLO": 2.34,
+        "FDR": 1.37,
+        "Pfizer Ltd Pharmaceuticals": 0.93,
+        "Brewers": 0.9,
+        "Standard Chartered PLC Banks": 0.47,
+        "Diversified Consumer Services": 0.32
+      },
+      "sector_count": 26,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-01-01",
+      "year": 2017,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 65.42
+      },
+      "category_total": 65.42,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 31.19,
+        "Banks": 14.83,
+        "Internet & Technology": 14.44,
+        "Software": 8.2,
+        "Gas": 7.84,
+        "Bajaj Holdings & Investment Ltd Finance": 7.5,
+        "HDFC Bank Banks": 7.41,
+        "Indraprastha Gas Ltd Gas": 5.18,
+        "Persistent Systems Ltd Software": 5.03,
+        "Zydus Wellness Ltd Consumer Non Durables": 5.03,
+        "Logistics": 4.92,
+        "Pharmaceuticals": 4.8,
+        "Balkrishna Industries Auto Ancillaries": 4.01,
+        "Hotels": 3.75,
+        "Axis Bank Banks": 3.68,
+        "Debt and Money Market Instruments": 3.39,
+        "Industrial Conglomerates": 3.3,
+        "ICICI Bank Ltd Banks": 3.17,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 2.78,
+        "Gujarat Gas Ltd Gas": 2.66,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.98,
+        "FDR": 1.41,
+        "IL&FS Investment Managers Finance": 1.39,
+        "Pfizer Ltd Pharmaceuticals": 0.93,
+        "Brewers": 0.92,
+        "Standard Chartered PLC Banks": 0.57,
+        "MT Educare Ltd": 0.36,
+        "Diversified Consumer Services": 0.36
+      },
+      "sector_count": 29,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-02-01",
+      "year": 2017,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 65.81
+      },
+      "category_total": 65.81,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 98.49,
+        "Total": 65.81,
+        "Banks": 14.09,
+        "Software": 7.82,
+        "Gas": 7.73,
+        "Bajaj Holdings & Investment Ltd Finance": 6.92,
+        "ICRA Ltd Finance": 5.0,
+        "Debt and Money Market Instruments": 4.85,
+        "Persistent Systems Ltd Software": 4.81,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.42,
+        "Consumer Non durables": 4.42,
+        "Pharmaceuticals": 4.24,
+        "Balkrishna Industries Auto Ancillaries": 4.15,
+        "CBLO": 3.59,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.47,
+        "Hotels": 3.47,
+        "Industrial Conglomerates": 3.08,
+        "ICICI Bank Ltd Banks": 2.91,
+        "Packaged Foods": 2.79,
+        "Gujarat Gas Ltd Gas": 2.6,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 2.53,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.83,
+        "FDR": 1.26,
+        "IL&FS Investment Managers Finance": 0.89,
+        "Brewers": 0.84,
+        "Standard Chartered PLC Banks": 0.47
+      },
+      "sector_count": 27,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-03-01",
+      "year": 2017,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 65.59
+      },
+      "category_total": 65.59,
+      "sectors": {
+        "Invested Total": 98.56,
+        "Total": 26.98,
+        "Banks": 14.03,
+        "Gas": 8.1,
+        "Bajaj Holdings & Investment Ltd Finance": 7.17,
+        "Arbitrage/Special Situation": 6.46,
+        "Debt and Money Market Instruments": 5.99,
+        "CBLO": 4.74,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.46,
+        "Consumer Non durables": 4.46,
+        "Persistent Systems Ltd Software": 4.45,
+        "Pharmaceuticals": 4.37,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.43,
+        "IT Consulting & Other Services": 3.25,
+        "Gujarat Gas Ltd Gas": 3.16,
+        "Industrial Conglomerates": 3.03,
+        "ICRA Ltd Finance": 2.9,
+        "Mphasis Ltd Software": 2.9,
+        "ICICI Bank Ltd Banks": 2.8,
+        "Packaged Foods": 2.8,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 2.78,
+        "IPCA Laboratories Ltd Pharmaceuticals": 2.03,
+        "Cash and Cash Equivalent": 1.44,
+        "FDR": 1.25,
+        "Pfizer Ltd Pharmaceuticals": 0.89,
+        "Brewers": 0.82,
+        "Standard Chartered PLC Banks": 0.48
+      },
+      "sector_count": 27,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-04-01",
+      "year": 2017,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 65.43
+      },
+      "category_total": 65.43,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 26.39,
+        "Banks": 14.31,
+        "Internet & Technology": 12.86,
+        "Arbitrage/Special Situation": 7.85,
+        "HDFC Bank Banks": 7.61,
+        "Auto Ancillaries": 7.61,
+        "Software": 6.84,
+        "Bajaj Holdings & Investment Ltd Finance": 6.78,
+        "Debt and Money Market Instruments": 6.53,
+        "CBLO": 5.32,
+        "Balkrishna Industries Auto Ancillaries": 4.65,
+        "Consumer Non durables": 4.3,
+        "Persistent Systems Ltd Software": 4.24,
+        "Pharmaceuticals": 4.06,
+        "Arbitrage Logistics": 3.7,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.45,
+        "Axis Bank Ltd Banks": 3.43,
+        "Gujarat Gas Ltd Gas": 3.36,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 2.96,
+        "ICICI Bank Ltd Banks": 2.8,
+        "Packaged Foods": 2.71,
+        "Mphasis Ltd Software": 2.6,
+        "ICRA Ltd Finance": 2.16,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.89,
+        "Services Cash & Cash Equivalent": 1.65,
+        "Cash and Cash Equivalent": 1.65,
+        "FDR": 1.21,
+        "Pfizer Ltd Pharmaceuticals": 0.78,
+        "IL&FS Investment Managers Ltd Finance": 0.2
+      },
+      "sector_count": 30,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-05-01",
+      "year": 2017,
+      "month": 5,
+      "categories": {
+        "Overseas Equity": 27.17,
+        "Debt & Money Market": 95.24,
+        "Cash & Equivalents": 2.38
+      },
+      "category_total": 124.79,
+      "sectors": {
+        "Banks": 14.79,
+        "Internet & Technology": 13.88,
+        "Gas": 7.85,
+        "Balkrishna Industries Auto Ancillaries": 4.36,
+        "Consumer Non durables": 4.03,
+        "Hotels": 3.71,
+        "Logistics": 3.53,
+        "Pharmaceuticals": 3.52,
+        "CBLO": 3.06,
+        "Industrial Conglomerates": 3.0,
+        "Overseas Securities, IDRs and ADRs Packaged Foods": 2.86,
+        "FDR": 1.17
+      },
+      "sector_count": 12,
+      "aum": "N/A",
+      "quality": "overcounted"
+    },
+    {
+      "date": "2017-06-01",
+      "year": 2017,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 66.21
+      },
+      "category_total": 66.21,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 96.39,
+        "Total": 26.28,
+        "Banks": 14.62,
+        "Finance": 8.4,
+        "Auto Ancillaries": 7.39,
+        "Software": 7.25,
+        "Bajaj Holdings & Investment Ltd Finance": 6.46,
+        "Indraprastha Gas Ltd Gas": 4.75,
+        "Persistent Systems Ltd Software": 4.71,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.02,
+        "Debt and Money Market Instruments": 3.9,
+        "Pharmaceuticals": 3.62,
+        "Cash & Cash Equivalent": 3.61,
+        "Cash and Cash Equivalent": 3.61,
+        "Axis Bank Ltd Banks": 3.32,
+        "ICICI Bank Ltd Banks": 3.07,
+        "Overseas Securities, IDRs and ADRs Industrial Conglomerates": 3.03,
+        "Packaged Foods": 2.93,
+        "Gujarat Gas Ltd Gas": 2.82,
+        "CBLO": 2.75,
+        "IT Consulting & Other Services": 2.65,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 2.54,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.48,
+        "FDR": 1.15,
+        "Pfizer Ltd Pharmaceuticals": 0.77,
+        "IT Consulting & Other Brewers": 0.76,
+        "Standard Chartered PLC Banks": 0.47
+      },
+      "sector_count": 28,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-07-01",
+      "year": 2017,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 67.59
+      },
+      "category_total": 67.59,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Invested Total": 97.45,
+        "Total": 27.18,
+        "Banks": 14.9,
+        "Internet & Technology": 14.58,
+        "Arbitrage/Special Situation": 10.37,
+        "HDFC Bank Banks": 8.09,
+        "Gas": 7.9,
+        "Auto Ancillaries": 7.44,
+        "Bajaj Holdings & Investment Ltd Finance": 7.15,
+        "Software": 6.79,
+        "Indraprastha Gas Ltd Gas": 5.12,
+        "Balkrishna Industries Auto Ancillaries": 4.58,
+        "Persistent Systems Ltd Software": 4.31,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.08,
+        "Axis Bank Ltd Banks": 3.23,
+        "ICICI Bank Ltd Banks": 3.09,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 2.86,
+        "Gujarat Gas Ltd Gas": 2.78,
+        "Overseas Securities, IDRs and ADRs Packaged Foods": 2.71,
+        "Cash & Cash Equivalent": 2.55,
+        "Cash and Cash Equivalent": 2.55,
+        "ICRA Ltd Finance": 1.83
+      },
+      "sector_count": 23,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-08-01",
+      "year": 2017,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 67.55
+      },
+      "category_total": 67.55,
+      "sectors": {
+        "Invested Total": 98.04,
+        "Total": 26.64,
+        "Banks": 14.38,
+        "Arbitrage/Special Situation": 10.54,
+        "Finance": 10.19,
+        "HDFC Bank Ltd Banks": 7.91,
+        "Auto Ancillaries": 7.56,
+        "Software": 6.52,
+        "Indraprastha Gas Ltd Gas": 5.44,
+        "Balkrishna Industries Auto Ancillaries": 4.33,
+        "Persistent Systems Ltd Software": 4.07,
+        "Consumer Non durables": 3.89,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.74,
+        "Hotels": 3.74,
+        "Logistics": 3.52,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 3.23,
+        "Axis Bank Ltd Banks": 3.05,
+        "ICICI Bank Ltd Banks": 2.99,
+        "Pharmaceuticals": 2.91,
+        "Gujarat Gas Ltd Gas": 2.81,
+        "Industrial Conglomerates": 2.79,
+        "Packaged Foods": 2.64,
+        "Mphasis Ltd Software": 2.45,
+        "IT Consulting & Other Services": 2.3,
+        "Cash and Cash Equivalent": 1.96,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.19,
+        "Brewers": 0.75,
+        "Pfizer Ltd Pharmaceuticals": 0.74,
+        "Standard Chartered PLC Banks": 0.43
+      },
+      "sector_count": 29,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-09-01",
+      "year": 2017,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 65.88
+      },
+      "category_total": 65.88,
+      "sectors": {
+        "Invested Total": 97.51,
+        "Total": 27.38,
+        "Internet & Technology": 14.88,
+        "Arbitrage/Special Situation": 10.88,
+        "Finance": 9.58,
+        "HDFC Bank Ltd Banks": 7.75,
+        "Software": 7.42,
+        "Indraprastha Gas Ltd Gas": 6.05,
+        "Gas": 6.05,
+        "Persistent Systems Ltd Software": 5.02,
+        "Balkrishna Industries Auto Ancillaries": 4.55,
+        "Consumer Non durables": 3.88,
+        "Logistics": 3.6,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 3.57,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.41,
+        "Hotels": 3.41,
+        "Pharmaceuticals": 3.13,
+        "Axis Bank Ltd Banks": 2.99,
+        "Industrial Conglomerates": 2.83,
+        "ICICI Bank Ltd Banks": 2.67,
+        "Packaged Foods": 2.58,
+        "Cash & Cash Equivalent": 2.49,
+        "Cash and Cash Equivalent": 2.49,
+        "ICRA Ltd Finance": 1.76,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.34,
+        "FDR": 1.05,
+        "Brewers": 0.75,
+        "Pfizer Ltd Pharmaceuticals": 0.71,
+        "Standard Chartered PLC Banks": 0.43
+      },
+      "sector_count": 29,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-10-01",
+      "year": 2017,
+      "month": 10,
+      "categories": {
+        "Overseas Equity": 27.97,
+        "Debt & Money Market": 99.3,
+        "Cash & Equivalents": 0.35
+      },
+      "category_total": 127.62,
+      "sectors": {
+        "Internet & Technology": 15.84,
+        "Finance": 9.53,
+        "Auto Ancillaries": 7.49,
+        "Debt and Money Market Instruments": 5.94,
+        "CBLO": 4.94,
+        "Balkrishna Industries Auto Ancillaries": 4.32,
+        "Gas": 4.22,
+        "Pharmaceuticals": 4.02,
+        "Hotels": 3.59,
+        "Overseas Securities, IDRs and ADRs IT Consulting & Other Services": 2.31,
+        "FDR": 1.0
+      },
+      "sector_count": 11,
+      "aum": "N/A",
+      "quality": "overcounted"
+    },
+    {
+      "date": "2017-11-01",
+      "year": 2017,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 65.59
+      },
+      "category_total": 65.59,
+      "sectors": {
+        "Invested Total": 98.34,
+        "Total": 65.59,
+        "Internet & Technology": 15.61,
+        "Arbitrage/Special Situation": 13.76,
+        "Finance": 8.86,
+        "Auto Ancillaries": 8.33,
+        "Bajaj Holdings & Investment Ltd Finance": 7.26,
+        "HDFC Bank Ltd Banks": 7.24,
+        "Software": 7.09,
+        "Debt and Money Market Instruments": 6.46,
+        "CBLO": 4.98,
+        "Persistent Systems Ltd Software": 4.52,
+        "Indraprastha Gas Ltd Gas": 4.17,
+        "Zydus Wellness Ltd Consumer Non Durables": 3.72,
+        "Consumer Non durables": 3.72,
+        "Pharmaceuticals": 3.71,
+        "Logistics": 3.22,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 3.15,
+        "Hotels": 3.15,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 3.12,
+        "Axis Bank Ltd Banks": 2.86,
+        "ICICI Bank Ltd Banks": 2.7,
+        "Mphasis Ltd Software": 2.57,
+        "Overseas Securities, IDRs and ADRs IT Consulting & Other Services": 2.19,
+        "Cash & Cash Equivalent": 1.66,
+        "Cash and Cash Equivalent": 1.66,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.36,
+        "FDR": 0.96,
+        "Lupin Ltd Pharmaceuticals": 0.7,
+        "Pfizer Ltd Pharmaceuticals": 0.68
+      },
+      "sector_count": 30,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2017-12-01",
+      "year": 2017,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 65.72
+      },
+      "category_total": 65.72,
+      "sectors": {
+        "Invested Total": 96.35,
+        "Total": 27.59,
+        "Internet & Technology": 15.13,
+        "Arbitrage/Special Situation": 13.6,
+        "Banks": 12.53,
+        "Auto & Auto Ancillaries": 10.9,
+        "Finance": 8.5,
+        "HDFC Bank Ltd Banks": 7.0,
+        "Bajaj Holdings & Investment Ltd Finance": 6.98,
+        "Balkrishna Industries Auto & Auto Ancillaries": 5.55,
+        "Persistent Systems Ltd Software": 5.13,
+        "Indraprastha Gas Ltd Gas": 4.1,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.08,
+        "Pharmaceuticals": 3.83,
+        "Cash & Cash Equivalent": 3.65,
+        "Cash and Cash Equivalent": 3.65,
+        "Debt and Money Market Instruments": 3.04,
+        "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 3.0,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 2.95,
+        "Hotels": 2.95,
+        "Overseas Securities, IDRs and ADRs Industrial Conglomerates": 2.71,
+        "ICICI Bank Ltd Banks": 2.64,
+        "Packaged Foods": 2.25,
+        "IT Consulting & Other Services": 2.09,
+        "CBLO": 1.62,
+        "ICRA Ltd Finance": 1.52,
+        "FDR": 0.92,
+        "Lupin Ltd Pharmaceuticals": 0.72,
+        "Pfizer Ltd Pharmaceuticals": 0.7
+      },
+      "sector_count": 29,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-02-01",
+      "year": 2018,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 65.4
+      },
+      "category_total": 65.4,
+      "sectors": {
+        "Invested Total": 94.24,
+        "Total": 26.2,
+        "Internet & Technology": 15.69,
+        "Arbitrage/Special Situation": 15.36,
+        "Banks": 11.97,
+        "Auto & Auto Ancillaries": 11.01,
+        "Software": 8.72,
+        "Finance": 7.83,
+        "HDFC Bank Ltd Banks": 6.81,
+        "Bajaj Holdings & Investment Ltd Finance": 6.41,
+        "Persistent Systems Ltd Software": 5.91,
+        "Cash & Cash Equivalent": 5.76,
+        "Cash and Cash Equivalent": 5.76,
+        "Pharmaceuticals": 4.89,
+        "Balkrishna Industries Auto & Auto Ancillaries": 4.88,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.73,
+        "Consumer Non durables": 4.73,
+        "Mphasis Ltd Software": 2.81,
+        "Industrial Conglomerates": 2.73,
+        "Debt and Money Market Instruments": 2.64,
+        "Axis Bank Ltd Banks": 2.61,
+        "ICICI Bank Ltd Banks": 2.55,
+        "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 2.54,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 2.45,
+        "Hotels": 2.45,
+        "IT Consulting & Other Services": 2.09,
+        "Indraprastha Gas Ltd Gas": 2.03,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.56,
+        "ICRA Ltd Finance": 1.42,
+        "Lupin Ltd Pharmaceuticals": 1.16,
+        "FDR": 0.89,
+        "Pfizer Ltd Pharmaceuticals": 0.75
+      },
+      "sector_count": 32,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-03-01",
+      "year": 2018,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 65.6
+      },
+      "category_total": 65.6,
+      "sectors": {
+        "Invested Total": 97.95,
+        "Total": 27.25,
+        "Arbitrage/Special Situation": 16.73,
+        "Software": 7.77,
+        "HDFC Bank Ltd Banks": 7.03,
+        "Finance": 6.47,
+        "Debt and Money Market Instruments": 5.1,
+        "Balkrishna Industries Auto & Auto Ancillaries": 4.95,
+        "Pharmaceuticals": 4.76,
+        "Consumer Non durables": 4.6,
+        "Internet & Technology": 4.27,
+        "Axis Bank Ltd Banks": 2.61,
+        "Hotels": 2.55,
+        "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 2.48,
+        "ICICI Bank Ltd Banks": 2.34,
+        "Cash & Cash Equivalent": 2.05,
+        "Cash and Cash Equivalent": 2.05,
+        "Indraprastha Gas Ltd Gas": 1.92,
+        "Gas": 1.92,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.57,
+        "ICRA Ltd Finance": 1.39,
+        "Lupin Ltd Pharmaceuticals": 1.08,
+        "FDR": 0.91,
+        "Pfizer Ltd Pharmaceuticals": 0.74
+      },
+      "sector_count": 24,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-04-01",
+      "year": 2018,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 66.43
+      },
+      "category_total": 66.43,
+      "sectors": {
+        "Invested Total": 96.97,
+        "Total": 26.6,
+        "Internet & Technology": 14.48,
+        "Auto & Auto Ancillaries": 13.01,
+        "Banks": 11.5,
+        "Software": 8.67,
+        "Finance": 7.56,
+        "HDFC Bank Ltd Banks": 6.79,
+        "Bajaj Holdings & Investment Ltd Finance": 6.16,
+        "Balkrishna Industries Auto & Auto Ancillaries": 5.54,
+        "Persistent Systems Ltd Software": 5.4,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.98,
+        "Consumer Non durables": 4.98,
+        "Debt and Money Market Instruments": 3.94,
+        "Mphasis Ltd Software": 3.27,
+        "CBLO": 3.09,
+        "Cash & Cash Equivalent": 3.03,
+        "Cash and Cash Equivalent Cash & Cash Equivalent": 3.03,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 2.67,
+        "Hotels": 2.67,
+        "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 2.48,
+        "Axis Bank Ltd Banks": 2.47,
+        "ICICI Bank Ltd Banks": 2.24,
+        "IT Consulting & Other Services": 1.93,
+        "Indraprastha Gas Ltd Gas": 1.85,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.68,
+        "ICRA Ltd Finance": 1.4,
+        "Lupin Ltd Pharmaceuticals": 1.11,
+        "FDR": 0.85,
+        "Pfizer Ltd Pharmaceuticals": 0.73
+      },
+      "sector_count": 30,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-05-01",
+      "year": 2018,
+      "month": 5,
+      "categories": {
+        "Overseas Equity": 65.47,
+        "Indian Equity": 34.53
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Packaged Foods CBLO": 2.29,
+        "Internet & Technology FDR": 0.83
+      },
+      "sector_count": 2,
+      "aum": "\u20b91,077.02 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2018-07-01",
+      "year": 2018,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 65.56
+      },
+      "category_total": 65.56,
+      "sectors": {
+        "Auto & Auto Ancillaries Net Assets": 100.0,
+        "Invested Total": 94.93,
+        "Total": 27.37,
+        "Multi Cap Fund - An open ended equity HDFC Bank Ltd Banks": 6.78,
+        "Finance": 5.89,
+        "Persistent Systems Ltd Software": 4.97,
+        "Balkrishna Industries Auto & Auto Ancillaries": 4.67,
+        "Mphasis Ltd Software": 3.24,
+        "ICICI Bank Ltd Banks": 2.13,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 2.1,
+        "ICRA Ltd Finance": 1.07,
+        "Lupin Ltd Pharmaceuticals": 1.01,
+        "Pfizer Ltd Pharmaceuticals": 0.76
+      },
+      "sector_count": 13,
+      "aum": "\u20b91,186.00 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-08-01",
+      "year": 2018,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 65.73
+      },
+      "category_total": 65.73,
+      "sectors": {
+        "Total": 65.73,
+        "Multi Cap Fund - An open ended equity Bajaj Holdings & Investment Ltd Finance": 5.88,
+        "scheme investing across large cap, mid cap, HDFC Bank Ltd Banks": 5.63,
+        "Zydus Wellness Ltd Consumer Non Durables": 4.72,
+        "Balkrishna Industries Auto & Auto Ancillaries": 4.61,
+        "Cash and Cash Equivalent": 3.83,
+        "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 2.52,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 1.62,
+        "Sun Pharmaceuticals Industries Ltd Pharmaceuticals": 1.58,
+        "for the Month Lupin Ltd Pharmaceuticals": 1.53,
+        "Indraprastha Gas Ltd Gas": 1.46,
+        "Entry Load Not Applicable ICRA Ltd Finance": 1.04,
+        "Arbitrage/Special Situation Cash & Cash Equivalent FDR": 0.67
+      },
+      "sector_count": 13,
+      "aum": "\u20b91,352.16 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-09-01",
+      "year": 2018,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 65.01
+      },
+      "category_total": 65.01,
+      "sectors": {
+        "Pharmaceuticals Net Assets": 100.0,
+        "Debt and Money Market Total": 27.67,
+        "HDFC Bank Ltd Banks": 5.53,
+        "Internet & Technology": 5.06,
+        "scheme investing across large cap, mid cap, Persistent Systems Ltd Software": 4.16,
+        "Hotels": 2.28,
+        "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 1.97,
+        "Assets Under Management Sun Pharmaceuticals Industries Ltd Pharmaceuticals": 1.52,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 1.38,
+        "Gas": 1.38,
+        "for the Month Indraprastha Gas Ltd Gas": 1.23,
+        "ICRA Ltd Finance": 0.97,
+        "Entry Load Not Applicable Pfizer Ltd Pharmaceuticals": 0.75
+      },
+      "sector_count": 13,
+      "aum": "\u20b91,338.25 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-10-01",
+      "year": 2018,
+      "month": 10,
+      "categories": {
+        "Indian Equity": 66.6
+      },
+      "category_total": 66.6,
+      "sectors": {
+        "Finance Net Assets": 100.0,
+        "Instruments Total": 25.3,
+        "Internet & Technology": 6.37,
+        "HDFC Bank Ltd Banks": 6.25,
+        "Bajaj Holdings & Investment Ltd Finance": 5.44,
+        "Industrial Conglomerates CBLO": 4.97,
+        "scheme investing across large cap, mid cap, Persistent Systems Ltd Software": 4.37,
+        "ICICI Bank Ltd Banks": 3.67,
+        "Balkrishna Industries Auto & Auto Ancillaries": 3.59,
+        "Zydus Wellness Ltd Consumer Non Durables": 3.42,
+        "Arbitrage/Special Situation FDR": 2.92,
+        "Mphasis Ltd Software": 2.47,
+        "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 1.86,
+        "Hotels": 1.77,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 1.39,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.21,
+        "ICRA Ltd Finance": 0.93,
+        "Exit Load Pfizer Ltd Pharmaceuticals": 0.74
+      },
+      "sector_count": 18,
+      "aum": "\u20b91,333.97 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-11-01",
+      "year": 2018,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 65.99
+      },
+      "category_total": 65.99,
+      "sectors": {
+        "Pharmaceuticals Net Assets": 100.0,
+        "Invested Total": 98.93,
+        "Debt and Money Market Total": 25.44,
+        "Bank": 6.16,
+        "Multi Cap Fund - An open ended equity Bajaj Holdings & Investment Ltd Finance": 5.7,
+        "Persistent Systems Ltd Software": 4.55,
+        "ICICI Bank Ltd Banks": 3.47,
+        "Axis Bank Ltd Banks": 3.34,
+        "Balkrishna Industries Auto Ancillaries": 2.97,
+        "Maharashtra Scooters Ltd Auto Ancillaries": 2.11,
+        "Assets Under Management Hero Motocorp Ltd Auto": 2.06,
+        "Hotels": 1.66,
+        "Mahindra Holidays & Resorts India Ltd Hotels": 1.47,
+        "Gas": 1.47,
+        "for the Month Lupin Ltd Pharmaceuticals": 1.4,
+        "Entry Load Not Applicable Sun Pharmaceuticals Industries Ltd Pharmaceuticals": 1.14,
+        "Pfizer Ltd Pharmaceuticals": 0.65
+      },
+      "sector_count": 17,
+      "aum": "\u20b91,412.92 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2018-12-01",
+      "year": 2018,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 65.78
+      },
+      "category_total": 65.78,
+      "sectors": {
+        "Arbitrage/Special Situation Packaged Food Invested Total": 99.33,
+        "Total": 65.78,
+        "HDFC Bank Ltd Banks": 7.4,
+        "Bajaj Holdings & Investment Ltd Finance": 5.59,
+        "Cash & Cash Equivalent TREPS": 4.58,
+        "scheme investing across large cap, mid cap, Persistent Systems Ltd Software": 4.55,
+        "Zydus Wellness Ltd Consumer Non Durables": 3.62,
+        "Mphasis Ltd Software": 2.25,
+        "IPCA Laboratories Ltd Pharmaceuticals": 1.31,
+        "Lupin Ltd Pharmaceuticals": 1.29,
+        "Entry Load Not Applicable Sun Pharmaceuticals Industries Ltd Pharmaceuticals": 0.98,
+        "ICRA Ltd Finance": 0.83,
+        "Cash and Cash Equivalent": 0.67
+      },
+      "sector_count": 13,
+      "aum": "\u20b91,452.52 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2019-01-01",
+      "year": 2019,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 65.54
+      },
+      "category_total": 65.54,
+      "sectors": {
+        "Invested Total": 99.45,
+        "Total": 65.54,
+        "HDFC Bank Ltd Banks": 7.89,
+        "Bajaj Holdings & Investment Ltd Finance": 6.27,
+        "scheme investing across large cap, mid cap, Persistent Systems Ltd Software": 5.33,
+        "Balkrishna Industries Auto Ancillaries": 3.62,
+        "Axis Bank Ltd Banks": 3.57,
+        "Hero Motocorp Ltd Auto": 3.48,
+        "Zydus Wellness Ltd Consumer Non Durables": 3.21,
+        "Packaged Food TREPS": 3.06,
+        "Cash & Cash Equivalent": 3.02,
+        "Arbitrage S / i S tu p a e t c io ia n l IT Consulting & Other Services FDR": 2.55,
+        "Mphasis Ltd Software": 2.1,
+        "for the Month Lupin Ltd Pharmaceuticals": 1.27,
+        "Indraprastha Gas Ltd Gas": 1.26,
+        "Entry Load Not Applicable Sun Pharmaceuticals Industries Ltd Pharmaceuticals": 0.9
+      },
+      "sector_count": 16,
+      "aum": "\u20b91,530.60 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2019-03-01",
+      "year": 2019,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 66.94,
+        "Overseas Equity": 27.97,
+        "Cash & Equivalents": 2.24
+      },
+      "category_total": 97.15,
+      "sectors": {
+        "Instruments": 2.74
+      },
+      "sector_count": 1,
+      "aum": "\u20b91,737.93 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-04-01",
+      "year": 2019,
+      "month": 4,
+      "categories": {
+        "Overseas Equity": 65.5,
+        "Indian Equity": 34.5
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Situation": 2.77,
+        "FDR": 2.13
+      },
+      "sector_count": 2,
+      "aum": "\u20b91,827.44 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-05-01",
+      "year": 2019,
+      "month": 5,
+      "categories": {
+        "Overseas Equity": 65.23,
+        "Indian Equity": 34.77
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Situation": 2.77,
+        "FDR": 2.06
+      },
+      "sector_count": 2,
+      "aum": "\u20b91,896.65 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-06-01",
+      "year": 2019,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 65.58,
+        "Overseas Equity": 27.82,
+        "Cash & Equivalents": 1.98
+      },
+      "category_total": 95.38,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b91,974.43 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-07-01",
+      "year": 2019,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 66.88,
+        "Overseas Equity": 29.48,
+        "Cash & Equivalents": 1.7
+      },
+      "category_total": 98.06,
+      "sectors": {
+        "Auto": 5.95
+      },
+      "sector_count": 1,
+      "aum": "\u20b92,003.99 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-08-01",
+      "year": 2019,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 65.57,
+        "Overseas Equity": 29.56,
+        "Cash & Equivalents": 1.89
+      },
+      "category_total": 97.02,
+      "sectors": {
+        "Technology": 8.0,
+        "Arbitrage/Special": 4.55
+      },
+      "sector_count": 2,
+      "aum": "\u20b92,066.68 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-09-01",
+      "year": 2019,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 65.36,
+        "Overseas Equity": 28.8,
+        "Cash & Equivalents": 1.86
+      },
+      "category_total": 96.02,
+      "sectors": {
+        "Technology": 9.88,
+        "Arbitrage/Special": 4.47,
+        "FDR": 1.86
+      },
+      "sector_count": 3,
+      "aum": "\u20b92,205.09 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-10-01",
+      "year": 2019,
+      "month": 10,
+      "categories": {
+        "Indian Equity": 65.91,
+        "Overseas Equity": 29.25,
+        "Cash & Equivalents": 1.53
+      },
+      "category_total": 96.69,
+      "sectors": {
+        "Technology": 10.67
+      },
+      "sector_count": 1,
+      "aum": "\u20b92,359.50 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-11-01",
+      "year": 2019,
+      "month": 11,
+      "categories": {
+        "Overseas Equity": 65.51,
+        "Indian Equity": 34.49
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Industrial Conglomerates Recreational Activities FDR": 1.45
+      },
+      "sector_count": 1,
+      "aum": "\u20b92,480.49 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2019-12-01",
+      "year": 2019,
+      "month": 12,
+      "categories": {
+        "Overseas Equity": 28.83,
+        "Indian Equity": 71.17
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Internet & Technology": 10.04,
+        "Gas Packaged Foods FDR": 1.4
+      },
+      "sector_count": 2,
+      "aum": "\u20b92,584.96 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2020-01-01",
+      "year": 2020,
+      "month": 1,
+      "categories": {
+        "Overseas Equity": 27.25,
+        "Indian Equity": 72.75
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Internet & Technology": 10.34,
+        "Gas Packaged Foods FDR": 1.3
+      },
+      "sector_count": 2,
+      "aum": "\u20b92,783.54 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2020-02-01",
+      "year": 2020,
+      "month": 2,
+      "categories": {
+        "Overseas Equity": 65.54,
+        "Indian Equity": 34.46
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Internet & Technology": 10.12,
+        "Packaged Foods FDR": 1.01
+      },
+      "sector_count": 2,
+      "aum": "\u20b92,794.86 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2020-03-01",
+      "year": 2020,
+      "month": 3,
+      "categories": {
+        "Debt & Money Market": 31.17,
+        "Indian Equity": 68.83
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Internet & Technology": 8.81,
+        "FDR": 0.24
+      },
+      "sector_count": 2,
+      "aum": "\u20b92,448.13 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2020-07-01",
+      "year": 2020,
+      "month": 7,
+      "categories": {
+        "Overseas Equity": 27.19,
+        "Indian Equity": 72.81
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "FDR": 0.14
+      },
+      "sector_count": 1,
+      "aum": "\u20b94,014.26 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2020-08-01",
+      "year": 2020,
+      "month": 8,
+      "categories": {
+        "Overseas Equity": 65.27,
+        "Indian Equity": 34.73
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Industry Allocation FDR": 0.24
+      },
+      "sector_count": 1,
+      "aum": "\u20b94,508.14 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2020-09-01",
+      "year": 2020,
+      "month": 9,
+      "categories": {
+        "Overseas Equity": 65.7,
+        "Indian Equity": 34.3
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "FDR": 0.56
+      },
+      "sector_count": 1,
+      "aum": "\u20b94,798.07 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2020-10-01",
+      "year": 2020,
+      "month": 10,
+      "categories": {
+        "Overseas Equity": 65.43,
+        "Indian Equity": 34.57
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Internet & Technology": 7.28
+      },
+      "sector_count": 1,
+      "aum": "\u20b95,007.68 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2020-11-01",
+      "year": 2020,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 65.72,
+        "Overseas Equity": 28.79
+      },
+      "category_total": 94.51,
+      "sectors": {
+        "Internet & Technology": 6.28
+      },
+      "sector_count": 1,
+      "aum": "\u20b95,757.28 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2021-01-01",
+      "year": 2021,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 65.25,
+        "Overseas Equity": 31.14
+      },
+      "category_total": 96.39,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 31.14,
+        "Internet & Technology": 13.97,
+        "ITC Ltd Consumer Non Durables": 7.97,
+        "Type of the Scheme scheme investing across large cap, mid cap, Persistent Systems Ltd Software": 5.35,
+        "TREPS Including Cash & Cash Equivalent and Net Current Asset": 3.61,
+        "Axis Bank Ltd Banks": 2.88,
+        "Balkrishna Industries Auto Ancillaries": 2.47,
+        "Zydus Wellness Ltd CAuotnos Aumnceilrl aNrioens Durables": 1.82,
+        "Weighted Average Lupin Ltd Pharmaceuticals": 1.28,
+        "Cadila Healthcare Ltd Pharmaceuticals": 1.18,
+        "ICRA Ltd Finance": 0.71,
+        "FDR": 0.39
+      },
+      "sector_count": 13,
+      "aum": "\u20b96,824.99 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2021-04-01",
+      "year": 2021,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 65.39,
+        "Overseas Equity": 30.51
+      },
+      "category_total": 95.9,
+      "sectors": {
+        "Load Structure Total": 65.39,
+        "Total": 30.51,
+        "TREPS Including Cash & Cash Equivalent and Net Current Asset": 3.62,
+        "FDR": 0.48
+      },
+      "sector_count": 4,
+      "aum": "\u20b99,178.85 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2021-05-01",
+      "year": 2021,
+      "month": 5,
+      "categories": {
+        "Indian Equity": 65.53,
+        "Overseas Equity": 28.52
+      },
+      "category_total": 94.05,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Load Structure Total": 65.53,
+        "Total": 28.52,
+        "Pharmaceuticals": 8.14,
+        "FDR": 0.48
+      },
+      "sector_count": 5,
+      "aum": "\u20b910,276.27 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2021-06-01",
+      "year": 2021,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 65.51,
+        "Overseas Equity": 29.65
+      },
+      "category_total": 95.16,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Load Structure Total": 65.51,
+        "Total": 29.65,
+        "Consumer Services": 16.11,
+        "Auto": 2.42
+      },
+      "sector_count": 5,
+      "aum": "\u20b911,360.49 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2021-07-01",
+      "year": 2021,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 65.35,
+        "Overseas Equity": 29.47
+      },
+      "category_total": 94.82,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 29.47,
+        "Pharmaceuticals": 7.95,
+        "TREPS Including Cash & Cash Equivalent and Net Current Asset": 4.63
+      },
+      "sector_count": 4,
+      "aum": "\u20b913,186.70 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2021-08-01",
+      "year": 2021,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 65.59,
+        "Overseas Equity": 29.35
+      },
+      "category_total": 94.94,
+      "sectors": {
+        "Total": 65.59,
+        "India Energy Exchange Ltd Capital Markets": 5.1,
+        "Pharmaceuticals TREPS Including Cash & Cash Equivalent and Net Current Asset": 4.62,
+        "FDR": 0.44
+      },
+      "sector_count": 4,
+      "aum": "\u20b914,590.35 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2021-09-01",
+      "year": 2021,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 65.43,
+        "Overseas Equity": 28.9
+      },
+      "category_total": 94.33,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Arbitrage Entry Load Not Applicable Total": 65.43,
+        "Total": 28.9
+      },
+      "sector_count": 3,
+      "aum": "\u20b916,075.87 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2021-10-01",
+      "year": 2021,
+      "month": 10,
+      "categories": {
+        "Indian Equity": 65.78,
+        "Overseas Equity": 31.31
+      },
+      "category_total": 97.09,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Arbitrage Entry Load Not Applicable Total": 65.78,
+        "Total": 31.31,
+        "Capital Markets": 22.93
+      },
+      "sector_count": 4,
+      "aum": "\u20b917,219.55 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2021-11-01",
+      "year": 2021,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 65.37,
+        "Overseas Equity": 30.35
+      },
+      "category_total": 95.72,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Arbitrage Load Structure Total": 65.37,
+        "TREPS Including Cash & Cash Equivalent and Net Current Asset": 3.88,
+        "FDR": 0.4
+      },
+      "sector_count": 4,
+      "aum": "\u20b918,298.80 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2021-12-01",
+      "year": 2021,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 65.72,
+        "Overseas Equity": 28.85
+      },
+      "category_total": 94.57,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Arbitrage Load Structure Total": 65.72,
+        "TREPS Including Cash & Cash Equivalent and Net Current Asset": 5.16,
+        "FDR": 0.27
+      },
+      "sector_count": 4,
+      "aum": "\u20b919,933.09 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2022-01-01",
+      "year": 2022,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 66.13,
+        "Overseas Equity": 29.48
+      },
+      "category_total": 95.61,
+      "sectors": {},
+      "sector_count": 0,
+      "aum": "\u20b920,412.09 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2022-02-01",
+      "year": 2022,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 65.65,
+        "Overseas Equity": 29.83
+      },
+      "category_total": 95.48,
+      "sectors": {
+        "acceptance of transactions in Parag Parikh Flexi Cap Fund with effect from": 21.62,
+        "available on website of PPFAS Mutual Fund for more details": 11.93
+      },
+      "sector_count": 2,
+      "aum": "\u20b920,129.66 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2022-03-01",
+      "year": 2022,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 65.47,
+        "Overseas Equity": 29.42
+      },
+      "category_total": 94.89,
+      "sectors": {
+        "Pharmaceuticals": 7.91,
+        "TREPS Including Cash & Cash Equivalent and Net Current Asset": 4.85,
+        "Power": 1.2
+      },
+      "sector_count": 3,
+      "aum": "\u20b921,768.48 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2022-04-01",
+      "year": 2022,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 66.43,
+        "Overseas Equity": 25.94
+      },
+      "category_total": 92.37,
+      "sectors": {
+        "No exit load will be charged, in case of switch transactions Net Assets": 100.0,
+        "Total": 25.94,
+        "Diversified FMCG": 7.63,
+        "FDR Debt and Money Market Instruments": 0.26
+      },
+      "sector_count": 4,
+      "aum": "\u20b921,906.96 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2022-05-01",
+      "year": 2022,
+      "month": 5,
+      "categories": {
+        "Indian Equity": 66.86,
+        "Overseas Equity": 23.21
+      },
+      "category_total": 90.07,
+      "sectors": {
+        "Net Assets": 100.0,
+        "No Exit Load will be charged if investment is redeemed T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 9.67
+      },
+      "sector_count": 2,
+      "aum": "\u20b922,647.04 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2022-06-01",
+      "year": 2022,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 70.85,
+        "Overseas Equity": 22.66
+      },
+      "category_total": 93.51,
+      "sectors": {
+        "Net Assets": 100.0,
+        "No Exit Load will be charged if investment is redeemed T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 6.23,
+        "Power": 1.18
+      },
+      "sector_count": 3,
+      "aum": "\u20b922,323.99 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2022-07-01",
+      "year": 2022,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 68.92,
+        "Overseas Equity": 21.68
+      },
+      "category_total": 90.6,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Diversified FMCG": 9.4,
+        "TREPS Including Cash & Cash Equivalent Debt and Money Market Instruments": 9.14
+      },
+      "sector_count": 3,
+      "aum": "\u20b924,594.84 Cr",
+      "quality": "approximate"
+    },
+    {
+      "date": "2022-08-01",
+      "year": 2022,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 69.55,
+        "Overseas Equity": 20.37
+      },
+      "category_total": 89.92,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Arbitrage Amount Total": 69.55,
+        "TREPS Including Cash & Cash Equivalent Debt and Money Market Instruments": 9.53,
+        "Quantitative Indicators": 4.72
+      },
+      "sector_count": 4,
+      "aum": "\u20b925,996.18 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2022-09-01",
+      "year": 2022,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 70.89,
+        "Overseas Equity": 18.46
+      },
+      "category_total": 89.35,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Arbitrage Amount Total": 70.89,
+        "TREPS Including Cash & Cash Equivalent Debt and Money Market Instruments": 10.1,
+        "Power": 5.8
+      },
+      "sector_count": 4,
+      "aum": "\u20b926,033.24 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2022-10-01",
+      "year": 2022,
+      "month": 10,
+      "categories": {
+        "Indian Equity": 71.93,
+        "Overseas Equity": 16.49
+      },
+      "category_total": 88.42,
+      "sectors": {
+        "Net Assets": 100.0,
+        "Total": 16.49,
+        "FDR Debt and Money Market Instruments": 0.53
+      },
+      "sector_count": 3,
+      "aum": "\u20b927,712.05 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2022-11-01",
+      "year": 2022,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 71.06,
+        "Overseas Equity": 15.59
+      },
+      "category_total": 86.65,
+      "sectors": {
+        "Total": 71.06,
+        "Finance": 16.47,
+        "No exit load will be charged, in case of switch transactions T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 12.82,
+        "Banks": 11.94,
+        "Capital Markets": 8.37,
+        "Pharmaceuticals & Biotechnology": 4.97,
+        "AMCs to resume subscription and make investments in overseas funds / securities upto the headroom Consumable Fuels": 4.37,
+        "Minerals & Mining": 1.12,
+        "Auto Components": 0.88,
+        "Arbitrage Amount UTI Asset Management Company Ltd Capital Markets": 0.22,
+        "Maharashtra Scooters Limited Finance": 0.14
+      },
+      "sector_count": 11,
+      "aum": "\u20b928,546.26 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2022-12-01",
+      "year": 2022,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 70.25,
+        "Overseas Equity": 15.51
+      },
+      "category_total": 85.76,
+      "sectors": {
+        "Finance": 15.77,
+        "Internet & Technology": 11.8,
+        "No exit load will be charged, in case of switch transactions T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 9.95,
+        "CAPITAL MARKETS": 8.24,
+        "IT - Software": 5.91,
+        "Pharmaceuticals & Biotechnology": 5.06,
+        "Consumable Fuels": 5.05,
+        "Power": 4.82,
+        "AMCs to resume subscription and make investments in overseas funds / securities upto the headroom Arbitrage/Special Situation": 3.76,
+        "Minerals & Mining": 1.18,
+        "Auto Components": 0.93
+      },
+      "sector_count": 11,
+      "aum": "\u20b928,248.50 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-01-01",
+      "year": 2023,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 68.15,
+        "Overseas Equity": 16.35,
+        "Debt & Money Market": 0.48
+      },
+      "category_total": 84.98,
+      "sectors": {
+        "Finance": 15.37,
+        "Internet & Technology": 12.15,
+        "Debt and Money Market Instruments": 11.85,
+        "Banks": 10.87,
+        "Capital Markets": 7.7,
+        "Diversified FMCG": 7.29,
+        "IT - Software": 6.11,
+        "Consumable Fuels": 4.95,
+        "Pharmaceuticals & Biotechnology": 4.9,
+        "Power": 4.71,
+        "Automobiles": 4.53,
+        "Arbitrage/Special Situation": 3.65,
+        "Consumer Services": 3.61,
+        "Minerals & Mining": 1.14,
+        "Auto Components": 0.93,
+        "Ferrous metals": 0.24
+      },
+      "sector_count": 16,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-02-01",
+      "year": 2023,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 66.71,
+        "Overseas Equity": 16.05,
+        "Debt & Money Market": 0.48
+      },
+      "category_total": 83.24,
+      "sectors": {
+        "Finance": 15.46,
+        "Cash & Cash Equivalent": 13.24,
+        "Internet & Technology": 12.18,
+        "Banks": 10.63,
+        "Diversified FMCG": 7.63,
+        "Capital Markets": 7.38,
+        "IT - Software": 5.78,
+        "Consumable Fuels": 4.92,
+        "Power": 4.73,
+        "Pharmaceuticals & Biotechnology": 4.67,
+        "Automobiles": 3.93,
+        "Arbitrage/Special Situation": 3.44,
+        "Consumer Services": 3.32,
+        "Minerals & Mining": 1.0,
+        "Auto Components": 0.83,
+        "Debt and Money Market Instruments": 0.56,
+        "Ferrous metals": 0.3
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-03-01",
+      "year": 2023,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 66.36,
+        "Overseas Equity": 17.33,
+        "Debt & Money Market": 0.48
+      },
+      "category_total": 84.17,
+      "sectors": {
+        "Finance": 15.01,
+        "Internet & Technology": 13.35,
+        "Cash & Cash Equivalent": 12.46,
+        "Banks": 11.45,
+        "Diversified FMCG": 7.44,
+        "Capital Markets": 7.11,
+        "IT - Software": 6.32,
+        "Consumable Fuels": 4.67,
+        "Pharmaceuticals & Biotechnology": 4.61,
+        "Power": 4.6,
+        "Automobiles": 3.68,
+        "Consumer Services": 3.44,
+        "Arbitrage/Special Situation": 3.29,
+        "Minerals & Mining": 0.97,
+        "Auto Components": 0.77,
+        "Debt and Money Market Instruments": 0.56,
+        "Ferrous metals": 0.27
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-04-01",
+      "year": 2023,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 65.18,
+        "Overseas Equity": 17.15,
+        "Debt & Money Market": 0.42
+      },
+      "category_total": 82.75,
+      "sectors": {
+        "Finance": 15.45,
+        "Cash & Cash Equivalent": 14.27,
+        "Internet & Technology": 13.61,
+        "Banks": 10.92,
+        "Diversified FMCG": 7.68,
+        "Capital Markets": 7.12,
+        "IT - Software": 6.29,
+        "Power": 4.5,
+        "Consumable Fuels": 4.4,
+        "Pharmaceuticals & Biotechnology": 3.82,
+        "Consumer Services": 3.54,
+        "Automobiles": 3.07,
+        "Arbitrage/Special Situation": 2.91,
+        "Minerals & Mining": 0.87,
+        "Auto Components": 0.76,
+        "Debt and Money Market Instruments": 0.49,
+        "Ferrous metals": 0.3
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-05-01",
+      "year": 2023,
+      "month": 5,
+      "categories": {
+        "Indian Equity": 65.35,
+        "Overseas Equity": 18.26,
+        "Debt & Money Market": 0.4
+      },
+      "category_total": 84.01,
+      "sectors": {
+        "Finance": 15.33,
+        "Internet & Technology": 14.46,
+        "Cash & Cash Equivalent": 13.62,
+        "Banks": 11.07,
+        "Diversified FMCG": 7.52,
+        "IT - Software": 6.84,
+        "Capital Markets": 6.82,
+        "Consumable Fuels": 4.25,
+        "Power": 4.15,
+        "Consumer Services": 3.8,
+        "Automobiles": 3.6,
+        "Pharmaceuticals & Biotechnology": 3.49,
+        "Arbitrage/Special Situation": 2.3,
+        "Minerals & Mining": 1.17,
+        "Auto Components": 0.78,
+        "Debt and Money Market Instruments": 0.47,
+        "Ferrous metals": 0.33
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-06-01",
+      "year": 2023,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 66.94,
+        "Overseas Equity": 17.59,
+        "Debt & Money Market": 0.36
+      },
+      "category_total": 84.89,
+      "sectors": {
+        "Finance": 15.25,
+        "Internet & Technology": 13.81,
+        "Cash & Cash Equivalent": 12.76,
+        "Banks": 10.98,
+        "Diversified FMCG": 7.27,
+        "IT - Software": 7.0,
+        "Capital Markets": 6.59,
+        "Consumable Fuels": 5.05,
+        "Power": 4.94,
+        "Consumer Services": 3.78,
+        "Pharmaceuticals & Biotechnology": 3.69,
+        "Automobiles": 3.64,
+        "Arbitrage/Special Situation": 2.29,
+        "Minerals & Mining": 1.45,
+        "Auto Components": 0.77,
+        "Debt and Money Market Instruments": 0.42,
+        "Ferrous metals": 0.31
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-07-01",
+      "year": 2023,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 67.36,
+        "Overseas Equity": 17.84,
+        "Debt & Money Market": 0.36
+      },
+      "category_total": 85.56,
+      "sectors": {
+        "Banks": 19.04,
+        "Internet and Technology": 14.09,
+        "Cash & Cash Equivalent": 12.57,
+        "Diversified FMCG": 7.09,
+        "IT - Software": 7.06,
+        "Finance": 7.05,
+        "Capital Markets": 6.69,
+        "Power": 5.4,
+        "Consumable Fuels": 4.99,
+        "Pharmaceuticals & Biotechnology": 3.93,
+        "Consumer Services": 3.75,
+        "Automobiles": 3.46,
+        "Arbitrage/Special Situation": 1.8,
+        "Minerals & Mining": 1.54,
+        "Auto Components": 0.78,
+        "Debt and Money Market Instruments": 0.43,
+        "Ferrous metals": 0.33
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-08-01",
+      "year": 2023,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 67.45,
+        "Overseas Equity": 17.4,
+        "Debt & Money Market": 0.36
+      },
+      "category_total": 85.21,
+      "sectors": {
+        "Banks": 19.1,
+        "Internet and Technology": 13.59,
+        "Cash & Cash Equivalent": 13.11,
+        "IT - Software": 7.26,
+        "Finance": 7.06,
+        "Capital Markets": 6.63,
+        "Diversified FMCG": 6.55,
+        "Consumable Fuels": 5.2,
+        "Power": 4.92,
+        "Automobiles": 4.17,
+        "Pharmaceuticals & Biotechnology": 3.91,
+        "Consumer Services": 3.81,
+        "Arbitrage/Special Situation": 1.61,
+        "Minerals & Mining": 1.58,
+        "Auto Components": 0.7,
+        "Debt and Money Market Instruments": 0.43,
+        "Ferrous metals": 0.37
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-09-01",
+      "year": 2023,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 69.04,
+        "Overseas Equity": 16.04,
+        "Debt & Money Market": 0.36
+      },
+      "category_total": 85.44,
+      "sectors": {
+        "Banks": 18.98,
+        "Cash & Cash Equivalent": 12.89,
+        "Internet and Technology": 12.68,
+        "Finance": 7.51,
+        "IT - Software": 7.18,
+        "Capital Markets": 6.75,
+        "Diversified FMCG": 6.3,
+        "Automobiles": 5.07,
+        "Consumable Fuels": 4.98,
+        "Power": 4.93,
+        "Pharmaceuticals & Biotechnology": 3.68,
+        "Consumer Services": 3.36,
+        "Minerals & Mining": 1.81,
+        "Arbitrage/Special Situation": 1.6,
+        "Auto Components": 1.52,
+        "Debt and Money Market Instruments": 0.43,
+        "Ferrous Metals": 0.33
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-10-01",
+      "year": 2023,
+      "month": 10,
+      "categories": {
+        "Indian Equity": 68.39,
+        "Overseas Equity": 15.86,
+        "Debt & Money Market": 0.32
+      },
+      "category_total": 84.57,
+      "sectors": {
+        "Banks": 18.11,
+        "Cash & Cash Equivalent": 14.09,
+        "Internet and Technology": 12.44,
+        "Finance": 7.15,
+        "Capital Markets": 7.06,
+        "IT - Software": 7.05,
+        "Diversified FMCG": 5.9,
+        "Consumable Fuels": 5.15,
+        "Automobiles": 4.95,
+        "Power": 4.95,
+        "Pharmaceuticals & Biotechnology": 3.73,
+        "Consumer Services": 3.42,
+        "Auto Components": 2.26,
+        "Minerals & Mining": 1.83,
+        "Arbitrage/Special Situation": 1.28,
+        "Debt and Money Market Instruments": 0.38,
+        "Ferrous Metals": 0.25
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-11-01",
+      "year": 2023,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 69.12,
+        "Overseas Equity": 15.84,
+        "Debt & Money Market": 0.25
+      },
+      "category_total": 85.21,
+      "sectors": {
+        "Banks": 18.99,
+        "Cash & Cash Equivalent": 13.7,
+        "Internet and Technology": 12.41,
+        "Capital Markets": 7.84,
+        "Finance": 6.98,
+        "IT - Software": 6.83,
+        "Diversified FMCG": 5.48,
+        "Automobiles": 4.98,
+        "Consumable Fuels": 4.91,
+        "Power": 4.9,
+        "Pharmaceuticals & Biotechnology": 3.76,
+        "Consumer Services": 3.43,
+        "Auto Components": 2.23,
+        "Minerals & Mining": 1.97,
+        "Arbitrage/Special Situation": 1.03,
+        "Debt and Money Market Instruments": 0.31,
+        "Ferrous Metals": 0.25
+      },
+      "sector_count": 17,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2023-12-01",
+      "year": 2023,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 69.55,
+        "Overseas Equity": 15.25,
+        "Debt & Money Market": 0.25
+      },
+      "category_total": 85.05,
+      "sectors": {
+        "Banks": 19.16,
+        "Cash & Cash Equivalent": 13.81,
+        "Internet and Technology": 11.94,
+        "Capital Markets": 7.52,
+        "IT - Software": 7.09,
+        "Finance": 6.82,
+        "Diversified FMCG": 5.39,
+        "Power": 5.22,
+        "Consumable Fuels": 5.01,
+        "Automobiles": 4.96,
+        "Pharmaceuticals & Biotechnology": 3.8,
+        "Consumer Services": 3.31,
+        "Minerals & Mining": 2.11,
+        "Auto Components": 2.07,
+        "Arbitrage/Special Situation": 1.08,
+        "Debt and Money Market Instruments": 0.31,
+        "Ferrous Metals": 0.27,
+        "Gas": 0.13
+      },
+      "sector_count": 18,
+      "aum": "N/A",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-01-01",
+      "year": 2024,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 71.85,
+        "Debt & Money Market": -7.91,
+        "Cash & Equivalents": 9.91
+      },
+      "category_total": 73.85,
+      "sectors": {
+        "Banks": 19.88,
+        "Internet and Technology": 11.84,
+        "Cash & Cash Equivalent": 10.33,
+        "Capital Markets": 7.8,
+        "IT - Software": 7.42,
+        "Finance": 7.1,
+        "Power": 5.65,
+        "Consumable Fuels": 5.12,
+        "Automobiles": 5.11,
+        "Diversified FMCG": 5.03,
+        "Pharmaceuticals & Biotechnology": 3.83,
+        "Consumer Services": 3.19,
+        "Minerals & Mining": 2.09,
+        "Debt and Money Market Instruments": 2.05,
+        "Auto Components": 1.87,
+        "Arbitrage/Special Situation": 0.74,
+        "Gas": 0.52,
+        "Ferrous Metals": 0.32,
+        "Fertilizers & Agrochemicals": 0.11
+      },
+      "sector_count": 19,
+      "aum": "\u20b955,034.05 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-02-01",
+      "year": 2024,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 71.66,
+        "Debt & Money Market": -5.96,
+        "Cash & Equivalents": 8.94
+      },
+      "category_total": 74.64,
+      "sectors": {
+        "Banks": 19.61,
+        "Internet and Technology": 12.0,
+        "Scheme shall invest in Indian equities, foreign Finance": 7.33,
+        "equities and related instruments and debt IT - Software": 7.33,
+        "An open ended dynamic Equity scheme Power": 6.13,
+        "investing across large cap, mid cap, Automobiles": 5.29,
+        "Diversified FMCG": 4.99,
+        "Consumer Services": 3.39,
+        "Minerals & Mining": 1.81,
+        "Managers Arbitrage/Special Situation": 0.64,
+        "Industrial Products": 0.01
+      },
+      "sector_count": 11,
+      "aum": "\u20b958,900.51 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-03-01",
+      "year": 2024,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 70.03,
+        "Debt & Money Market": -7.24,
+        "Cash & Equivalents": 10.13
+      },
+      "category_total": 72.92,
+      "sectors": {
+        "Banks": 19.63,
+        "Investment Objective from an actively managed portfolio primarily Computer Software": 12.09,
+        "Scheme shall invest in Indian equities, foreign IT - Software": 6.72,
+        "Capital Markets": 6.65,
+        "Finance": 6.61,
+        "Type of the Scheme An open-ended dynamic Equity scheme Power": 6.17,
+        "Automobiles": 5.75,
+        "Diversified FMCG": 5.17,
+        "Pharmaceuticals & Biotechnology": 4.05,
+        "Debt and Money Market Instruments": 3.42,
+        "Catalog/Specialty Distribution": 3.39,
+        "Fertilizers & Agrochemicals": 0.2,
+        "Industrial Products": 0.01
+      },
+      "sector_count": 13,
+      "aum": "\u20b960,559.43 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-04-01",
+      "year": 2024,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 70.23,
+        "Overseas Equity": 14.13,
+        "Debt & Money Market": -8.07,
+        "Cash & Equivalents": 11.16
+      },
+      "category_total": 87.45,
+      "sectors": {
+        "Banks": 20.07,
+        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 11.16,
+        "Scheme shall invest in Indian equities, foreign Capital Markets": 7.78,
+        "equities and related instruments and debt Power": 6.42,
+        "Type of the Scheme An open-ended dynamic Equity scheme IT - Software": 5.68,
+        "investing across large cap, mid cap, Automobiles": 5.54,
+        "Consumable Fuels": 4.93,
+        "Pharmaceuticals & Biotechnology": 3.83,
+        "Minerals & Mining": 1.88,
+        "Auto Components": 1.59,
+        "Gas": 0.96,
+        "Industrial Products": 0.02,
+        "Index / Stock Options": 0.01
+      },
+      "sector_count": 13,
+      "aum": "\u20b963,933.76 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-05-01",
+      "year": 2024,
+      "month": 5,
+      "categories": {
+        "Indian Equity": 69.5,
+        "Overseas Equity": 14.39,
+        "Debt & Money Market": -8.18,
+        "Cash & Equivalents": 11.36
+      },
+      "category_total": 87.07,
+      "sectors": {
+        "To seek to generate long-term capital growth Banks": 20.19,
+        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 11.36,
+        "Scheme shall invest in Indian equities, foreign Capital Markets": 6.99,
+        "Power": 6.35,
+        "Finance": 6.12,
+        "Type of the Scheme An open-ended dynamic Equity scheme Diversified FMCG": 5.45,
+        "Consumable Fuels": 5.35,
+        "IT - Software": 5.34,
+        "Debt and Money Market Instruments": 3.71,
+        "Managers Arbitrage/Special Situation": 1.02,
+        "Fertilizers & Agrochemicals": 0.23
+      },
+      "sector_count": 11,
+      "aum": "\u20b966,383.82 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-06-01",
+      "year": 2024,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 69.71,
+        "Overseas Equity": 14.33,
+        "Debt & Money Market": -7.79,
+        "Cash & Equivalents": 11.24
+      },
+      "category_total": 87.49,
+      "sectors": {
+        "To seek to generate long-term capital growth Banks": 20.62,
+        "Investment Objective from an actively managed portfolio primarily Computer Software": 11.26,
+        "Scheme shall invest in Indian equities, foreign Capital Markets": 7.07,
+        "Power": 6.28,
+        "Finance": 6.2,
+        "Type of the Scheme An open-ended dynamic Equity scheme IT - Software": 5.59,
+        "Diversified FMCG": 5.52,
+        "Consumable Fuels": 5.03,
+        "Debt and Money Market Instruments": 3.93,
+        "Auto Components": 1.89,
+        "Managers Gas": 1.02,
+        "Fertilizers & Agrochemicals": 0.24
+      },
+      "sector_count": 12,
+      "aum": "\u20b971,700.48 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-07-01",
+      "year": 2024,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 71.04,
+        "Overseas Equity": 12.84,
+        "Debt & Money Market": -8.24,
+        "Cash & Equivalents": 11.58
+      },
+      "category_total": 87.22,
+      "sectors": {
+        "Banks": 19.24,
+        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 11.58,
+        "Scheme shall invest in Indian equities, foreign Capital Markets": 6.97,
+        "equities and related instruments and debt Power": 6.86,
+        "Type of the Scheme An open-ended dynamic Equity scheme IT - Software": 6.21,
+        "investing across large cap, mid cap, Diversified FMCG": 5.76,
+        "Automobiles": 5.25,
+        "Debt and Money Market Instruments": 3.8,
+        "Auto Components": 1.83,
+        "Minerals & Mining": 1.5,
+        "Gas": 1.05,
+        "Index / Stock Options": 0.02,
+        "Industrial Products": 0.02
+      },
+      "sector_count": 13,
+      "aum": "\u20b975,956.22 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-08-01",
+      "year": 2024,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 69.94,
+        "Overseas Equity": 12.45,
+        "Debt & Money Market": -8.82,
+        "Cash & Equivalents": 12.57
+      },
+      "category_total": 86.14,
+      "sectors": {
+        "To seek to generate long-term capital growth Banks": 19.2,
+        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 12.57,
+        "Scheme shall invest in Indian equities, foreign Capital Markets": 7.32,
+        "Power": 6.74,
+        "Finance": 6.74,
+        "Type of the Scheme An open-ended dynamic Equity scheme IT - Software": 6.35,
+        "Diversified FMCG": 5.65,
+        "Consumable Fuels": 5.59,
+        "Automobiles": 4.81,
+        "Debt and Money Market Instruments": 4.31,
+        "Auto Components": 1.51,
+        "Gas": 0.95,
+        "Index / Stock Options": 0.02
+      },
+      "sector_count": 13,
+      "aum": "\u20b978,490.29 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-09-01",
+      "year": 2024,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 68.86,
+        "Overseas Equity": 12.41,
+        "Debt & Money Market": -10.32,
+        "Cash & Equivalents": 13.91
+      },
+      "category_total": 84.86,
+      "sectors": {
+        "Banks": 19.73,
+        "Cash & Cash Equivalent": 13.91,
+        "Computer Software": 9.82,
+        "Power": 7.29,
+        "Finance": 6.83,
+        "IT - Software": 6.08,
+        "Consumable Fuels": 6.04,
+        "Capital Markets": 6.03,
+        "Diversified FMCG": 5.55,
+        "Automobiles": 4.89,
+        "Debt and Money Market Instruments": 4.13,
+        "Pharmaceuticals & Biotechnology": 3.45,
+        "Catalog/Specialty Distribution": 2.59,
+        "Auto Components": 1.55,
+        "Arbitrage/Special Situation": 0.66,
+        "Gas": 0.63,
+        "Minerals & Mining": 0.53,
+        "Fertilizers & Agrochemicals": 0.24,
+        "Index / Stock Options": 0.03,
+        "Industrial Products": 0.02
+      },
+      "sector_count": 20,
+      "aum": "\u20b982,441.07 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-10-01",
+      "year": 2024,
+      "month": 10,
+      "categories": {
+        "Indian Equity": 67.08,
+        "Overseas Equity": 12.42,
+        "Debt & Money Market": -11.83,
+        "Cash & Equivalents": 15.58
+      },
+      "category_total": 83.25,
+      "sectors": {
+        "To seek to generate long-term capital growth Banks": 20.08,
+        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 15.58,
+        "Computer Software": 9.8,
+        "equities and related instruments and debt Power": 7.08,
+        "Consumable Fuels": 6.49,
+        "investing across large cap, mid cap, IT - Software": 6.02,
+        "Capital Markets": 5.48,
+        "Automobiles": 4.11,
+        "Catalog/Specialty Distribution": 2.62,
+        "Index / Stock Options": 0.02,
+        "Industrial Products": 0.02
+      },
+      "sector_count": 11,
+      "aum": "\u20b981,918.72 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-11-01",
+      "year": 2024,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 65.83,
+        "Debt & Money Market": -9.66,
+        "Cash & Equivalents": 14.89
+      },
+      "category_total": 71.06,
+      "sectors": {
+        "Investment Objective from an actively managed portfolio primarily Banks": 20.09,
+        "Computer Software": 9.66,
+        "Finance": 6.68,
+        "Type of the Scheme investing across large cap, mid cap, Consumable Fuels": 6.45,
+        "Debt and Money Market Instruments": 5.76,
+        "Pharmaceuticals & Biotechnology": 3.41,
+        "Catalog/Specialty Distribution": 2.84,
+        "Auto Components": 1.38,
+        "Fertilizers & Agrochemicals": 0.23
+      },
+      "sector_count": 9,
+      "aum": "\u20b984,640.59 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2024-12-01",
+      "year": 2024,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 65.85,
+        "Debt & Money Market": -1.44,
+        "Cash & Equivalents": 10.2
+      },
+      "category_total": 74.61,
+      "sectors": {
+        "foreign equities and related instruments and debt Cash & Cash Equivalent": 10.2,
+        "investment objective of the Scheme will be achieved and Debt and Money Market Instruments": 9.77,
+        "Finance": 7.31,
+        "Type of the Scheme Power": 6.54,
+        "Automobiles": 5.76,
+        "Diversified FMCG": 5.47,
+        "Pharmaceuticals & Biotechnology": 3.65,
+        "Managers Arbitrage/Special Situation": 1.36,
+        "Fertilizers & Agrochemicals": 0.23,
+        "Healthcare Services": 0.19
+      },
+      "sector_count": 10,
+      "aum": "\u20b987,539.41 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2025-01-01",
+      "year": 2025,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 65.43,
+        "Overseas Equity": 13.73,
+        "Debt & Money Market": -0.12,
+        "Cash & Equivalents": 9.48
+      },
+      "category_total": 88.52,
+      "sectors": {
+        "actively managed portfolio primarily of Equity and Equity Banks": 20.19,
+        "foreign equities and related instruments and debt Debt and Money Market Instruments": 9.96,
+        "investment objective of the Scheme will be achieved and Cash & Cash Equivalent": 9.48,
+        "An open-ended dynamic Equity scheme Finance": 6.93,
+        "investing across large cap, mid cap, Power": 6.24,
+        "IT - Software": 5.55,
+        "Capital Markets": 2.82,
+        "Auto Components": 1.29,
+        "Leisure Services": 0.18,
+        "Industrial Products": 0.02
+      },
+      "sector_count": 10,
+      "aum": "\u20b989,703.46 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2025-02-01",
+      "year": 2025,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 64.37,
+        "Overseas Equity": 12.9,
+        "Debt & Money Market": -1.22,
+        "Cash & Equivalents": 10.79
+      },
+      "category_total": 86.84,
+      "sectors": {
+        "To seek to generate long-term capital growth from an Banks": 20.64,
+        "foreign equities and related instruments and debt Debt and Money Market Instruments": 10.17,
+        "investment objective of the Scheme will be achieved and Computer Software": 10.01,
+        "An open-ended dynamic Equity scheme Automobiles": 7.06,
+        "investing across large cap, mid cap, Consumable Fuels": 5.99,
+        "IT - Software": 5.13,
+        "Capital Markets": 2.5,
+        "Auto Components": 1.25,
+        "Leisure Services": 0.18,
+        "Industrial Products": 0.01
+      },
+      "sector_count": 10,
+      "aum": "\u20b988,004.52 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2025-03-01",
+      "year": 2025,
+      "month": 3,
+      "categories": {
+        "Indian Equity": 67.35,
+        "Overseas Equity": 10.7,
+        "Debt & Money Market": -0.98,
+        "Cash & Equivalents": 11.08
+      },
+      "category_total": 88.15,
+      "sectors": {
+        "To seek to generate long-term capital growth from an Banks": 21.23,
+        "foreign equities and related instruments and debt Debt and Money Market Instruments": 10.87,
+        "Computer Software": 8.31,
+        "An open-ended dynamic Equity scheme Automobiles": 6.69,
+        "investing across large cap, mid cap, Consumable Fuels": 6.01,
+        "IT - Software": 4.75,
+        "Capital Markets": 2.47,
+        "Auto Components": 1.15,
+        "Leisure Services": 0.21
+      },
+      "sector_count": 9,
+      "aum": "\u20b993,440.89 Cr",
+      "quality": "incomplete"
+    },
+    {
+      "date": "2025-04-01",
+      "year": 2025,
+      "month": 4,
+      "categories": {
+        "Indian Equity": 66.23,
+        "Overseas Equity": 10.0,
+        "Debt & Money Market": 10.74,
+        "Cash & Equivalents": 13.03
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 21.14,
+        "Cash & Cash Equivalent": 13.03,
+        "Debt and Money Market Instruments": 10.74,
+        "Computer Software": 7.83,
+        "Automobiles": 7.04,
+        "Finance": 6.55,
+        "Power": 6.04,
+        "Consumable Fuels": 5.8,
+        "Diversified FMCG": 4.55,
+        "IT - Software": 4.4,
+        "Pharmaceuticals & Biotechnology": 4.03,
+        "Arbitrage/Special Situation": 2.53,
+        "Capital Markets": 2.38,
+        "Catalog/Specialty Distribution": 2.17,
+        "Auto Components": 1.14,
+        "Healthcare Services": 0.36,
+        "Food Products": 0.25,
+        "Industrial Products": 0.02
+      },
+      "sector_count": 18,
+      "aum": "\u20b998,541.28 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2025-05-01",
+      "year": 2025,
+      "month": 5,
+      "categories": {
+        "Indian Equity": 67.3,
+        "Overseas Equity": 10.92,
+        "REITs & InvITs": 0.35,
+        "Debt & Money Market": 11.4,
+        "Cash & Equivalents": 10.03
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 20.06,
+        "Debt and Money Market Instruments": 11.3,
+        "Cash & Cash Equivalent": 10.13,
+        "Computer Software": 8.6,
+        "Automobiles": 7.09,
+        "Finance": 6.97,
+        "Consumable Fuels": 5.95,
+        "Power": 5.83,
+        "Diversified FMCG": 4.4,
+        "IT - Software": 4.29,
+        "Pharmaceuticals & Biotechnology": 4.01,
+        "Arbitrage/Special Situation": 2.62,
+        "Catalog/Specialty Distribution": 2.32,
+        "Capital Markets": 2.3,
+        "Telecom - Services": 2.11,
+        "Auto Components": 1.0,
+        "Realty": 0.35,
+        "Healthcare Services": 0.34,
+        "Food Products": 0.3,
+        "Industrial Products": 0.02,
+        "Commercial Services & Supplies": 0.01
+      },
+      "sector_count": 21,
+      "aum": "\u20b91,03,867.95 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2025-06-01",
+      "year": 2025,
+      "month": 6,
+      "categories": {
+        "Indian Equity": 68.96,
+        "Overseas Equity": 11.14,
+        "REITs & InvITs": 0.43,
+        "Debt & Money Market": 11.25,
+        "Cash & Equivalents": 8.22
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "To seek to generate long-term capital growth from an Banks": 19.81,
+        "actively managed portfolio primarily of Equity and Equity Debt and Money Market Instruments": 11.25,
+        "investment objective of the Scheme will be achieved and Finance": 7.04,
+        "An open-ended dynamic Equity scheme Power": 6.09,
+        "investing across large cap, mid cap, Consumable Fuels": 5.75,
+        "IT - Software": 4.26,
+        "Telecom - Services": 3.81,
+        "Arbitrage/Special Situation": 2.38,
+        "Catalog/Specialty Distribution": 2.34,
+        "Healthcare Services": 0.39,
+        "Vice President & Fund Manager - Equity Industrial Products": 0.02
+      },
+      "sector_count": 11,
+      "aum": "\u20b91,10,392.32 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2025-07-01",
+      "year": 2025,
+      "month": 7,
+      "categories": {
+        "Indian Equity": 66.5,
+        "Overseas Equity": 11.85,
+        "REITs & InvITs": 0.49,
+        "Debt & Money Market": 10.95,
+        "Cash & Equivalents": 10.21
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "To seek to generate long-term capital growth from an Banks": 19.85,
+        "Cash & Cash Equivalent": 10.21,
+        "investment objective of the Scheme will be achieved and Automobiles": 6.85,
+        "Type of the Scheme An open-ended dynamic Equity scheme Power": 5.93,
+        "investing across large cap, mid cap, Consumable Fuels": 5.38,
+        "Pharmaceuticals & Biotechnology": 3.87,
+        "Telecom - Services": 3.58,
+        "Arbitrage/Special Situation": 2.13,
+        "Healthcare Services": 0.34,
+        "Vice President & Fund Manager - Equity Industrial Products": 0.02
+      },
+      "sector_count": 10,
+      "aum": "\u20b91,13,280.87 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2025-08-01",
+      "year": 2025,
+      "month": 8,
+      "categories": {
+        "Indian Equity": 65.57,
+        "Overseas Equity": 11.7,
+        "REITs & InvITs": 0.58,
+        "Debt & Money Market": 11.09,
+        "Cash & Equivalents": 11.06
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "To seek to generate long-term capital growth from an Banks": 19.84,
+        "foreign equities and related instruments and debt Cash & Cash Equivalent": 11.06,
+        "investment objective of the Scheme will be achieved and Automobiles": 6.96,
+        "Finance": 6.01,
+        "Type of the Scheme An open-ended dynamic Equity scheme Power": 5.89,
+        "investing across large cap, mid cap, Consumable Fuels": 5.28,
+        "Diversified FMCG": 4.61,
+        "Pharmaceuticals & Biotechnology": 3.8,
+        "IT - Software": 3.56,
+        "Vice President & Fund Manager - Equity Healthcare Services": 0.3
+      },
+      "sector_count": 10,
+      "aum": "\u20b91,15,040.08 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2025-09-01",
+      "year": 2025,
+      "month": 9,
+      "categories": {
+        "Indian Equity": 65.44,
+        "Overseas Equity": 11.69,
+        "REITs & InvITs": 0.66,
+        "Debt & Money Market": 12.24,
+        "Cash & Equivalents": 9.97
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "To seek to generate long-term capital growth from an Banks": 20.0,
+        "foreign equities and related instruments and debt Cash & Cash Equivalent": 9.97,
+        "Power": 5.99,
+        "Type of the Scheme An open-ended dynamic Equity scheme Finance": 5.56,
+        "Consumable Fuels": 5.28,
+        "Diversified FMCG": 4.55,
+        "Pharmaceuticals & Biotechnology": 3.73,
+        "Telecom - Services": 3.32,
+        "Food Products": 1.27,
+        "Vice President & Fund Manager - Equity Commercial Services & Supplies": 0.02,
+        "Industrial Products": 0.02
+      },
+      "sector_count": 11,
+      "aum": "\u20b91,19,723.32 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2025-10-01",
+      "year": 2025,
+      "month": 10,
+      "categories": {
+        "Indian Equity": 65.97,
+        "Overseas Equity": 11.5,
+        "REITs & InvITs": 0.64,
+        "Debt & Money Market": 12.35,
+        "Cash & Equivalents": 9.54
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 19.95,
+        "Debt and Money Market Instruments": 12.35,
+        "Cash & Cash Equivalent": 9.54,
+        "Computer Software": 9.13,
+        "Automobiles": 6.92,
+        "Power": 6.0,
+        "Finance": 5.3,
+        "Consumable Fuels": 5.01,
+        "Diversified FMCG": 4.64,
+        "Pharmaceuticals & Biotechnology": 3.65,
+        "Telecom - Services": 3.46,
+        "Arbitrage/Special Situation": 3.42,
+        "IT - Software": 3.32,
+        "Catalog/Specialty Distribution": 2.37,
+        "Capital Markets": 1.92,
+        "Food Products": 1.3,
+        "Auto Components": 0.76,
+        "Realty": 0.64,
+        "Healthcare Services": 0.28,
+        "Commercial Services & Supplies": 0.02,
+        "Industrial Products": 0.02
+      },
+      "sector_count": 21,
+      "aum": "\u20b91,25,799.63 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2025-11-01",
+      "year": 2025,
+      "month": 11,
+      "categories": {
+        "Indian Equity": 66.78,
+        "Overseas Equity": 11.51,
+        "REITs & InvITs": 0.71,
+        "Debt & Money Market": 12.33,
+        "Cash & Equivalents": 8.67
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 20.14,
+        "Debt and Money Market Instruments": 12.33,
+        "Computer Software": 9.3,
+        "Cash & Cash Equivalent": 8.67,
+        "Automobiles": 6.97,
+        "Power": 5.91,
+        "IT - Software": 5.28,
+        "Finance": 4.8,
+        "Consumable Fuels": 4.7,
+        "Diversified FMCG": 4.51,
+        "Pharmaceuticals & Biotechnology": 3.8,
+        "Telecom - Services": 3.45,
+        "Arbitrage/Special Situation": 3.04,
+        "Catalog/Specialty Distribution": 2.21,
+        "Capital Markets": 1.91,
+        "Food Products": 1.19,
+        "Auto Components": 0.75,
+        "Realty": 0.71,
+        "Healthcare Services": 0.3,
+        "Commercial Services & Supplies": 0.02,
+        "Industrial Products": 0.01
+      },
+      "sector_count": 21,
+      "aum": "\u20b91,29,782.54 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2025-12-01",
+      "year": 2025,
+      "month": 12,
+      "categories": {
+        "Indian Equity": 67.36,
+        "Overseas Equity": 11.16,
+        "REITs & InvITs": 1.28,
+        "Debt & Money Market": 12.7,
+        "Cash & Equivalents": 7.5
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 20.3,
+        "Debt and Money Market Instruments": 12.7,
+        "Computer Software": 9.01,
+        "Cash & Cash Equivalent": 7.5,
+        "Automobiles": 7.07,
+        "Power": 6.06,
+        "IT - Software": 5.71,
+        "Consumable Fuels": 4.85,
+        "Finance": 4.61,
+        "Diversified FMCG": 4.49,
+        "Pharmaceuticals & Biotechnology": 3.73,
+        "Telecom - Services": 3.36,
+        "Arbitrage/Special Situation": 2.92,
+        "Catalog/Specialty Distribution": 2.15,
+        "Capital Markets": 1.86,
+        "Realty": 1.28,
+        "Food Products": 1.23,
+        "Auto Components": 0.73,
+        "Healthcare Services": 0.28,
+        "Transport Services": 0.14,
+        "Commercial Services & Supplies": 0.01,
+        "Industrial Products": 0.01
+      },
+      "sector_count": 22,
+      "aum": "\u20b91,33,308.62 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2026-01-01",
+      "year": 2026,
+      "month": 1,
+      "categories": {
+        "Indian Equity": 68.1,
+        "Overseas Equity": 11.74,
+        "REITs & InvITs": 1.33,
+        "Debt & Money Market": 13.76,
+        "Cash & Equivalents": 5.07
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 20.18,
+        "Debt and Money Market Instruments": 13.76,
+        "Computer Software": 9.47,
+        "IT - Software": 6.96,
+        "Automobiles": 6.61,
+        "Power": 6.0,
+        "Arbitrage/Special Situation": 5.62,
+        "Consumable Fuels": 5.26,
+        "Cash & Cash Equivalent": 5.07,
+        "Diversified FMCG": 5.05,
+        "Finance": 4.9,
+        "Pharmaceuticals & Biotechnology": 3.77,
+        "Catalog/Specialty Distribution": 2.27,
+        "Realty": 1.33,
+        "Capital Markets": 1.27,
+        "Food Products": 1.25,
+        "Auto Components": 0.73,
+        "Healthcare Services": 0.26,
+        "Transport Services": 0.2,
+        "Telecom - Services": 0.02,
+        "Commercial Services & Supplies": 0.01,
+        "Industrial Products": 0.01
+      },
+      "sector_count": 22,
+      "aum": "\u20b91,33,969.81 Cr",
+      "quality": "good"
+    },
+    {
+      "date": "2026-02-01",
+      "year": 2026,
+      "month": 2,
+      "categories": {
+        "Indian Equity": 67.88,
+        "Overseas Equity": 10.51,
+        "REITs & InvITs": 3.52,
+        "Debt & Money Market": 14.52,
+        "Cash & Equivalents": 3.57
+      },
+      "category_total": 100.0,
+      "sectors": {
+        "Banks": 20.04,
+        "Debt and Money Market Instruments": 14.52,
+        "Computer Software": 8.54,
+        "Power": 6.92,
+        "IT - Software": 6.91,
+        "Automobiles": 6.71,
+        "Consumable Fuels": 5.18,
+        "Diversified FMCG": 5.04,
+        "Finance": 4.93,
+        "Pharmaceuticals & Biotechnology": 3.9,
+        "Cash & Cash Equivalent": 3.57,
+        "Realty": 3.52,
+        "Telecom - Services": 2.98,
+        "Catalog/Specialty Distribution": 1.97,
+        "Arbitrage/Special Situation": 1.9,
+        "Food Products": 1.11,
+        "Capital Markets": 1.09,
+        "Auto Components": 0.54,
+        "Healthcare Services": 0.27,
+        "Transport Services": 0.22,
+        "Commercial Services & Supplies": 0.13,
+        "Industrial Products": 0.01
+      },
+      "sector_count": 22,
+      "aum": "\u20b91,34,253.17 Cr",
+      "quality": "good"
+    }
+  ]
+}

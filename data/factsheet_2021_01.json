@@ -1,0 +1,27 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "\u20b96,824.99 Cr",
+  "sector_allocation": {
+    "Net Assets": 100.0,
+    "Total": 31.14,
+    "Internet & Technology": 13.97,
+    "ITC Ltd Consumer Non Durables": 7.97,
+    "Type of the Scheme scheme investing across large cap, mid cap, Persistent Systems Ltd Software": 5.35,
+    "TREPS Including Cash & Cash Equivalent and Net Current Asset": 3.61,
+    "Axis Bank Ltd Banks": 2.88,
+    "Balkrishna Industries Auto Ancillaries": 2.47,
+    "Zydus Wellness Ltd CAuotnos Aumnceilrl aNrioens Durables": 1.82,
+    "Weighted Average Lupin Ltd Pharmaceuticals": 1.28,
+    "Cadila Healthcare Ltd Pharmaceuticals": 1.18,
+    "ICRA Ltd Finance": 0.71,
+    "FDR": 0.39
+  },
+  "category_allocation": {
+    "Indian Equity": 65.25,
+    "Overseas Equity": 31.14
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "pages 4-4 (Flexi Cap Fund)",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2021/ppfas-mf-factsheet-january-2021.pdf",
+  "factsheet_month": "January 2021"
+}

@@ -1,0 +1,39 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "N/A",
+  "sector_allocation": {
+    "Net Assets": 100.0,
+    "Total": 65.69,
+    "Internet & Technology": 13.64,
+    "Software": 8.17,
+    "Gas": 7.27,
+    "Bajaj Holdings & Investment Ltd Finance": 6.62,
+    "Auto Ancillaries": 6.43,
+    "Persistent Systems Ltd Software": 5.06,
+    "Indraprastha Gas Ltd Gas": 4.91,
+    "Zydus Wellness Ltd Consumer Non Durables": 4.87,
+    "Consumer Non durables": 4.87,
+    "Balkrishna Industries Auto Ancillaries": 3.82,
+    "IT Consulting & Other Services": 3.58,
+    "Mahindra Holidays & Resorts India Ltd Hotels": 3.46,
+    "Hotels": 3.46,
+    "Axis Bank Banks": 3.44,
+    "Mphasis Ltd Software": 3.11,
+    "Overseas Securities, IDRS and ADRs Packaged Foods": 2.99,
+    "ICICI Bank Ltd Banks": 2.92,
+    "Gujarat Gas Ltd Gas": 2.36,
+    "CBLO": 2.34,
+    "FDR": 1.37,
+    "Pfizer Ltd Pharmaceuticals": 0.93,
+    "Brewers": 0.9,
+    "Standard Chartered PLC Banks": 0.47,
+    "Diversified Consumer Services": 0.32
+  },
+  "category_allocation": {
+    "Indian Equity": 65.69
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "info=3, portfolio=3",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2016/pltvf-factsheet-december-2016.pdf",
+  "factsheet_month": "December 2016"
+}

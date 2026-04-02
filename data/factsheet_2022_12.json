@@ -1,0 +1,25 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "\u20b928,248.50 Cr",
+  "sector_allocation": {
+    "Finance": 15.77,
+    "Internet & Technology": 11.8,
+    "No exit load will be charged, in case of switch transactions T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 9.95,
+    "CAPITAL MARKETS": 8.24,
+    "IT - Software": 5.91,
+    "Pharmaceuticals & Biotechnology": 5.06,
+    "Consumable Fuels": 5.05,
+    "Power": 4.82,
+    "AMCs to resume subscription and make investments in overseas funds / securities upto the headroom Arbitrage/Special Situation": 3.76,
+    "Minerals & Mining": 1.18,
+    "Auto Components": 0.93
+  },
+  "category_allocation": {
+    "Indian Equity": 70.25,
+    "Overseas Equity": 15.51
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "pages 9-9 (Flexi Cap Fund)",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2022/ppfas-mf-factsheet-for-december-2022.pdf",
+  "factsheet_month": "December 2022"
+}

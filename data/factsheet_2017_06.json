@@ -1,0 +1,41 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "N/A",
+  "sector_allocation": {
+    "Net Assets": 100.0,
+    "Invested Total": 96.39,
+    "Total": 26.28,
+    "Banks": 14.62,
+    "Finance": 8.4,
+    "Auto Ancillaries": 7.39,
+    "Software": 7.25,
+    "Bajaj Holdings & Investment Ltd Finance": 6.46,
+    "Indraprastha Gas Ltd Gas": 4.75,
+    "Persistent Systems Ltd Software": 4.71,
+    "Zydus Wellness Ltd Consumer Non Durables": 4.02,
+    "Debt and Money Market Instruments": 3.9,
+    "Pharmaceuticals": 3.62,
+    "Cash & Cash Equivalent": 3.61,
+    "Cash and Cash Equivalent": 3.61,
+    "Axis Bank Ltd Banks": 3.32,
+    "ICICI Bank Ltd Banks": 3.07,
+    "Overseas Securities, IDRs and ADRs Industrial Conglomerates": 3.03,
+    "Packaged Foods": 2.93,
+    "Gujarat Gas Ltd Gas": 2.82,
+    "CBLO": 2.75,
+    "IT Consulting & Other Services": 2.65,
+    "Maharashtra Scooters Ltd Auto Ancillaries": 2.54,
+    "IPCA Laboratories Ltd Pharmaceuticals": 1.48,
+    "FDR": 1.15,
+    "Pfizer Ltd Pharmaceuticals": 0.77,
+    "IT Consulting & Other Brewers": 0.76,
+    "Standard Chartered PLC Banks": 0.47
+  },
+  "category_allocation": {
+    "Indian Equity": 66.21
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "info=2, portfolio=2",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2017/pltvf-factsheet-june-2017.pdf",
+  "factsheet_month": "June 2017"
+}

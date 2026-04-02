@@ -1,0 +1,29 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "N/A",
+  "sector_allocation": {
+    "Banks": 13.77,
+    "Auto Ancillaries": 7.53,
+    "Software": 7.18,
+    "Consumer Non durables": 4.7,
+    "Arbitrage/Special Situation": 4.36,
+    "Hotels": 3.7,
+    "Balkrishna Industries Auto Ancillaries": 3.52,
+    "IT Consulting & Other Services": 3.1,
+    "Pharmaceuticals": 2.98,
+    "CBLO": 2.03,
+    "IL&FS Investment Managers Finance": 2.02,
+    "FDR": 1.3,
+    "Brewers": 0.98,
+    "Diversified Consumer Services": 0.36
+  },
+  "category_allocation": {
+    "Overseas Equity": 27.14,
+    "Debt & Money Market": 91.98,
+    "Cash & Equivalents": 4.01
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "pages 3-3",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2016/pltvf-factsheet-october-2016.pdf",
+  "factsheet_month": "October 2016"
+}

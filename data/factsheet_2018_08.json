@@ -1,0 +1,26 @@
+{
+  "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+  "aum": "\u20b91,352.16 Cr",
+  "sector_allocation": {
+    "Total": 65.73,
+    "Multi Cap Fund - An open ended equity Bajaj Holdings & Investment Ltd Finance": 5.88,
+    "scheme investing across large cap, mid cap, HDFC Bank Ltd Banks": 5.63,
+    "Zydus Wellness Ltd Consumer Non Durables": 4.72,
+    "Balkrishna Industries Auto & Auto Ancillaries": 4.61,
+    "Cash and Cash Equivalent": 3.83,
+    "Maharashtra Scooters Ltd Auto & Auto Ancillaries": 2.52,
+    "Mahindra Holidays & Resorts India Ltd Hotels": 1.62,
+    "Sun Pharmaceuticals Industries Ltd Pharmaceuticals": 1.58,
+    "for the Month Lupin Ltd Pharmaceuticals": 1.53,
+    "Indraprastha Gas Ltd Gas": 1.46,
+    "Entry Load Not Applicable ICRA Ltd Finance": 1.04,
+    "Arbitrage/Special Situation Cash & Cash Equivalent FDR": 0.67
+  },
+  "category_allocation": {
+    "Indian Equity": 65.73
+  },
+  "extraction_date": "2026-04-02",
+  "pages_parsed": "info=2, portfolio=2",
+  "source_url": "https://amc.ppfas.com/downloads/factsheet/2018/PPFCF-factsheet-august-2018.pdf",
+  "factsheet_month": "August 2018"
+}
