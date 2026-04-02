@@ -25,7 +25,7 @@ from returns_calculator import (
     get_return_summary,
     calculate_point_to_point_returns,
 )
-from factsheet_parser import load_factsheet_data, fetch_and_parse_factsheet
+from factsheet_parser import load_factsheet_data, fetch_and_parse_factsheet, fetch_factsheet_for_month
 from nav_averages import calculate_monthly_averages, calculate_rolling_averages as calc_rolling_avg
 
 # ── Page Config ──────────────────────────────────────────────
@@ -147,6 +147,12 @@ def load_factsheet():
     if fs_file.exists():
         return load_factsheet_data(str(fs_file))
     return None
+
+
+@st.cache_data(ttl=86400, show_spinner="Fetching factsheet...")
+def load_factsheet_month(year: int, month: int):
+    """Load factsheet for a specific month (cached for 24h)."""
+    return fetch_factsheet_for_month(year, month)
 
 
 # ── Main App ─────────────────────────────────────────────────
@@ -606,23 +612,58 @@ def main():
 
     st.divider()
 
-    # ── Factsheet Data (Allocations) ─────────────────────────
-    if factsheet:
-        st.subheader("📋 Portfolio Allocation (from Factsheet)")
+    # ── Factsheet Data (Allocations) with month selector ──────
+    st.subheader("📋 Portfolio Allocation (from Factsheet)")
+
+    # Build last 12 months list for selector
+    from datetime import datetime as dt
+    now = dt.now()
+    fs_months = []
+    for i in range(1, 13):  # last 12 months (previous month down to 12 months ago)
+        m = now.month - i
+        y = now.year
+        while m <= 0:
+            m += 12
+            y -= 1
+        fs_months.append((y, m))
+
+    fs_labels = [
+        dt(y, m, 1).strftime("%B %Y") for y, m in fs_months
+    ]
+
+    hdr_fs, sel_fs = st.columns([2, 1])
+    with hdr_fs:
+        st.markdown("Select a month to view sector and category allocation from the PPFAS factsheet.")
+    with sel_fs:
+        fs_selected = st.selectbox(
+            "Factsheet Month", fs_labels, index=0, label_visibility="collapsed"
+        )
+
+    sel_idx = fs_labels.index(fs_selected)
+    sel_year, sel_month = fs_months[sel_idx]
+
+    # Load factsheet for selected month
+    fs_data = load_factsheet_month(sel_year, sel_month)
+
+    if fs_data and not fs_data.get("error"):
+        sectors = fs_data.get("sector_allocation", {})
+        categories = fs_data.get("category_allocation", {})
+        aum = fs_data.get("aum", "N/A")
+
+        if aum and aum != "N/A":
+            st.markdown(f"**AUM:** {aum} &nbsp; | &nbsp; **Month:** {fs_selected}")
 
         col_s, col_c = st.columns(2)
 
         with col_s:
-            sectors = factsheet.get("sector_allocation", {})
             if sectors:
-                st.markdown("**Sector-wise Allocation**")
                 df_sectors = pd.DataFrame(
                     list(sectors.items()), columns=["Sector", "Allocation (%)"]
                 ).sort_values("Allocation (%)", ascending=False)
 
                 fig_sector = px.bar(
                     df_sectors, x="Allocation (%)", y="Sector",
-                    orientation="h", title="Sector Allocation",
+                    orientation="h", title=f"Sector Allocation — {fs_selected}",
                     color="Allocation (%)",
                     color_continuous_scale="Blues",
                     text=df_sectors["Allocation (%)"].apply(lambda v: f"{v:.2f}%"),
@@ -640,32 +681,30 @@ def main():
                 )
                 st.plotly_chart(fig_sector, use_container_width=True)
             else:
-                st.info("Sector allocation data not available in factsheet")
+                st.info("Sector allocation data not available for this month.")
 
         with col_c:
-            categories = factsheet.get("category_allocation", {})
             if categories:
-                st.markdown("**Category-wise Allocation**")
                 df_cat = pd.DataFrame(
                     list(categories.items()), columns=["Category", "Allocation (%)"]
                 )
 
                 fig_cat = px.pie(
                     df_cat, values="Allocation (%)", names="Category",
-                    title="Category Allocation",
+                    title=f"Category Allocation — {fs_selected}",
                     color_discrete_sequence=px.colors.qualitative.Set2,
                     hole=0.4,
                 )
                 fig_cat.update_traces(textposition="inside", textinfo="label+percent")
                 st.plotly_chart(fig_cat, use_container_width=True)
             else:
-                st.info("Category allocation data not available in factsheet")
+                st.info("Category allocation data not available for this month.")
 
-        st.caption(f"Factsheet data extracted on: {factsheet.get('extraction_date', 'N/A')}")
+        st.caption(f"Factsheet data extracted on: {fs_data.get('extraction_date', 'N/A')}")
     else:
         st.info(
-            "📄 Factsheet data not yet available. "
-            "Run `python src/factsheet_parser.py` or wait for the monthly automation."
+            f"📄 Factsheet for {fs_selected} is not yet available. "
+            "Try selecting a different month."
         )
 
     # ── Footer ───────────────────────────────────────────────

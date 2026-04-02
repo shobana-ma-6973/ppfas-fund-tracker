@@ -77,6 +77,45 @@ def calculate_rolling_averages(df: pd.DataFrame) -> dict:
     return averages
 
 
+def get_current_month_daily(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Extract daily NAV data for the current month with day-over-day changes.
+
+    Returns DataFrame with columns: [date, nav, prev_nav, change, change_pct, day_label]
+    """
+    latest_date = df["date"].max()
+    year = latest_date.year
+    month = latest_date.month
+
+    # Filter current month
+    mask = (df["date"].dt.year == year) & (df["date"].dt.month == month)
+    current = df[mask].copy().sort_values("date").reset_index(drop=True)
+
+    if current.empty:
+        return pd.DataFrame()
+
+    # We need the last trading day of the previous month for the first day's change
+    prev_month_data = df[df["date"] < current["date"].iloc[0]].sort_values("date")
+    if not prev_month_data.empty:
+        last_prev = prev_month_data.iloc[-1]["nav"]
+    else:
+        last_prev = None
+
+    # Calculate day-over-day change
+    prev_navs = [last_prev] + current["nav"].tolist()[:-1]
+    current["prev_nav"] = prev_navs
+    current["change"] = current.apply(
+        lambda r: round(r["nav"] - r["prev_nav"], 4) if r["prev_nav"] is not None else None, axis=1
+    )
+    current["change_pct"] = current.apply(
+        lambda r: round(((r["nav"] - r["prev_nav"]) / r["prev_nav"]) * 100, 2)
+        if r["prev_nav"] is not None else None, axis=1
+    )
+    current["day_label"] = current["date"].dt.strftime("%d %b")
+
+    return current
+
+
 def get_nav_summary(df: pd.DataFrame) -> dict:
     """
     Get a comprehensive NAV summary for the daily email.
@@ -105,4 +144,5 @@ def get_nav_summary(df: pd.DataFrame) -> dict:
         "day_change_pct": round(day_change_pct, 2) if day_change_pct is not None else None,
         "rolling_averages": calculate_rolling_averages(df),
         "monthly_averages": calculate_monthly_averages(df, years=5),
+        "current_month_daily": get_current_month_daily(df),
     }

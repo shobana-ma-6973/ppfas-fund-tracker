@@ -360,6 +360,43 @@ def fetch_and_parse_factsheet() -> dict:
         }
 
 
+def fetch_factsheet_for_month(year: int, month: int) -> dict:
+    """
+    Fetch and parse the factsheet for a specific month/year.
+    Saves to data/factsheet_{year}_{month:02d}.json for caching.
+    Returns parsed data dict or None if not available.
+    """
+    cache_path = f"data/factsheet_{year}_{month:02d}.json"
+    cache_file = Path(cache_path)
+
+    # Return cached data if available
+    if cache_file.exists():
+        try:
+            return load_factsheet_data(cache_path)
+        except Exception:
+            pass
+
+    month_name = datetime(year, month, 1).strftime("%B %Y")
+    logger.info(f"Fetching factsheet for {month_name}...")
+
+    # Check availability
+    available, url = check_factsheet_available(year, month)
+    if not available or not url:
+        logger.info(f"Factsheet for {month_name} not available")
+        return None
+
+    try:
+        pdf_path = download_pdf(url)
+        data = parse_factsheet(pdf_path)
+        data["source_url"] = url
+        data["factsheet_month"] = month_name
+        save_factsheet_data(data, cache_path)
+        return data
+    except Exception as e:
+        logger.error(f"Failed to parse factsheet for {month_name}: {e}")
+        return None
+
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     data = fetch_and_parse_factsheet()

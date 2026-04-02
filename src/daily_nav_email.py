@@ -182,6 +182,173 @@ def _reverse_rows(rows_html: str) -> str:
     return "\n".join(reversed(trs))
 
 
+def _build_daily_movement(daily_df) -> str:
+    """
+    Build a pure HTML/CSS vertical bar chart showing daily NAV movement
+    for the current month. Each trading day gets a column with:
+    - A colored bar (height proportional to NAV range)
+    - NAV value
+    - Date label
+    - Day change indicator
+    """
+    if daily_df is None or daily_df.empty:
+        return ""
+
+    import pandas as pd
+
+    nav_min = daily_df["nav"].min()
+    nav_max = daily_df["nav"].max()
+    nav_range = nav_max - nav_min
+    if nav_range == 0:
+        nav_range = 1  # avoid division by zero
+
+    bar_max_height = 120  # max bar height in px
+    bar_min_height = 30   # minimum bar height
+
+    # Get the month name for the header
+    first_date = daily_df["date"].iloc[0]
+    month_label = first_date.strftime("%B %Y")
+    num_days = len(daily_df)
+
+    # Determine bar width based on number of days (responsive)
+    if num_days <= 10:
+        bar_width = 42
+        font_nav = 9
+        font_date = 9
+    elif num_days <= 20:
+        bar_width = 28
+        font_nav = 8
+        font_date = 8
+    else:
+        bar_width = 22
+        font_nav = 7
+        font_date = 7
+
+    # --- Build bar columns ---
+    bar_cells = ""
+    nav_cells = ""
+    change_cells = ""
+    date_cells = ""
+
+    for _, row in daily_df.iterrows():
+        nav_val = row["nav"]
+        change = row.get("change")
+        change_pct = row.get("change_pct")
+        day_label = row["day_label"]
+        day_num = row["date"].strftime("%d")
+
+        # Bar height proportional to NAV position in range
+        ratio = (nav_val - nav_min) / nav_range if nav_range > 0 else 0.5
+        bar_height = int(bar_min_height + ratio * (bar_max_height - bar_min_height))
+
+        # Color based on day change
+        if change is not None and not pd.isna(change):
+            bar_color = "#0d9d5c" if change >= 0 else "#e23636"
+            change_arrow = "▲" if change >= 0 else "▼"
+            change_sign = "+" if change_pct >= 0 else ""
+            change_display = f'<span style="color:{bar_color}; font-size:{font_date}px;">{change_arrow}{change_sign}{change_pct:.1f}%</span>'
+        else:
+            bar_color = "#888"
+            change_display = '<span style="color:#999; font-size:8px;">—</span>'
+
+        # Bar cell (vertical, bottom-aligned)
+        bar_cells += f'''
+            <td style="vertical-align:bottom; text-align:center; padding:0 1px;">
+                <div style="
+                    width:{bar_width}px;
+                    height:{bar_height}px;
+                    background: linear-gradient(to top, {bar_color}, {bar_color}dd);
+                    border-radius:4px 4px 0 0;
+                    margin:0 auto;
+                    position:relative;
+                " title="₹{nav_val:.4f}"></div>
+            </td>'''
+
+        # NAV value below bar
+        nav_cells += f'''
+            <td style="text-align:center; padding:3px 1px 0 1px;">
+                <span style="font-size:{font_nav}px; color:#333; font-weight:600;">₹{nav_val:.1f}</span>
+            </td>'''
+
+        # Change indicator
+        change_cells += f'''
+            <td style="text-align:center; padding:1px;">
+                {change_display}
+            </td>'''
+
+        # Date label
+        date_cells += f'''
+            <td style="text-align:center; padding:2px 1px;">
+                <span style="font-size:{font_date}px; color:#666;">{day_num}</span>
+            </td>'''
+
+    # Summary stats
+    avg_nav = daily_df["nav"].mean()
+    positive_days = daily_df[daily_df["change"] > 0].shape[0] if "change" in daily_df.columns else 0
+    negative_days = daily_df[daily_df["change"] < 0].shape[0] if "change" in daily_df.columns else 0
+    total_change = daily_df["nav"].iloc[-1] - daily_df["nav"].iloc[0]
+    total_change_pct = (total_change / daily_df["nav"].iloc[0]) * 100
+    total_color = "#0d9d5c" if total_change >= 0 else "#e23636"
+    total_arrow = "▲" if total_change >= 0 else "▼"
+    total_sign = "+" if total_change >= 0 else ""
+
+    return f"""
+    <div style="padding: 16px 32px 8px 32px;">
+        <h3 style="margin: 0 0 4px 0; font-size: 16px; color: #1e3a5f;">
+            📈 Daily NAV Movement — {month_label}
+        </h3>
+        <p style="margin: 0 0 12px 0; font-size: 11px; color: #999;">
+            Each bar represents a trading day. Height = NAV relative to month range.
+            <span style="color:#0d9d5c;">■</span> Up day &nbsp;
+            <span style="color:#e23636;">■</span> Down day
+        </p>
+
+        <!-- Bar Chart -->
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <table cellpadding="0" cellspacing="0" style="border-collapse:collapse; margin:0 auto;">
+            <tr style="height:{bar_max_height + 10}px;">
+                {bar_cells}
+            </tr>
+            <tr style="background:#f8f9fb;">
+                {nav_cells}
+            </tr>
+            <tr style="background:#f8f9fb;">
+                {change_cells}
+            </tr>
+            <tr style="background:#f8f9fb; border-top:1px solid #e0e0e0;">
+                {date_cells}
+            </tr>
+        </table>
+        </div>
+
+        <!-- Summary strip -->
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:10px; border-radius:8px; border:1px solid #e8eaed; overflow:hidden;">
+            <tr style="background:#f8f9fb;">
+                <td style="padding:8px 12px; text-align:center; border-right:1px solid #e8eaed;">
+                    <span style="font-size:10px; color:#666; display:block;">Month Range</span>
+                    <span style="font-size:12px; font-weight:600; color:#333;">₹{nav_min:.2f} — ₹{nav_max:.2f}</span>
+                </td>
+                <td style="padding:8px 12px; text-align:center; border-right:1px solid #e8eaed;">
+                    <span style="font-size:10px; color:#666; display:block;">Avg NAV</span>
+                    <span style="font-size:12px; font-weight:600; color:#333;">₹{avg_nav:.2f}</span>
+                </td>
+                <td style="padding:8px 12px; text-align:center; border-right:1px solid #e8eaed;">
+                    <span style="font-size:10px; color:#666; display:block;">MTD Change</span>
+                    <span style="font-size:12px; font-weight:600; color:{total_color};">{total_arrow} {total_sign}{total_change:.2f} ({total_sign}{total_change_pct:.1f}%)</span>
+                </td>
+                <td style="padding:8px 12px; text-align:center;">
+                    <span style="font-size:10px; color:#666; display:block;">Up / Down Days</span>
+                    <span style="font-size:12px; font-weight:600;">
+                        <span style="color:#0d9d5c;">{positive_days}▲</span> /
+                        <span style="color:#e23636;">{negative_days}▼</span>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    """
+
+
 def build_daily_nav_email(nav_summary: dict) -> str:
     """
     Build HTML email for daily NAV update.
@@ -198,11 +365,13 @@ def build_daily_nav_email(nav_summary: dict) -> str:
     day_change_pct = nav_summary.get("day_change_pct")
     rolling = nav_summary["rolling_averages"]
     monthly_df = nav_summary["monthly_averages"]
+    daily_df = nav_summary.get("current_month_daily")
 
     # Generate HTML components
     heatmap_html = _build_heatmap_grid(monthly_df)
     mom_bars_html = _build_mom_bars(monthly_df)
     yearly_rows = _build_yearly_summary_rows(monthly_df)
+    daily_movement_html = _build_daily_movement(daily_df)
 
     # Day change display
     if day_change is not None:
@@ -278,6 +447,13 @@ def build_daily_nav_email(nav_summary: dict) -> str:
                         </td>
                     </tr>
                     </table>
+                </td>
+            </tr>
+
+            <!-- Daily NAV Movement (current month) -->
+            <tr>
+                <td>
+                    {daily_movement_html}
                 </td>
             </tr>
 
