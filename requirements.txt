@@ -17,5 +17,4 @@ matplotlib>=3.8.0
 streamlit>=1.30.0
 plotly>=5.18.0
 
-# PDF table extraction (fallback)
-tabula-py>=2.9.0
+# PDF table extraction (fallback) — tabula-py removed (requires Java, unavailable on Streamlit Cloud)

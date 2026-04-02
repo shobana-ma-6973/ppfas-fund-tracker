@@ -25,7 +25,18 @@ from returns_calculator import (
     get_return_summary,
     calculate_point_to_point_returns,
 )
-from factsheet_parser import load_factsheet_data, fetch_and_parse_factsheet, fetch_factsheet_for_month
+try:
+    from factsheet_parser import load_factsheet_data, fetch_and_parse_factsheet, fetch_factsheet_for_month
+    FACTSHEET_AVAILABLE = True
+except ImportError as _fs_err:
+    import traceback
+    traceback.print_exc()
+    FACTSHEET_AVAILABLE = False
+
+    def load_factsheet_data(*a, **kw): return None
+    def fetch_and_parse_factsheet(*a, **kw): return None
+    def fetch_factsheet_for_month(*a, **kw): return None
+
 from nav_averages import calculate_monthly_averages, calculate_rolling_averages as calc_rolling_avg
 
 # ── Page Config ──────────────────────────────────────────────
