@@ -306,28 +306,65 @@ def extract_category_allocation(page3_tables: list) -> dict:
 
 def parse_factsheet(pdf_path: str) -> dict:
     """
-    Parse a PPFAS factsheet PDF and extract Flexi Cap Fund data only (pages 1-4).
+    Parse a PPFAS factsheet PDF and extract Flexi Cap Fund data.
+    Dynamically finds the Flexi Cap pages (PDF layout varies month to month).
     """
     logger.info(f"Parsing factsheet: {pdf_path}")
 
     with pdfplumber.open(pdf_path) as pdf:
         total_pages = len(pdf.pages)
-        logger.info(f"PDF has {total_pages} pages. Parsing pages 1-4 (Flexi Cap Fund).")
+        logger.info(f"PDF has {total_pages} pages. Scanning for Flexi Cap Fund pages...")
 
-        # Page 2 (index 1): Fund details, AUM, Industry Allocation sidebar
-        page2_text = pdf.pages[1].extract_text() or ""
-        page2_tables = pdf.pages[1].extract_tables() or []
+        # ── Find the Flexi Cap Fund pages dynamically ──
+        # Strategy: scan for pages containing "Flexi Cap" AND "Industry Allocation"
+        # or "Portfolio Disclosure".  The fund data typically spans 2-3 consecutive pages.
+        flexi_info_page = None   # page with AUM + Industry Allocation sidebar
+        flexi_portfolio_page = None  # page with Portfolio Disclosure / category table
 
-        # Page 3 (index 2): Portfolio disclosure with category totals
-        page3_tables = pdf.pages[2].extract_tables() or []
+        for i, page in enumerate(pdf.pages):
+            text = page.extract_text() or ""
+            text_lower = text.lower()
+
+            # Skip if not a Flexi Cap page
+            if "flexi cap" not in text_lower:
+                continue
+
+            # The "info" page has Industry Allocation (sector data) + AUM
+            if "industry allocation" in text_lower and flexi_info_page is None:
+                flexi_info_page = i
+                logger.info(f"Found Flexi Cap info page (Industry Allocation): page {i+1}")
+
+            # The "portfolio" page has detailed holdings + category totals
+            if "portfolio disclosure" in text_lower and flexi_portfolio_page is None:
+                flexi_portfolio_page = i
+                logger.info(f"Found Flexi Cap portfolio page: page {i+1}")
+
+            # Stop once we hit a different fund (e.g., ELSS Tax Saver)
+            if flexi_info_page is not None and "elss" in text_lower:
+                break
+
+        # Fallback to legacy positions (pages 2-3, 0-indexed 1-2) if scan fails
+        if flexi_info_page is None:
+            flexi_info_page = 1
+            logger.warning("Could not find Flexi Cap info page; falling back to page 2")
+        if flexi_portfolio_page is None:
+            flexi_portfolio_page = flexi_info_page + 1
+            logger.warning(f"Could not find Flexi Cap portfolio page; using page {flexi_portfolio_page + 1}")
+
+        # Extract from identified pages
+        info_text = pdf.pages[flexi_info_page].extract_text() or ""
+        info_tables = pdf.pages[flexi_info_page].extract_tables() or []
+        portfolio_tables = pdf.pages[flexi_portfolio_page].extract_tables() or []
+
+        pages_desc = f"pages {flexi_info_page+1}-{flexi_portfolio_page+1} (Flexi Cap Fund)"
 
     result = {
         "fund_name": "Parag Parikh Flexi Cap Fund - Direct Growth",
-        "aum": extract_aum(page2_tables),
-        "sector_allocation": extract_sector_allocation(page2_text),
-        "category_allocation": extract_category_allocation(page3_tables),
+        "aum": extract_aum(info_tables),
+        "sector_allocation": extract_sector_allocation(info_text),
+        "category_allocation": extract_category_allocation(portfolio_tables),
         "extraction_date": datetime.now().strftime("%Y-%m-%d"),
-        "pages_parsed": "1-4 (Flexi Cap Fund only)",
+        "pages_parsed": pages_desc,
     }
 
     logger.info(
