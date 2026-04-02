@@ -95,25 +95,17 @@ st.markdown("""
     .return-positive .value { color: #0d9d5c; }
     .return-negative .value { color: #e23636; }
 
-    /* ── Mobile responsive: stack columns on small screens ── */
-    @media (max-width: 767px) {
-        /* Stack all column layouts vertically */
-        [data-testid="stHorizontalBlock"] {
-            flex-wrap: wrap !important;
-        }
-        [data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
-            flex: 0 0 100% !important;
-            width: 100% !important;
-        }
-        /* Smaller metric cards on mobile */
-        [data-testid="stMetric"] {
-            min-height: 90px;
-        }
-        .return-card {
-            min-height: 90px;
-            padding: 12px 8px;
-        }
-        .return-card .value { font-size: 18px; }
+    /* Rolling averages flex grid - wraps naturally on mobile */
+    .ra-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+    .ra-grid .return-card {
+        flex: 1 1 120px;
+        max-width: 160px;
+        min-height: 100px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -428,29 +420,27 @@ def main():
     st.caption("Average NAV over each period and how today's NAV compares.")
 
     ra_periods = ["1M", "3M", "6M", "1Y", "2Y", "3Y", "5Y"]
-    ra_cols = st.columns(7)
-    for col, period in zip(ra_cols, ra_periods):
+    ra_cards = ""
+    for period in ra_periods:
         data = rolling_avgs.get(period, {})
         avg = data.get("avg_nav")
         chg = data.get("change_pct")
-        with col:
-            if avg is not None:
-                css_class = "return-positive" if chg >= 0 else "return-negative"
-                sign = "+" if chg >= 0 else ""
-                st.markdown(
-                    f'<div class="return-card {css_class}">'
-                    f'<div class="period">{period}</div>'
-                    f'<div class="value" style="font-size:18px;">₹{avg:,.2f}</div>'
-                    f'<div class="type">{sign}{chg:.2f}% vs current</div>'
-                    f'</div>',
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.markdown(
-                    '<div class="return-card"><div class="period">' + period + '</div>'
-                    '<div class="value">N/A</div></div>',
-                    unsafe_allow_html=True,
-                )
+        if avg is not None:
+            css_class = "return-positive" if chg >= 0 else "return-negative"
+            sign = "+" if chg >= 0 else ""
+            ra_cards += (
+                f'<div class="return-card {css_class}">'
+                f'<div class="period">{period}</div>'
+                f'<div class="value" style="font-size:18px;">₹{avg:,.2f}</div>'
+                f'<div class="type">{sign}{chg:.2f}% vs current</div>'
+                f'</div>'
+            )
+        else:
+            ra_cards += (
+                f'<div class="return-card"><div class="period">{period}</div>'
+                f'<div class="value">N/A</div></div>'
+            )
+    st.markdown(f'<div class="ra-grid">{ra_cards}</div>', unsafe_allow_html=True)
 
     st.write("")
 
@@ -518,114 +508,112 @@ def main():
             yaxis=dict(autorange="reversed", dtick=1, tickfont=dict(size=11)),
             margin=dict(l=50, r=40, t=80, b=30),
         )
-        st.plotly_chart(fig_hm, use_container_width=True)
+        # Wrap in scrollable container for mobile
+        st.markdown('<div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">', unsafe_allow_html=True)
+        st.plotly_chart(fig_hm, use_container_width=True, config={"scrollZoom": True})
+        st.markdown('</div>', unsafe_allow_html=True)
 
-    # --- Monthly Momentum + Yearly Summary (side-by-side; auto-stacks on mobile via CSS) ---
-    col_mom, col_yr = st.columns(2)
+    # --- Monthly Momentum ---
+    st.markdown("**Monthly Momentum** (Last 12 Months)")
+    if not monthly_df.empty:
+        mom = monthly_df.copy().sort_values(["year", "month"]).reset_index(drop=True)
+        mom["mom_pct"] = mom["avg_nav"].pct_change() * 100
+        mom_recent = mom.tail(12).dropna(subset=["mom_pct"])
 
-    # Monthly Momentum (last 12 months)
-    with col_mom:
-        st.markdown("**Monthly Momentum** (Last 12 Months)")
-        if not monthly_df.empty:
-            mom = monthly_df.copy().sort_values(["year", "month"]).reset_index(drop=True)
-            mom["mom_pct"] = mom["avg_nav"].pct_change() * 100
-            mom_recent = mom.tail(12).dropna(subset=["mom_pct"])
+        if not mom_recent.empty:
+            mom_recent = mom_recent.copy()
+            mom_recent["color"] = mom_recent["mom_pct"].apply(lambda v: "#0d9d5c" if v >= 0 else "#e23636")
+            mom_recent["label"] = mom_recent["mom_pct"].apply(lambda v: f"{v:+.1f}%")
 
-            if not mom_recent.empty:
-                mom_recent = mom_recent.copy()
-                mom_recent["color"] = mom_recent["mom_pct"].apply(lambda v: "#0d9d5c" if v >= 0 else "#e23636")
-                mom_recent["label"] = mom_recent["mom_pct"].apply(lambda v: f"{v:+.1f}%")
-
-                fig_mom = go.Figure()
-                fig_mom.add_trace(go.Bar(
-                    y=mom_recent["month_name"],
-                    x=mom_recent["mom_pct"],
-                    orientation="h",
-                    marker_color=mom_recent["color"],
-                    text=mom_recent["label"],
-                    textposition="outside",
-                    hovertemplate="<b>%{y}</b><br>MoM: %{x:+.2f}%<extra></extra>",
-                ))
-                fig_mom.update_layout(
-                    height=400,
-                    plot_bgcolor="white",
-                    xaxis=dict(title="MoM Change (%)", gridcolor="#eee", zeroline=True, zerolinecolor="#ccc"),
-                    yaxis=dict(autorange="reversed"),
-                    margin=dict(l=80, r=60, t=20, b=40),
-                    showlegend=False,
-                )
-                st.plotly_chart(fig_mom, use_container_width=True)
-            else:
-                st.info("Not enough data for momentum calculation.")
-
-    # Yearly Summary
-    with col_yr:
-        st.markdown("**Yearly Summary**")
-        if not monthly_df.empty:
-            ym = monthly_df.copy()
-            years = sorted(ym["year"].unique())
-            yearly_data = []
-            prev_avg = None
-            for yr in years:
-                yr_data = ym[ym["year"] == yr]
-                avg = yr_data["avg_nav"].mean()
-                high = yr_data["max_nav"].max()
-                low = yr_data["min_nav"].min()
-                spread = high - low
-                yoy = ((avg - prev_avg) / prev_avg * 100) if prev_avg else None
-                prev_avg = avg
-                yearly_data.append({
-                    "year": int(yr), "avg": avg, "high": high,
-                    "low": low, "spread": spread, "yoy": yoy,
-                })
-
-            yearly_data = yearly_data[::-1]  # newest first
-
-            # Build styled HTML table
-            table_rows = ""
-            for d in yearly_data:
-                # YoY cell with color + pill badge
-                if d["yoy"] is not None:
-                    yoy_val = d["yoy"]
-                    yoy_color = "#0d9d5c" if yoy_val >= 0 else "#e23636"
-                    yoy_bg = "rgba(13,157,92,0.1)" if yoy_val >= 0 else "rgba(226,54,54,0.1)"
-                    yoy_arrow = "▲" if yoy_val >= 0 else "▼"
-                    yoy_html = (
-                        f'<span style="background:{yoy_bg}; color:{yoy_color}; '
-                        f'padding:3px 10px; border-radius:12px; font-weight:600; font-size:13px;">'
-                        f'{yoy_arrow} {yoy_val:+.1f}%</span>'
-                    )
-                else:
-                    yoy_html = '<span style="color:#bbb;">—</span>'
-
-                table_rows += (
-                    f'<tr>'
-                    f'<td style="padding:10px 12px; font-weight:700; color:#1e3a5f; border-bottom:1px solid #f0f0f0;">{d["year"]}</td>'
-                    f'<td style="padding:10px 12px; text-align:right; font-weight:600; border-bottom:1px solid #f0f0f0;">₹{d["avg"]:,.2f}</td>'
-                    f'<td style="padding:10px 12px; text-align:right; color:#0d9d5c; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d["high"]:,.2f}</td>'
-                    f'<td style="padding:10px 12px; text-align:right; color:#e23636; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d["low"]:,.2f}</td>'
-                    f'<td style="padding:10px 12px; text-align:right; color:#666; border-bottom:1px solid #f0f0f0;">₹{d["spread"]:,.2f}</td>'
-                    f'<td style="padding:10px 14px; text-align:center; border-bottom:1px solid #f0f0f0;">{yoy_html}</td>'
-                    f'</tr>'
-                )
-
-            th_style = 'padding:10px 12px; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;'
-            yearly_html = (
-                '<div style="border:1px solid #e8eaed; border-radius:10px; overflow-x:auto; background:white; -webkit-overflow-scrolling:touch;">'
-                '<style>table.ysummary tr:last-child td{border-bottom:none !important;}</style>'
-                '<table class="ysummary" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; font-size:13px; min-width:500px;">'
-                '<thead><tr style="background:#f8f9fb;">'
-                f'<th style="{th_style} text-align:left;">Year</th>'
-                f'<th style="{th_style} text-align:right;">Avg NAV</th>'
-                f'<th style="{th_style} text-align:right;">High</th>'
-                f'<th style="{th_style} text-align:right;">Low</th>'
-                f'<th style="{th_style} text-align:right;">Spread</th>'
-                f'<th style="{th_style} text-align:center;">YoY</th>'
-                '</tr></thead>'
-                f'<tbody>{table_rows}</tbody>'
-                '</table></div>'
+            fig_mom = go.Figure()
+            fig_mom.add_trace(go.Bar(
+                y=mom_recent["month_name"],
+                x=mom_recent["mom_pct"],
+                orientation="h",
+                marker_color=mom_recent["color"],
+                text=mom_recent["label"],
+                textposition="outside",
+                hovertemplate="<b>%{y}</b><br>MoM: %{x:+.2f}%<extra></extra>",
+            ))
+            fig_mom.update_layout(
+                height=400,
+                plot_bgcolor="white",
+                xaxis=dict(title="MoM Change (%)", gridcolor="#eee", zeroline=True, zerolinecolor="#ccc"),
+                yaxis=dict(autorange="reversed"),
+                margin=dict(l=80, r=60, t=20, b=40),
+                showlegend=False,
             )
-            st.markdown(yearly_html, unsafe_allow_html=True)
+            st.plotly_chart(fig_mom, use_container_width=True)
+        else:
+            st.info("Not enough data for momentum calculation.")
+
+    # --- Yearly Summary ---
+    st.markdown("**Yearly Summary**")
+    if not monthly_df.empty:
+        ym = monthly_df.copy()
+        years = sorted(ym["year"].unique())
+        yearly_data = []
+        prev_avg = None
+        for yr in years:
+            yr_data = ym[ym["year"] == yr]
+            avg = yr_data["avg_nav"].mean()
+            high = yr_data["max_nav"].max()
+            low = yr_data["min_nav"].min()
+            spread = high - low
+            yoy = ((avg - prev_avg) / prev_avg * 100) if prev_avg else None
+            prev_avg = avg
+            yearly_data.append({
+                "year": int(yr), "avg": avg, "high": high,
+                "low": low, "spread": spread, "yoy": yoy,
+            })
+
+        yearly_data = yearly_data[::-1]  # newest first
+
+        # Build styled HTML table
+        table_rows = ""
+        for d in yearly_data:
+            # YoY cell with color + pill badge
+            if d["yoy"] is not None:
+                yoy_val = d["yoy"]
+                yoy_color = "#0d9d5c" if yoy_val >= 0 else "#e23636"
+                yoy_bg = "rgba(13,157,92,0.1)" if yoy_val >= 0 else "rgba(226,54,54,0.1)"
+                yoy_arrow = "▲" if yoy_val >= 0 else "▼"
+                yoy_html = (
+                    f'<span style="background:{yoy_bg}; color:{yoy_color}; '
+                    f'padding:3px 10px; border-radius:12px; font-weight:600; font-size:13px;">'
+                    f'{yoy_arrow} {yoy_val:+.1f}%</span>'
+                )
+            else:
+                yoy_html = '<span style="color:#bbb;">—</span>'
+
+            table_rows += (
+                f'<tr>'
+                f'<td style="padding:10px 12px; font-weight:700; color:#1e3a5f; border-bottom:1px solid #f0f0f0;">{d["year"]}</td>'
+                f'<td style="padding:10px 12px; text-align:right; font-weight:600; border-bottom:1px solid #f0f0f0;">₹{d["avg"]:,.2f}</td>'
+                f'<td style="padding:10px 12px; text-align:right; color:#0d9d5c; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d["high"]:,.2f}</td>'
+                f'<td style="padding:10px 12px; text-align:right; color:#e23636; font-weight:500; border-bottom:1px solid #f0f0f0;">₹{d["low"]:,.2f}</td>'
+                f'<td style="padding:10px 12px; text-align:right; color:#666; border-bottom:1px solid #f0f0f0;">₹{d["spread"]:,.2f}</td>'
+                f'<td style="padding:10px 14px; text-align:center; border-bottom:1px solid #f0f0f0;">{yoy_html}</td>'
+                f'</tr>'
+            )
+
+        th_style = 'padding:10px 12px; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;'
+        yearly_html = (
+            '<div style="border:1px solid #e8eaed; border-radius:10px; overflow-x:auto; background:white; -webkit-overflow-scrolling:touch;">'
+            '<style>table.ysummary tr:last-child td{border-bottom:none !important;}</style>'
+            '<table class="ysummary" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; font-size:13px; min-width:500px;">'
+            '<thead><tr style="background:#f8f9fb;">'
+            f'<th style="{th_style} text-align:left;">Year</th>'
+            f'<th style="{th_style} text-align:right;">Avg NAV</th>'
+            f'<th style="{th_style} text-align:right;">High</th>'
+            f'<th style="{th_style} text-align:right;">Low</th>'
+            f'<th style="{th_style} text-align:right;">Spread</th>'
+            f'<th style="{th_style} text-align:center;">YoY</th>'
+            '</tr></thead>'
+            f'<tbody>{table_rows}</tbody>'
+            '</table></div>'
+        )
+        st.markdown(yearly_html, unsafe_allow_html=True)
 
     st.divider()
 
