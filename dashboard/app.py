@@ -453,36 +453,49 @@ def main():
         # Text annotations (₹ formatted) + adaptive font color
         text_vals = hm_pivot_full.map(lambda v: f"₹{v:,.1f}" if pd.notna(v) else "—")
 
-        # Compute per-cell font color: white for top 10% NAVs, dark for rest
+        # Compute threshold for top 10% (dark green cells need white text)
         nav_vals = hm_pivot_full.values.flatten()
         valid_vals = [v for v in nav_vals if pd.notna(v)]
-        if valid_vals:
-            threshold_90 = np.percentile(valid_vals, 90)
-        else:
-            threshold_90 = float("inf")
-        font_colors = hm_pivot_full.map(
-            lambda v: "#ffffff" if pd.notna(v) and v >= threshold_90 else "#333333"
-        ).values
+        threshold_90 = np.percentile(valid_vals, 90) if valid_vals else float("inf")
+
+        x_labels = hm_pivot_full.columns.tolist()
+        y_labels = [str(int(y)) for y in hm_pivot_full.index]
 
         fig_hm = go.Figure(data=go.Heatmap(
             z=hm_pivot_full.values,
-            x=hm_pivot_full.columns.tolist(),
-            y=[str(int(y)) for y in hm_pivot_full.index],
-            text=text_vals.values,
-            texttemplate="%{text}",
-            textfont={"size": 11, "color": font_colors.flatten().tolist()},
+            x=x_labels,
+            y=y_labels,
+            hovertext=text_vals.values,
+            hovertemplate="<b>%{y} %{x}</b><br>Avg NAV: %{hovertext}<extra></extra>",
+            showscale=True,
             colorscale=[
                 [0, "#f5a0a0"],
                 [0.4, "#f0f0b0"],
                 [0.85, "#8cdc8c"],
                 [1, "#1a7a3a"],
             ],
-            hovertemplate="<b>%{y} %{x}</b><br>Avg NAV: %{text}<extra></extra>",
-            showscale=True,
             colorbar=dict(title="NAV (₹)", thickness=15),
         ))
+
+        # Add per-cell text annotations with adaptive color
+        annotations = []
+        for i, yr in enumerate(y_labels):
+            for j, mo in enumerate(x_labels):
+                val = hm_pivot_full.values[i][j]
+                if pd.notna(val):
+                    txt = f"₹{val:,.1f}"
+                    fc = "#ffffff" if val >= threshold_90 else "#333333"
+                else:
+                    txt = "—"
+                    fc = "#cccccc"
+                annotations.append(dict(
+                    x=mo, y=yr, text=txt, showarrow=False,
+                    font=dict(size=11, color=fc, weight="bold" if pd.notna(val) and val >= threshold_90 else "normal"),
+                ))
+
         fig_hm.update_layout(
             title="Monthly Average NAV Heatmap",
+            annotations=annotations,
             height=max(300, len(hm_pivot_full) * 50 + 100),
             plot_bgcolor="white",
             xaxis=dict(side="top", dtick=1),
