@@ -450,8 +450,19 @@ def main():
         hm_pivot_full = hm_pivot_full.reindex(columns=range(1,13))
         hm_pivot_full.columns = [month_map[c] for c in hm_pivot_full.columns]
 
-        # Text annotations (₹ formatted)
+        # Text annotations (₹ formatted) + adaptive font color
         text_vals = hm_pivot_full.map(lambda v: f"₹{v:,.1f}" if pd.notna(v) else "—")
+
+        # Compute per-cell font color: white for top 10% NAVs, dark for rest
+        nav_vals = hm_pivot_full.values.flatten()
+        valid_vals = [v for v in nav_vals if pd.notna(v)]
+        if valid_vals:
+            threshold_90 = np.percentile(valid_vals, 90)
+        else:
+            threshold_90 = float("inf")
+        font_colors = hm_pivot_full.map(
+            lambda v: "#ffffff" if pd.notna(v) and v >= threshold_90 else "#333333"
+        ).values
 
         fig_hm = go.Figure(data=go.Heatmap(
             z=hm_pivot_full.values,
@@ -459,11 +470,12 @@ def main():
             y=[str(int(y)) for y in hm_pivot_full.index],
             text=text_vals.values,
             texttemplate="%{text}",
-            textfont={"size": 11},
+            textfont={"size": 11, "color": font_colors.flatten().tolist()},
             colorscale=[
                 [0, "#f5a0a0"],
-                [0.5, "#f0f0b0"],
-                [1, "#8cdc8c"],
+                [0.4, "#f0f0b0"],
+                [0.85, "#8cdc8c"],
+                [1, "#1a7a3a"],
             ],
             hovertemplate="<b>%{y} %{x}</b><br>Avg NAV: %{text}<extra></extra>",
             showscale=True,
@@ -571,7 +583,8 @@ def main():
             th_style = 'padding:10px 12px; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8eaed;'
             yearly_html = (
                 '<div style="border:1px solid #e8eaed; border-radius:10px; overflow:hidden; background:white;">'
-                '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; font-size:14px;">'
+                '<style>table.ysummary tr:last-child td{border-bottom:none !important;}</style>'
+                '<table class="ysummary" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; font-size:14px;">'
                 '<thead><tr style="background:#f8f9fb;">'
                 f'<th style="{th_style} text-align:left;">Year</th>'
                 f'<th style="{th_style} text-align:right;">Avg NAV</th>'
