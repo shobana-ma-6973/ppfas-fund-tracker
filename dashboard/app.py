@@ -739,9 +739,78 @@ def main():
             "Try selecting a different month."
         )
 
-    # Link to full Allocation History
-    if st.button("📊 View Full Allocation History (2013–Present)"):
-        st.switch_page("pages/1_Allocation_History.py")
+    # ── Allocation History (inline) ──────────────────────────
+    st.divider()
+    st.subheader("📊 Full Allocation History (2013–Present)")
+
+    history_path = Path("data/allocation_history.json")
+    if history_path.exists():
+        with open(history_path) as _hf:
+            history = json.load(_hf)
+        records = history.get("records", [])
+        if records:
+            cat_cols = ["Indian Equity", "Overseas Equity", "REITs & InvITs",
+                        "Debt & Money Market", "Cash & Equivalents"]
+            hist_rows = []
+            for r in records:
+                cats = r["categories"]
+                hist_rows.append({
+                    "Date": pd.to_datetime(r["date"]),
+                    **{c: cats.get(c, 0) for c in cat_cols},
+                    "Quality": r["quality"],
+                })
+            df_hist = pd.DataFrame(hist_rows)
+
+            # Normalize to 100%
+            row_totals = df_hist[cat_cols].sum(axis=1).replace(0, 1)
+            for c in cat_cols:
+                df_hist[c] = (df_hist[c] / row_totals * 100).round(2)
+
+            color_map = {
+                "Indian Equity": "#2E86AB",
+                "Overseas Equity": "#A23B72",
+                "REITs & InvITs": "#F18F01",
+                "Debt & Money Market": "#C73E1D",
+                "Cash & Equivalents": "#3B1F2B",
+            }
+
+            fig_area = px.area(
+                df_hist, x="Date", y=cat_cols,
+                title="Category Allocation Over Time (Normalized to 100%)",
+                color_discrete_map=color_map,
+            )
+            fig_area.update_layout(
+                yaxis_title="Allocation (%)", xaxis_title="",
+                legend_title="Category", hovermode="x unified",
+                height=500, plot_bgcolor="white",
+            )
+            st.plotly_chart(fig_area, use_container_width=True)
+
+            # Category trend lines
+            with st.expander("📈 Individual Category Trends"):
+                selected_cat = st.multiselect(
+                    "Select categories:", cat_cols, default=["Indian Equity", "Overseas Equity"]
+                )
+                if selected_cat:
+                    fig_line = px.line(
+                        df_hist, x="Date", y=selected_cat,
+                        color_discrete_map=color_map,
+                    )
+                    fig_line.update_layout(
+                        yaxis_title="Allocation (%)", xaxis_title="",
+                        height=400, plot_bgcolor="white",
+                    )
+                    st.plotly_chart(fig_line, use_container_width=True)
+
+            st.caption(
+                f"Data from {history['total_months']} monthly factsheets "
+                f"({history['date_range']['start'][:7]} to {history['date_range']['end'][:7]}). "
+                f"Quality: {history['quality_summary']['good']} good, "
+                f"{history['quality_summary']['approximate']} approximate, "
+                f"{history['quality_summary']['incomplete']} incomplete."
+            )
+    else:
+        st.info("Allocation history data not available.")
 
     # ── Footer ───────────────────────────────────────────────
     st.divider()
