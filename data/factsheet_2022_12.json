@@ -4,7 +4,6 @@
   "sector_allocation": {
     "Finance": 15.77,
     "Internet & Technology": 11.8,
-    "No exit load will be charged, in case of switch transactions T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 9.95,
     "CAPITAL MARKETS": 8.24,
     "IT - Software": 5.91,
     "Pharmaceuticals & Biotechnology": 5.06,
@@ -15,11 +14,13 @@
     "Auto Components": 0.93
   },
   "category_allocation": {
-    "Indian Equity": 70.25,
-    "Overseas Equity": 15.51
+    "Indian Equity": 74.01,
+    "Overseas Equity": 15.51,
+    "Debt & Money Market": 0.53,
+    "Cash & Equivalents": 9.95
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 9-9 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 9-9",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2022/ppfas-mf-factsheet-for-december-2022.pdf",
   "factsheet_month": "December 2022"
 }

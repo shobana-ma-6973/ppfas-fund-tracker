@@ -13,12 +13,13 @@
     "Fertilizers & Agrochemicals": 0.23
   },
   "category_allocation": {
-    "Indian Equity": 65.83,
-    "Debt & Money Market": -9.66,
-    "Cash & Equivalents": 14.89
+    "Debt & Money Market": 51.96,
+    "Overseas Equity": 12.5,
+    "Cash & Equivalents": 14.89,
+    "Indian Equity": 20.65
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 2-3 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 2-3",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2024/ppfas-mf-factsheet-for-November-2024.pdf",
   "factsheet_month": "November 2024"
 }

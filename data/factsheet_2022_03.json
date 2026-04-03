@@ -3,15 +3,16 @@
   "aum": "\u20b921,768.48 Cr",
   "sector_allocation": {
     "Pharmaceuticals": 7.91,
-    "TREPS Including Cash & Cash Equivalent and Net Current Asset": 4.85,
     "Power": 1.2
   },
   "category_allocation": {
     "Indian Equity": 65.47,
-    "Overseas Equity": 29.42
+    "Overseas Equity": 29.42,
+    "Debt & Money Market": 0.26,
+    "Cash & Equivalents": 4.85
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 2-2 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 2-2",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2022/ppfas-mf-factsheet-march-2022.pdf",
   "factsheet_month": "March 2022"
 }

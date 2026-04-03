@@ -17,12 +17,12 @@
     "Industrial Products": 0.01
   },
   "category_allocation": {
-    "Indian Equity": 70.03,
-    "Debt & Money Market": -7.24,
-    "Cash & Equivalents": 10.13
+    "Debt & Money Market": 2.89,
+    "Overseas Equity": 15.48,
+    "Indian Equity": 81.63
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 2-3 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 2-3",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2024/ppfas-mf-factsheet-for-March-2024.pdf",
   "factsheet_month": "March 2024"
 }

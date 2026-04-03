@@ -4,7 +4,6 @@
   "sector_allocation": {
     "actively managed portfolio primarily of Equity and Equity Banks": 20.19,
     "foreign equities and related instruments and debt Debt and Money Market Instruments": 9.96,
-    "investment objective of the Scheme will be achieved and Cash & Cash Equivalent": 9.48,
     "An open-ended dynamic Equity scheme Finance": 6.93,
     "investing across large cap, mid cap, Power": 6.24,
     "IT - Software": 5.55,
@@ -14,13 +13,13 @@
     "Industrial Products": 0.02
   },
   "category_allocation": {
-    "Indian Equity": 65.43,
+    "Indian Equity": 66.83,
     "Overseas Equity": 13.73,
-    "Debt & Money Market": -0.12,
-    "Cash & Equivalents": 9.48
+    "Debt & Money Market": 9.36,
+    "Cash & Equivalents": 10.08
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 2-3 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 2-3",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2025/ppfas-mf-factsheet-for-January-2025.pdf",
   "factsheet_month": "January 2025"
 }

@@ -3,7 +3,6 @@
   "aum": "\u20b978,490.29 Cr",
   "sector_allocation": {
     "To seek to generate long-term capital growth Banks": 19.2,
-    "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 12.57,
     "Scheme shall invest in Indian equities, foreign Capital Markets": 7.32,
     "Power": 6.74,
     "Finance": 6.74,
@@ -17,13 +16,13 @@
     "Index / Stock Options": 0.02
   },
   "category_allocation": {
-    "Indian Equity": 69.94,
+    "Indian Equity": 70.65,
     "Overseas Equity": 12.45,
-    "Debt & Money Market": -8.82,
-    "Cash & Equivalents": 12.57
+    "Debt & Money Market": 3.75,
+    "Cash & Equivalents": 13.13
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 2-3 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 2-3",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2024/ppfas-mf-factsheet-for-August-2024.pdf",
   "factsheet_month": "August 2024"
 }

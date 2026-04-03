@@ -293,14 +293,17 @@ def extract_category_allocation(page3_tables: list) -> dict:
         )
         if "overseas securities" in table_text:
             equity_table = table
-        if "treps" in table_text:
+        if "treps" in table_text or "debt and money market" in table_text:
             debt_table = table
 
-    # Ensure debt_table is not the same object as equity_table
-    if debt_table is equity_table:
-        debt_table = None
+    # If equity and debt are the same table (common in 2022 format where
+    # everything is in one big table), keep both references — Pass 2 handles
+    # equity sections and Pass 3 handles the debt section from the same table
+    same_table = (debt_table is equity_table) and (debt_table is not None)
 
     # --- Pass 2: Process equity table (Indian Equity, Overseas, REITs) ---
+    # Use the LAST Total per section (some PDFs have core subtotal + combined total
+    # in the same section, e.g. Total 65.43% then Total 66.83% before Overseas)
     if equity_table:
         current_section = "Indian Equity"
         for row in equity_table:
@@ -317,35 +320,89 @@ def extract_category_allocation(page3_tables: list) -> dict:
             total_match = re.match(r"^Total\s+(\d+\.?\d+)%$", cell)
             if total_match:
                 pct = float(total_match.group(1))
-                if current_section not in categories:
-                    categories[current_section] = pct
+                # Always overwrite → last Total in each section wins
+                categories[current_section] = pct
 
     # --- Pass 3: Process debt table ---
+    # Track totals relative to TREPS position to distinguish:
+    #   - Grand total AFTER TREPS (Feb 2026 style): subtract cash from it
+    #   - Only instruments total BEFORE TREPS (Jan 2025 style): keep separate
+    # When same_table is True, only process rows after "Debt and Money Market" header
+    sub_total_after_treps = None
     if debt_table:
+        treps_seen = False
+        debt_instrument_total = None
+        grand_total = None
+        individual_debt_sum = 0.0  # Sum individual instruments when no Total row exists
+        in_debt_section = not same_table  # Separate table: process all; same table: wait for header
+
         for row in debt_table:
             if not row or not row[0]:
                 continue
             cell = str(row[0]).strip()
             cell_lower = cell.lower()
 
-            # Capture TREPS/Cash sub-total
+            # When same table, skip all rows until "Debt and Money Market" header
+            if same_table and not in_debt_section:
+                if "debt and money market" in cell_lower:
+                    in_debt_section = True
+                continue
+
+            # Capture TREPS/Cash value
             if "treps" in cell_lower and "cash" in cell_lower:
                 m = re.search(r"(\d+\.?\d+)%", cell)
                 if m:
                     cash_pct = float(m.group(1))
+                    treps_seen = True
+                continue
 
+            # Match "Total XX.XX%"
             total_match = re.match(r"^Total\s+(\d+\.?\d+)%$", cell)
             if total_match:
                 pct = float(total_match.group(1))
-                if "Debt & Money Market" not in categories:
-                    categories["Debt & Money Market"] = pct
+                if treps_seen:
+                    grand_total = pct  # Total after TREPS = grand total
+                else:
+                    debt_instrument_total = pct  # Total before TREPS = instruments only
+                continue
+
+            # Match "Sub Total XX.XX%" (appears after TREPS in some formats)
+            sub_match = re.match(r"^Sub\s+Total\s+(\d+\.?\d+)%$", cell)
+            if sub_match and treps_seen:
+                sub_total_after_treps = float(sub_match.group(1))
+                continue
+
+            # Track individual instrument percentages (for same-table with no Total row)
+            if in_debt_section and not treps_seen:
+                m = re.search(r"(\d+\.?\d+)%", cell)
+                if m:
+                    individual_debt_sum += float(m.group(1))
+
+        # Determine Debt & Cash values
+        if grand_total is not None:
+            # Grand total includes both debt + cash (Feb 2026 style)
+            categories["Debt & Money Market"] = grand_total
+        elif debt_instrument_total is not None:
+            categories["Debt & Money Market"] = debt_instrument_total
+        elif individual_debt_sum > 0:
+            # No Total row (common in 2022 same-table format) — sum individual instruments
+            categories["Debt & Money Market"] = round(individual_debt_sum, 2)
 
     # --- If targeted approach found >= 2 categories, we're good ---
     if len(categories) >= 2:
         # Split Debt into Debt + Cash
         if cash_pct and "Debt & Money Market" in categories:
             debt_total = categories["Debt & Money Market"]
-            categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
+            if cash_pct < debt_total:
+                # Grand total includes both → subtract cash
+                categories["Debt & Money Market"] = round(debt_total - cash_pct, 2)
+                categories["Cash & Equivalents"] = cash_pct
+            else:
+                # Total was instruments-only, cash is separate
+                # Use Sub Total after TREPS if available (includes net current assets)
+                cash_value = sub_total_after_treps if sub_total_after_treps else cash_pct
+                categories["Cash & Equivalents"] = cash_value
+        elif cash_pct:
             categories["Cash & Equivalents"] = cash_pct
 
         # Safety net: compute Indian Equity by subtraction if missing

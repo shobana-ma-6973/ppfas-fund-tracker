@@ -3,7 +3,6 @@
   "aum": "N/A",
   "sector_allocation": {
     "Finance": 15.45,
-    "Cash & Cash Equivalent": 14.27,
     "Internet & Technology": 13.61,
     "Banks": 10.92,
     "Diversified FMCG": 7.68,
@@ -21,12 +20,11 @@
     "Ferrous metals": 0.3
   },
   "category_allocation": {
-    "Indian Equity": 65.18,
-    "Overseas Equity": 17.15,
-    "Debt & Money Market": 0.42
+    "Overseas Equity": 68.09,
+    "Indian Equity": 31.91
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 3-2 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 3-2",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2023/ppfas-mf-factsheet-for-april-2023.pdf",
   "factsheet_month": "April 2023"
 }

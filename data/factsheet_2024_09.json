@@ -3,7 +3,6 @@
   "aum": "\u20b982,441.07 Cr",
   "sector_allocation": {
     "Banks": 19.73,
-    "Cash & Cash Equivalent": 13.91,
     "Computer Software": 9.82,
     "Power": 7.29,
     "Finance": 6.83,
@@ -24,13 +23,13 @@
     "Industrial Products": 0.02
   },
   "category_allocation": {
-    "Indian Equity": 68.86,
+    "Indian Equity": 69.52,
     "Overseas Equity": 12.41,
-    "Debt & Money Market": -10.32,
-    "Cash & Equivalents": 13.91
+    "Debt & Money Market": 3.59,
+    "Cash & Equivalents": 14.45
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 2-3 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 2-3",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2024/ppfas-mf-factsheet-for-September-2024.pdf",
   "factsheet_month": "September 2024"
 }

@@ -1,14 +1,14 @@
 {
-  "generated": "2026-04-02 23:07:38",
+  "generated": "2026-04-03 19:48:26",
   "total_months": 143,
   "date_range": {
     "start": "2013-06-01",
     "end": "2026-02-01"
   },
   "quality_summary": {
-    "good": 53,
-    "approximate": 11,
-    "incomplete": 74,
+    "good": 90,
+    "approximate": 6,
+    "incomplete": 42,
     "overcounted": 5
   },
   "records": [
@@ -2442,36 +2442,34 @@
       "month": 3,
       "categories": {
         "Indian Equity": 65.47,
-        "Overseas Equity": 29.42
+        "Overseas Equity": 29.42,
+        "Debt & Money Market": 0.26,
+        "Cash & Equivalents": 4.85
       },
-      "category_total": 94.89,
+      "category_total": 100.0,
       "sectors": {
         "Pharmaceuticals": 7.91,
-        "TREPS Including Cash & Cash Equivalent and Net Current Asset": 4.85,
         "Power": 1.2
       },
-      "sector_count": 3,
+      "sector_count": 2,
       "aum": "\u20b921,768.48 Cr",
-      "quality": "approximate"
+      "quality": "good"
     },
     {
       "date": "2022-04-01",
       "year": 2022,
       "month": 4,
       "categories": {
-        "Indian Equity": 66.43,
-        "Overseas Equity": 25.94
+        "Overseas Equity": 66.43,
+        "Indian Equity": 33.57
       },
-      "category_total": 92.37,
+      "category_total": 100.0,
       "sectors": {
-        "No exit load will be charged, in case of switch transactions Net Assets": 100.0,
-        "Total": 25.94,
-        "Diversified FMCG": 7.63,
-        "FDR Debt and Money Market Instruments": 0.26
+        "Diversified FMCG": 7.63
       },
-      "sector_count": 4,
+      "sector_count": 1,
       "aum": "\u20b921,906.96 Cr",
-      "quality": "approximate"
+      "quality": "good"
     },
     {
       "date": "2022-05-01",
@@ -2479,16 +2477,14 @@
       "month": 5,
       "categories": {
         "Indian Equity": 66.86,
-        "Overseas Equity": 23.21
+        "Overseas Equity": 23.21,
+        "Debt & Money Market": 9.93
       },
-      "category_total": 90.07,
-      "sectors": {
-        "Net Assets": 100.0,
-        "No Exit Load will be charged if investment is redeemed T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 9.67
-      },
-      "sector_count": 2,
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
       "aum": "\u20b922,647.04 Cr",
-      "quality": "approximate"
+      "quality": "good"
     },
     {
       "date": "2022-06-01",
@@ -2496,17 +2492,16 @@
       "month": 6,
       "categories": {
         "Indian Equity": 70.85,
-        "Overseas Equity": 22.66
+        "Overseas Equity": 22.66,
+        "Debt & Money Market": 6.49
       },
-      "category_total": 93.51,
+      "category_total": 100.0,
       "sectors": {
-        "Net Assets": 100.0,
-        "No Exit Load will be charged if investment is redeemed T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 6.23,
         "Power": 1.18
       },
-      "sector_count": 3,
+      "sector_count": 1,
       "aum": "\u20b922,323.99 Cr",
-      "quality": "approximate"
+      "quality": "good"
     },
     {
       "date": "2022-07-01",
@@ -2514,17 +2509,17 @@
       "month": 7,
       "categories": {
         "Indian Equity": 68.92,
-        "Overseas Equity": 21.68
+        "Overseas Equity": 21.68,
+        "Debt & Money Market": 0.26,
+        "Cash & Equivalents": 9.14
       },
-      "category_total": 90.6,
+      "category_total": 100.0,
       "sectors": {
-        "Net Assets": 100.0,
-        "Diversified FMCG": 9.4,
-        "TREPS Including Cash & Cash Equivalent Debt and Money Market Instruments": 9.14
+        "Diversified FMCG": 9.4
       },
-      "sector_count": 3,
+      "sector_count": 1,
       "aum": "\u20b924,594.84 Cr",
-      "quality": "approximate"
+      "quality": "good"
     },
     {
       "date": "2022-08-01",
@@ -2532,18 +2527,17 @@
       "month": 8,
       "categories": {
         "Indian Equity": 69.55,
-        "Overseas Equity": 20.37
+        "Overseas Equity": 20.37,
+        "Debt & Money Market": 0.55,
+        "Cash & Equivalents": 9.53
       },
-      "category_total": 89.92,
+      "category_total": 100.0,
       "sectors": {
-        "Net Assets": 100.0,
-        "Arbitrage Amount Total": 69.55,
-        "TREPS Including Cash & Cash Equivalent Debt and Money Market Instruments": 9.53,
         "Quantitative Indicators": 4.72
       },
-      "sector_count": 4,
+      "sector_count": 1,
       "aum": "\u20b925,996.18 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2022-09-01",
@@ -2551,76 +2545,68 @@
       "month": 9,
       "categories": {
         "Indian Equity": 70.89,
-        "Overseas Equity": 18.46
+        "Overseas Equity": 18.46,
+        "Debt & Money Market": 0.55,
+        "Cash & Equivalents": 10.1
       },
-      "category_total": 89.35,
+      "category_total": 100.0,
       "sectors": {
-        "Net Assets": 100.0,
-        "Arbitrage Amount Total": 70.89,
-        "TREPS Including Cash & Cash Equivalent Debt and Money Market Instruments": 10.1,
         "Power": 5.8
       },
-      "sector_count": 4,
+      "sector_count": 1,
       "aum": "\u20b926,033.24 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2022-10-01",
       "year": 2022,
       "month": 10,
       "categories": {
-        "Indian Equity": 71.93,
-        "Overseas Equity": 16.49
+        "Overseas Equity": 71.93,
+        "Indian Equity": 28.07
       },
-      "category_total": 88.42,
-      "sectors": {
-        "Net Assets": 100.0,
-        "Total": 16.49,
-        "FDR Debt and Money Market Instruments": 0.53
-      },
-      "sector_count": 3,
+      "category_total": 100.0,
+      "sectors": {},
+      "sector_count": 0,
       "aum": "\u20b927,712.05 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2022-11-01",
       "year": 2022,
       "month": 11,
       "categories": {
-        "Indian Equity": 71.06,
-        "Overseas Equity": 15.59
+        "Overseas Equity": 71.06,
+        "Indian Equity": 28.94
       },
-      "category_total": 86.65,
+      "category_total": 100.0,
       "sectors": {
-        "Total": 71.06,
         "Finance": 16.47,
-        "No exit load will be charged, in case of switch transactions T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 12.82,
         "Banks": 11.94,
         "Capital Markets": 8.37,
         "Pharmaceuticals & Biotechnology": 4.97,
         "AMCs to resume subscription and make investments in overseas funds / securities upto the headroom Consumable Fuels": 4.37,
         "Minerals & Mining": 1.12,
-        "Auto Components": 0.88,
-        "Arbitrage Amount UTI Asset Management Company Ltd Capital Markets": 0.22,
-        "Maharashtra Scooters Limited Finance": 0.14
+        "Auto Components": 0.88
       },
-      "sector_count": 11,
+      "sector_count": 7,
       "aum": "\u20b928,546.26 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2022-12-01",
       "year": 2022,
       "month": 12,
       "categories": {
-        "Indian Equity": 70.25,
-        "Overseas Equity": 15.51
+        "Indian Equity": 74.01,
+        "Overseas Equity": 15.51,
+        "Debt & Money Market": 0.53,
+        "Cash & Equivalents": 9.95
       },
-      "category_total": 85.76,
+      "category_total": 100.0,
       "sectors": {
         "Finance": 15.77,
         "Internet & Technology": 11.8,
-        "No exit load will be charged, in case of switch transactions T an R d E N PS et I C nc u l r u r d e i n n t g A C ss a e s t h & Cash Equivalent Debt and Money Market Instruments": 9.95,
         "CAPITAL MARKETS": 8.24,
         "IT - Software": 5.91,
         "Pharmaceuticals & Biotechnology": 5.06,
@@ -2630,20 +2616,21 @@
         "Minerals & Mining": 1.18,
         "Auto Components": 0.93
       },
-      "sector_count": 11,
+      "sector_count": 10,
       "aum": "\u20b928,248.50 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-01-01",
       "year": 2023,
       "month": 1,
       "categories": {
-        "Indian Equity": 68.15,
+        "Indian Equity": 71.8,
         "Overseas Equity": 16.35,
-        "Debt & Money Market": 0.48
+        "Debt & Money Market": 0.08,
+        "Cash & Equivalents": 11.29
       },
-      "category_total": 84.98,
+      "category_total": 99.52,
       "sectors": {
         "Finance": 15.37,
         "Internet & Technology": 12.15,
@@ -2664,21 +2651,21 @@
       },
       "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-02-01",
       "year": 2023,
       "month": 2,
       "categories": {
-        "Indian Equity": 66.71,
+        "Indian Equity": 70.15,
         "Overseas Equity": 16.05,
-        "Debt & Money Market": 0.48
+        "Debt & Money Market": 0.08,
+        "Cash & Equivalents": 13.24
       },
-      "category_total": 83.24,
+      "category_total": 99.52,
       "sectors": {
         "Finance": 15.46,
-        "Cash & Cash Equivalent": 13.24,
         "Internet & Technology": 12.18,
         "Banks": 10.63,
         "Diversified FMCG": 7.63,
@@ -2695,24 +2682,24 @@
         "Debt and Money Market Instruments": 0.56,
         "Ferrous metals": 0.3
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-03-01",
       "year": 2023,
       "month": 3,
       "categories": {
-        "Indian Equity": 66.36,
+        "Indian Equity": 69.65,
         "Overseas Equity": 17.33,
-        "Debt & Money Market": 0.48
+        "Debt & Money Market": 0.08,
+        "Cash & Equivalents": 12.46
       },
-      "category_total": 84.17,
+      "category_total": 99.52,
       "sectors": {
         "Finance": 15.01,
         "Internet & Technology": 13.35,
-        "Cash & Cash Equivalent": 12.46,
         "Banks": 11.45,
         "Diversified FMCG": 7.44,
         "Capital Markets": 7.11,
@@ -2728,23 +2715,21 @@
         "Debt and Money Market Instruments": 0.56,
         "Ferrous metals": 0.27
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-04-01",
       "year": 2023,
       "month": 4,
       "categories": {
-        "Indian Equity": 65.18,
-        "Overseas Equity": 17.15,
-        "Debt & Money Market": 0.42
+        "Overseas Equity": 68.09,
+        "Indian Equity": 31.91
       },
-      "category_total": 82.75,
+      "category_total": 100.0,
       "sectors": {
         "Finance": 15.45,
-        "Cash & Cash Equivalent": 14.27,
         "Internet & Technology": 13.61,
         "Banks": 10.92,
         "Diversified FMCG": 7.68,
@@ -2761,24 +2746,22 @@
         "Debt and Money Market Instruments": 0.49,
         "Ferrous metals": 0.3
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-05-01",
       "year": 2023,
       "month": 5,
       "categories": {
-        "Indian Equity": 65.35,
-        "Overseas Equity": 18.26,
-        "Debt & Money Market": 0.4
+        "Debt & Money Market": 0.4,
+        "Indian Equity": 99.6
       },
-      "category_total": 84.01,
+      "category_total": 100.0,
       "sectors": {
         "Finance": 15.33,
         "Internet & Technology": 14.46,
-        "Cash & Cash Equivalent": 13.62,
         "Banks": 11.07,
         "Diversified FMCG": 7.52,
         "IT - Software": 6.84,
@@ -2794,24 +2777,23 @@
         "Debt and Money Market Instruments": 0.47,
         "Ferrous metals": 0.33
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-06-01",
       "year": 2023,
       "month": 6,
       "categories": {
-        "Indian Equity": 66.94,
-        "Overseas Equity": 17.59,
-        "Debt & Money Market": 0.36
+        "Overseas Equity": 69.23,
+        "Debt & Money Market": 0.36,
+        "Indian Equity": 30.41
       },
-      "category_total": 84.89,
+      "category_total": 100.0,
       "sectors": {
         "Finance": 15.25,
         "Internet & Technology": 13.81,
-        "Cash & Cash Equivalent": 12.76,
         "Banks": 10.98,
         "Diversified FMCG": 7.27,
         "IT - Software": 7.0,
@@ -2827,24 +2809,22 @@
         "Debt and Money Market Instruments": 0.42,
         "Ferrous metals": 0.31
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-07-01",
       "year": 2023,
       "month": 7,
       "categories": {
-        "Indian Equity": 67.36,
-        "Overseas Equity": 17.84,
-        "Debt & Money Market": 0.36
+        "Debt & Money Market": 0.36,
+        "Indian Equity": 99.64
       },
-      "category_total": 85.56,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 19.04,
         "Internet and Technology": 14.09,
-        "Cash & Cash Equivalent": 12.57,
         "Diversified FMCG": 7.09,
         "IT - Software": 7.06,
         "Finance": 7.05,
@@ -2860,24 +2840,23 @@
         "Debt and Money Market Instruments": 0.43,
         "Ferrous metals": 0.33
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-08-01",
       "year": 2023,
       "month": 8,
       "categories": {
-        "Indian Equity": 67.45,
         "Overseas Equity": 17.4,
-        "Debt & Money Market": 0.36
+        "Debt & Money Market": 0.36,
+        "Indian Equity": 82.24
       },
-      "category_total": 85.21,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 19.1,
         "Internet and Technology": 13.59,
-        "Cash & Cash Equivalent": 13.11,
         "IT - Software": 7.26,
         "Finance": 7.06,
         "Capital Markets": 6.63,
@@ -2893,23 +2872,22 @@
         "Debt and Money Market Instruments": 0.43,
         "Ferrous metals": 0.37
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-09-01",
       "year": 2023,
       "month": 9,
       "categories": {
-        "Indian Equity": 69.04,
         "Overseas Equity": 16.04,
-        "Debt & Money Market": 0.36
+        "Debt & Money Market": 0.36,
+        "Indian Equity": 83.6
       },
-      "category_total": 85.44,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 18.98,
-        "Cash & Cash Equivalent": 12.89,
         "Internet and Technology": 12.68,
         "Finance": 7.51,
         "IT - Software": 7.18,
@@ -2926,23 +2904,22 @@
         "Debt and Money Market Instruments": 0.43,
         "Ferrous Metals": 0.33
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-10-01",
       "year": 2023,
       "month": 10,
       "categories": {
-        "Indian Equity": 68.39,
         "Overseas Equity": 15.86,
-        "Debt & Money Market": 0.32
+        "Debt & Money Market": 0.32,
+        "Indian Equity": 83.82
       },
-      "category_total": 84.57,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 18.11,
-        "Cash & Cash Equivalent": 14.09,
         "Internet and Technology": 12.44,
         "Finance": 7.15,
         "Capital Markets": 7.06,
@@ -2959,23 +2936,22 @@
         "Debt and Money Market Instruments": 0.38,
         "Ferrous Metals": 0.25
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-11-01",
       "year": 2023,
       "month": 11,
       "categories": {
-        "Indian Equity": 69.12,
-        "Overseas Equity": 15.84,
-        "Debt & Money Market": 0.25
+        "Overseas Equity": 70.15,
+        "Debt & Money Market": 0.25,
+        "Indian Equity": 29.6
       },
-      "category_total": 85.21,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 18.99,
-        "Cash & Cash Equivalent": 13.7,
         "Internet and Technology": 12.41,
         "Capital Markets": 7.84,
         "Finance": 6.98,
@@ -2992,23 +2968,22 @@
         "Debt and Money Market Instruments": 0.31,
         "Ferrous Metals": 0.25
       },
-      "sector_count": 17,
+      "sector_count": 16,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2023-12-01",
       "year": 2023,
       "month": 12,
       "categories": {
-        "Indian Equity": 69.55,
-        "Overseas Equity": 15.25,
-        "Debt & Money Market": 0.25
+        "Overseas Equity": 69.55,
+        "Debt & Money Market": 0.05,
+        "Indian Equity": 30.4
       },
-      "category_total": 85.05,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 19.16,
-        "Cash & Cash Equivalent": 13.81,
         "Internet and Technology": 11.94,
         "Capital Markets": 7.52,
         "IT - Software": 7.09,
@@ -3026,24 +3001,24 @@
         "Ferrous Metals": 0.27,
         "Gas": 0.13
       },
-      "sector_count": 18,
+      "sector_count": 17,
       "aum": "N/A",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-01-01",
       "year": 2024,
       "month": 1,
       "categories": {
-        "Indian Equity": 71.85,
-        "Debt & Money Market": -7.91,
-        "Cash & Equivalents": 9.91
+        "Debt & Money Market": 62.67,
+        "Overseas Equity": 15.03,
+        "Cash & Equivalents": 9.91,
+        "Indian Equity": 12.39
       },
-      "category_total": 73.85,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 19.88,
         "Internet and Technology": 11.84,
-        "Cash & Cash Equivalent": 10.33,
         "Capital Markets": 7.8,
         "IT - Software": 7.42,
         "Finance": 7.1,
@@ -3061,26 +3036,25 @@
         "Ferrous Metals": 0.32,
         "Fertilizers & Agrochemicals": 0.11
       },
-      "sector_count": 19,
+      "sector_count": 18,
       "aum": "\u20b955,034.05 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-02-01",
       "year": 2024,
       "month": 2,
       "categories": {
-        "Indian Equity": 71.66,
-        "Debt & Money Market": -5.96,
-        "Cash & Equivalents": 8.94
+        "Debt & Money Market": 2.98,
+        "Overseas Equity": 15.39,
+        "Indian Equity": 81.63
       },
-      "category_total": 74.64,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 19.61,
         "Internet and Technology": 12.0,
         "Scheme shall invest in Indian equities, foreign Finance": 7.33,
         "equities and related instruments and debt IT - Software": 7.33,
-        "An open ended dynamic Equity scheme Power": 6.13,
         "investing across large cap, mid cap, Automobiles": 5.29,
         "Diversified FMCG": 4.99,
         "Consumer Services": 3.39,
@@ -3088,20 +3062,20 @@
         "Managers Arbitrage/Special Situation": 0.64,
         "Industrial Products": 0.01
       },
-      "sector_count": 11,
+      "sector_count": 10,
       "aum": "\u20b958,900.51 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-03-01",
       "year": 2024,
       "month": 3,
       "categories": {
-        "Indian Equity": 70.03,
-        "Debt & Money Market": -7.24,
-        "Cash & Equivalents": 10.13
+        "Debt & Money Market": 2.89,
+        "Overseas Equity": 15.48,
+        "Indian Equity": 81.63
       },
-      "category_total": 72.92,
+      "category_total": 100.0,
       "sectors": {
         "Banks": 19.63,
         "Investment Objective from an actively managed portfolio primarily Computer Software": 12.09,
@@ -3119,22 +3093,21 @@
       },
       "sector_count": 13,
       "aum": "\u20b960,559.43 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-04-01",
       "year": 2024,
       "month": 4,
       "categories": {
-        "Indian Equity": 70.23,
+        "Indian Equity": 71.06,
         "Overseas Equity": 14.13,
-        "Debt & Money Market": -8.07,
-        "Cash & Equivalents": 11.16
+        "Debt & Money Market": 3.09,
+        "Cash & Equivalents": 11.71
       },
-      "category_total": 87.45,
+      "category_total": 99.99,
       "sectors": {
         "Banks": 20.07,
-        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 11.16,
         "Scheme shall invest in Indian equities, foreign Capital Markets": 7.78,
         "equities and related instruments and debt Power": 6.42,
         "Type of the Scheme An open-ended dynamic Equity scheme IT - Software": 5.68,
@@ -3147,24 +3120,23 @@
         "Industrial Products": 0.02,
         "Index / Stock Options": 0.01
       },
-      "sector_count": 13,
+      "sector_count": 12,
       "aum": "\u20b963,933.76 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-05-01",
       "year": 2024,
       "month": 5,
       "categories": {
-        "Indian Equity": 69.5,
+        "Indian Equity": 70.52,
         "Overseas Equity": 14.39,
-        "Debt & Money Market": -8.18,
-        "Cash & Equivalents": 11.36
+        "Debt & Money Market": 3.18,
+        "Cash & Equivalents": 11.89
       },
-      "category_total": 87.07,
+      "category_total": 99.98,
       "sectors": {
         "To seek to generate long-term capital growth Banks": 20.19,
-        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 11.36,
         "Scheme shall invest in Indian equities, foreign Capital Markets": 6.99,
         "Power": 6.35,
         "Finance": 6.12,
@@ -3175,21 +3147,21 @@
         "Managers Arbitrage/Special Situation": 1.02,
         "Fertilizers & Agrochemicals": 0.23
       },
-      "sector_count": 11,
+      "sector_count": 10,
       "aum": "\u20b966,383.82 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-06-01",
       "year": 2024,
       "month": 6,
       "categories": {
-        "Indian Equity": 69.71,
+        "Indian Equity": 70.48,
         "Overseas Equity": 14.33,
-        "Debt & Money Market": -7.79,
-        "Cash & Equivalents": 11.24
+        "Debt & Money Market": 3.45,
+        "Cash & Equivalents": 11.72
       },
-      "category_total": 87.49,
+      "category_total": 99.98,
       "sectors": {
         "To seek to generate long-term capital growth Banks": 20.62,
         "Investment Objective from an actively managed portfolio primarily Computer Software": 11.26,
@@ -3206,22 +3178,21 @@
       },
       "sector_count": 12,
       "aum": "\u20b971,700.48 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-07-01",
       "year": 2024,
       "month": 7,
       "categories": {
-        "Indian Equity": 71.04,
+        "Indian Equity": 71.76,
         "Overseas Equity": 12.84,
-        "Debt & Money Market": -8.24,
-        "Cash & Equivalents": 11.58
+        "Debt & Money Market": 3.34,
+        "Cash & Equivalents": 12.04
       },
-      "category_total": 87.22,
+      "category_total": 99.98,
       "sectors": {
         "Banks": 19.24,
-        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 11.58,
         "Scheme shall invest in Indian equities, foreign Capital Markets": 6.97,
         "equities and related instruments and debt Power": 6.86,
         "Type of the Scheme An open-ended dynamic Equity scheme IT - Software": 6.21,
@@ -3234,24 +3205,23 @@
         "Index / Stock Options": 0.02,
         "Industrial Products": 0.02
       },
-      "sector_count": 13,
+      "sector_count": 12,
       "aum": "\u20b975,956.22 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-08-01",
       "year": 2024,
       "month": 8,
       "categories": {
-        "Indian Equity": 69.94,
+        "Indian Equity": 70.65,
         "Overseas Equity": 12.45,
-        "Debt & Money Market": -8.82,
-        "Cash & Equivalents": 12.57
+        "Debt & Money Market": 3.75,
+        "Cash & Equivalents": 13.13
       },
-      "category_total": 86.14,
+      "category_total": 99.98,
       "sectors": {
         "To seek to generate long-term capital growth Banks": 19.2,
-        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 12.57,
         "Scheme shall invest in Indian equities, foreign Capital Markets": 7.32,
         "Power": 6.74,
         "Finance": 6.74,
@@ -3264,24 +3234,23 @@
         "Gas": 0.95,
         "Index / Stock Options": 0.02
       },
-      "sector_count": 13,
+      "sector_count": 12,
       "aum": "\u20b978,490.29 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-09-01",
       "year": 2024,
       "month": 9,
       "categories": {
-        "Indian Equity": 68.86,
+        "Indian Equity": 69.52,
         "Overseas Equity": 12.41,
-        "Debt & Money Market": -10.32,
-        "Cash & Equivalents": 13.91
+        "Debt & Money Market": 3.59,
+        "Cash & Equivalents": 14.45
       },
-      "category_total": 84.86,
+      "category_total": 99.97,
       "sectors": {
         "Banks": 19.73,
-        "Cash & Cash Equivalent": 13.91,
         "Computer Software": 9.82,
         "Power": 7.29,
         "Finance": 6.83,
@@ -3301,24 +3270,23 @@
         "Index / Stock Options": 0.03,
         "Industrial Products": 0.02
       },
-      "sector_count": 20,
+      "sector_count": 19,
       "aum": "\u20b982,441.07 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-10-01",
       "year": 2024,
       "month": 10,
       "categories": {
-        "Indian Equity": 67.08,
+        "Indian Equity": 67.68,
         "Overseas Equity": 12.42,
-        "Debt & Money Market": -11.83,
-        "Cash & Equivalents": 15.58
+        "Debt & Money Market": 3.75,
+        "Cash & Equivalents": 16.13
       },
-      "category_total": 83.25,
+      "category_total": 99.98,
       "sectors": {
         "To seek to generate long-term capital growth Banks": 20.08,
-        "Investment Objective from an actively managed portfolio primarily Cash & Cash Equivalent": 15.58,
         "Computer Software": 9.8,
         "equities and related instruments and debt Power": 7.08,
         "Consumable Fuels": 6.49,
@@ -3329,20 +3297,21 @@
         "Index / Stock Options": 0.02,
         "Industrial Products": 0.02
       },
-      "sector_count": 11,
+      "sector_count": 10,
       "aum": "\u20b981,918.72 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-11-01",
       "year": 2024,
       "month": 11,
       "categories": {
-        "Indian Equity": 65.83,
-        "Debt & Money Market": -9.66,
-        "Cash & Equivalents": 14.89
+        "Debt & Money Market": 51.96,
+        "Overseas Equity": 12.5,
+        "Cash & Equivalents": 14.89,
+        "Indian Equity": 20.65
       },
-      "category_total": 71.06,
+      "category_total": 100.0,
       "sectors": {
         "Investment Objective from an actively managed portfolio primarily Banks": 20.09,
         "Computer Software": 9.66,
@@ -3356,20 +3325,18 @@
       },
       "sector_count": 9,
       "aum": "\u20b984,640.59 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2024-12-01",
       "year": 2024,
       "month": 12,
       "categories": {
-        "Indian Equity": 65.85,
-        "Debt & Money Market": -1.44,
-        "Cash & Equivalents": 10.2
+        "Overseas Equity": 8.76,
+        "Indian Equity": 91.24
       },
-      "category_total": 74.61,
+      "category_total": 100.0,
       "sectors": {
-        "foreign equities and related instruments and debt Cash & Cash Equivalent": 10.2,
         "investment objective of the Scheme will be achieved and Debt and Money Market Instruments": 9.77,
         "Finance": 7.31,
         "Type of the Scheme Power": 6.54,
@@ -3380,25 +3347,24 @@
         "Fertilizers & Agrochemicals": 0.23,
         "Healthcare Services": 0.19
       },
-      "sector_count": 10,
+      "sector_count": 9,
       "aum": "\u20b987,539.41 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2025-01-01",
       "year": 2025,
       "month": 1,
       "categories": {
-        "Indian Equity": 65.43,
+        "Indian Equity": 66.83,
         "Overseas Equity": 13.73,
-        "Debt & Money Market": -0.12,
-        "Cash & Equivalents": 9.48
+        "Debt & Money Market": 9.36,
+        "Cash & Equivalents": 10.08
       },
-      "category_total": 88.52,
+      "category_total": 100.0,
       "sectors": {
         "actively managed portfolio primarily of Equity and Equity Banks": 20.19,
         "foreign equities and related instruments and debt Debt and Money Market Instruments": 9.96,
-        "investment objective of the Scheme will be achieved and Cash & Cash Equivalent": 9.48,
         "An open-ended dynamic Equity scheme Finance": 6.93,
         "investing across large cap, mid cap, Power": 6.24,
         "IT - Software": 5.55,
@@ -3407,21 +3373,21 @@
         "Leisure Services": 0.18,
         "Industrial Products": 0.02
       },
-      "sector_count": 10,
+      "sector_count": 9,
       "aum": "\u20b989,703.46 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2025-02-01",
       "year": 2025,
       "month": 2,
       "categories": {
-        "Indian Equity": 64.37,
+        "Indian Equity": 66.14,
         "Overseas Equity": 12.9,
-        "Debt & Money Market": -1.22,
-        "Cash & Equivalents": 10.79
+        "Debt & Money Market": 9.57,
+        "Cash & Equivalents": 11.39
       },
-      "category_total": 86.84,
+      "category_total": 100.0,
       "sectors": {
         "To seek to generate long-term capital growth from an Banks": 20.64,
         "foreign equities and related instruments and debt Debt and Money Market Instruments": 10.17,
@@ -3436,7 +3402,7 @@
       },
       "sector_count": 10,
       "aum": "\u20b988,004.52 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2025-03-01",
@@ -3445,10 +3411,10 @@
       "categories": {
         "Indian Equity": 67.35,
         "Overseas Equity": 10.7,
-        "Debt & Money Market": -0.98,
-        "Cash & Equivalents": 11.08
+        "Debt & Money Market": 10.1,
+        "Cash & Equivalents": 11.85
       },
-      "category_total": 88.15,
+      "category_total": 100.0,
       "sectors": {
         "To seek to generate long-term capital growth from an Banks": 21.23,
         "foreign equities and related instruments and debt Debt and Money Market Instruments": 10.87,
@@ -3462,7 +3428,7 @@
       },
       "sector_count": 9,
       "aum": "\u20b993,440.89 Cr",
-      "quality": "incomplete"
+      "quality": "good"
     },
     {
       "date": "2025-04-01",

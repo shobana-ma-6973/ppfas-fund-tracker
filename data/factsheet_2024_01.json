@@ -4,7 +4,6 @@
   "sector_allocation": {
     "Banks": 19.88,
     "Internet and Technology": 11.84,
-    "Cash & Cash Equivalent": 10.33,
     "Capital Markets": 7.8,
     "IT - Software": 7.42,
     "Finance": 7.1,
@@ -23,12 +22,13 @@
     "Fertilizers & Agrochemicals": 0.11
   },
   "category_allocation": {
-    "Indian Equity": 71.85,
-    "Debt & Money Market": -7.91,
-    "Cash & Equivalents": 9.91
+    "Debt & Money Market": 62.67,
+    "Overseas Equity": 15.03,
+    "Cash & Equivalents": 9.91,
+    "Indian Equity": 12.39
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 4-5 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 4-5",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2024/ppfas-mf-factsheet-for-January-2024.pdf",
   "factsheet_month": "January 2024"
 }

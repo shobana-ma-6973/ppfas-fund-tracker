@@ -20,12 +20,13 @@
     "Ferrous metals": 0.24
   },
   "category_allocation": {
-    "Indian Equity": 68.15,
+    "Indian Equity": 71.8,
     "Overseas Equity": 16.35,
-    "Debt & Money Market": 0.48
+    "Debt & Money Market": 0.08,
+    "Cash & Equivalents": 11.29
   },
-  "extraction_date": "2026-04-02",
-  "pages_parsed": "pages 3-2 (Flexi Cap Fund)",
+  "extraction_date": "2026-04-03",
+  "pages_parsed": "pages 3-2",
   "source_url": "https://amc.ppfas.com/downloads/factsheet/2023/ppfas-mf-factsheet-for-january-2023.pdf",
   "factsheet_month": "January 2023"
 }
