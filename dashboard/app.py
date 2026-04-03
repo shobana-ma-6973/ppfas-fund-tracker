@@ -740,13 +740,8 @@ def main():
         )
 
     # Link to full Allocation History
-    try:
-        st.page_link(
-            "pages/1_Allocation_History.py",
-            label="📊 View Full Allocation History (2013–Present)",
-        )
-    except Exception:
-        st.markdown("[📊 **View Full Allocation History (2013–Present)**](Allocation_History)")
+    if st.button("📊 View Full Allocation History (2013–Present)"):
+        st.switch_page("pages/1_Allocation_History.py")
 
     # ── Footer ───────────────────────────────────────────────
     st.divider()
