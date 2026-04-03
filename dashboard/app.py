@@ -44,7 +44,7 @@ st.set_page_config(
     page_title="PPFAS Flexi Cap Fund Tracker",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="auto",
 )
 
 # ── Custom CSS ───────────────────────────────────────────────
@@ -738,6 +738,13 @@ def main():
             f"📄 Factsheet for {fs_selected} is not yet available. "
             "Try selecting a different month."
         )
+
+    # Link to full Allocation History
+    st.page_link(
+        "pages/1_Allocation_History.py",
+        label="📊 View Full Allocation History (2013–Present)",
+        icon="📈",
+    )
 
     # ── Footer ───────────────────────────────────────────────
     st.divider()
