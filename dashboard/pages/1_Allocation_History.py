@@ -8,7 +8,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import json
-import os
 from pathlib import Path
 from datetime import datetime
 
@@ -20,17 +19,23 @@ st.set_page_config(
 )
 
 # ── Resolve project root ──
+# pages/1_Allocation_History.py → dashboard/ → repo-root/
 _project_root = Path(__file__).parent.parent.parent.resolve()
-os.chdir(_project_root)
 
 # ── Load allocation history ──
 @st.cache_data(ttl=3600)
 def load_history():
-    history_path = Path("data/allocation_history.json")
-    if not history_path.exists():
-        return None
-    with open(history_path) as f:
-        return json.load(f)
+    # Try multiple paths (handles both local and Streamlit Cloud)
+    candidates = [
+        _project_root / "data" / "allocation_history.json",
+        Path("data/allocation_history.json"),
+        Path(__file__).parent.parent.parent / "data" / "allocation_history.json",
+    ]
+    for p in candidates:
+        if p.exists():
+            with open(p) as f:
+                return json.load(f)
+    return None
 
 
 def main():
