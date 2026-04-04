@@ -741,7 +741,7 @@ def main():
 
     # ── Allocation History (inline) ──────────────────────────
     st.divider()
-    st.subheader("📊 Full Allocation History (2013–Present)")
+    st.subheader("📊 Allocation History")
 
     history_path = Path("data/allocation_history.json")
     if history_path.exists():
@@ -754,14 +754,27 @@ def main():
             hist_rows = []
             for r in records:
                 cats = r["categories"]
+                ie = cats.get("Indian Equity", 0)
+                oe = cats.get("Overseas Equity", 0)
+                dm = cats.get("Debt & Money Market", 0)
+                # Flag suspect data: Indian Equity should be 50-85%, Overseas < Indian
+                # These heuristics catch swapped columns and garbled extractions
+                is_reliable = (
+                    50 <= ie <= 85
+                    and oe < ie
+                    and dm < 30
+                    and r["category_total"] >= 90
+                )
                 hist_rows.append({
                     "Date": pd.to_datetime(r["date"]),
                     "Label": pd.to_datetime(r["date"]).strftime("%b %Y"),
                     **{c: cats.get(c, 0) for c in cat_cols},
                     "Total": r["category_total"],
                     "Quality": r["quality"],
+                    "Reliable": is_reliable,
                 })
             df_hist = pd.DataFrame(hist_rows)
+            df_reliable = df_hist[df_hist["Reliable"]].copy()
 
             color_map = {
                 "Indian Equity": "#2E86AB",
@@ -771,83 +784,114 @@ def main():
                 "Cash & Equivalents": "#3B1F2B",
             }
 
-            # Quality filter — default to good + approximate only
-            qual_col1, qual_col2 = st.columns([2, 1])
-            with qual_col1:
-                quality_filter = st.multiselect(
-                    "Data quality filter",
-                    ["good", "approximate", "incomplete", "overcounted"],
-                    default=["good", "approximate"],
-                    help="'good' = 95-105%, 'approximate' = 90-95%. Incomplete months have missing categories."
-                )
-            with qual_col2:
-                chart_type = st.radio(
-                    "Chart type", ["Line Chart", "Stacked Area"],
-                    horizontal=True, index=0,
-                )
-
-            df_plot = df_hist[df_hist["Quality"].isin(quality_filter)].copy()
-
-            if df_plot.empty:
-                st.warning("No data matches the selected quality filters.")
+            if df_reliable.empty:
+                st.warning("No reliable allocation data available.")
             else:
-                # For stacked area, normalize to 100%
-                if chart_type == "Stacked Area":
-                    row_totals = df_plot[cat_cols].sum(axis=1).replace(0, 1)
-                    df_norm = df_plot.copy()
-                    for c in cat_cols:
-                        df_norm[c] = (df_norm[c] / row_totals * 100).round(2)
+                # ── Current Snapshot (latest month) ──
+                latest = df_reliable.iloc[-1]
+                st.markdown(f"**Latest: {latest['Label']}**")
+                snap_cols = st.columns(5)
+                for i, cat in enumerate(cat_cols):
+                    val = latest[cat]
+                    if val > 0:
+                        snap_cols[i].metric(cat, f"{val:.1f}%")
+                    else:
+                        snap_cols[i].metric(cat, "—")
 
-                    fig = px.area(
-                        df_norm, x="Date", y=cat_cols,
-                        color_discrete_map=color_map,
+                st.divider()
+
+                # ── Date range selector ──
+                min_date = df_reliable["Date"].min().to_pydatetime()
+                max_date = df_reliable["Date"].max().to_pydatetime()
+
+                range_col1, range_col2 = st.columns([1, 3])
+                with range_col1:
+                    range_preset = st.radio(
+                        "Time range",
+                        ["1Y", "2Y", "3Y", "All"],
+                        index=1,
+                        horizontal=True,
                     )
-                    fig.update_layout(
-                        yaxis_title="Allocation (%)", xaxis_title="",
-                        legend_title="Category", hovermode="x unified",
-                        height=500, plot_bgcolor="white",
-                        yaxis=dict(range=[0, 100]),
-                    )
+                from dateutil.relativedelta import relativedelta
+                if range_preset == "1Y":
+                    start_date = max_date - relativedelta(years=1)
+                elif range_preset == "2Y":
+                    start_date = max_date - relativedelta(years=2)
+                elif range_preset == "3Y":
+                    start_date = max_date - relativedelta(years=3)
                 else:
-                    # Line chart — show actual percentages (more readable)
-                    # Only show categories that have data
-                    active_cats = [c for c in cat_cols if df_plot[c].sum() > 0]
+                    start_date = min_date
 
-                    fig = go.Figure()
-                    for cat in active_cats:
+                df_plot = df_reliable[df_reliable["Date"] >= pd.Timestamp(start_date)].copy()
+
+                if not df_plot.empty:
+                    # ── Main chart: separate subplots per category ──
+                    from plotly.subplots import make_subplots
+
+                    # Group: top chart = Indian + Overseas (large %), bottom = Debt + Cash + REITs (small %)
+                    fig = make_subplots(
+                        rows=2, cols=1,
+                        shared_xaxes=True,
+                        vertical_spacing=0.08,
+                        row_heights=[0.55, 0.45],
+                        subplot_titles=("Equity Allocation", "Debt, Cash & Others"),
+                    )
+
+                    # Top: Indian Equity + Overseas Equity
+                    for cat in ["Indian Equity", "Overseas Equity"]:
                         fig.add_trace(go.Scatter(
                             x=df_plot["Date"], y=df_plot[cat],
                             mode="lines+markers",
                             name=cat,
-                            line=dict(color=color_map[cat], width=2),
-                            marker=dict(size=4),
+                            line=dict(color=color_map[cat], width=2.5),
+                            marker=dict(size=5),
                             hovertemplate="%{y:.1f}%<extra>" + cat + "</extra>",
-                        ))
+                        ), row=1, col=1)
+
+                    # Bottom: Debt, Cash, REITs
+                    for cat in ["Debt & Money Market", "Cash & Equivalents", "REITs & InvITs"]:
+                        if df_plot[cat].sum() > 0:
+                            fig.add_trace(go.Scatter(
+                                x=df_plot["Date"], y=df_plot[cat],
+                                mode="lines+markers",
+                                name=cat,
+                                line=dict(color=color_map[cat], width=2.5),
+                                marker=dict(size=5),
+                                fill="tozeroy",
+                                hovertemplate="%{y:.1f}%<extra>" + cat + "</extra>",
+                            ), row=2, col=1)
+
                     fig.update_layout(
-                        yaxis_title="Allocation (%)", xaxis_title="",
-                        legend_title="Category", hovermode="x unified",
-                        height=500, plot_bgcolor="white",
-                        yaxis=dict(range=[0, max(df_plot[active_cats].max()) * 1.1]),
+                        height=600,
+                        hovermode="x unified",
+                        plot_bgcolor="white",
+                        legend=dict(orientation="h", yanchor="bottom", y=1.04, xanchor="center", x=0.5),
+                        margin=dict(t=60, b=30),
                     )
+                    fig.update_yaxes(title_text="Allocation (%)", row=1, col=1,
+                                     gridcolor="#eee", range=[0, max(85, df_plot["Indian Equity"].max() * 1.1)])
+                    fig.update_yaxes(title_text="Allocation (%)", row=2, col=1,
+                                     gridcolor="#eee", range=[0, max(20, df_plot[["Debt & Money Market", "Cash & Equivalents", "REITs & InvITs"]].max().max() * 1.3)])
+                    fig.update_xaxes(gridcolor="#eee")
 
-                st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, use_container_width=True)
 
-                # Summary table
-                with st.expander("📋 Data Table"):
-                    display_df = df_plot[["Label"] + cat_cols + ["Total", "Quality"]].copy()
-                    display_df.columns = ["Month"] + cat_cols + ["Total %", "Quality"]
-                    for c in cat_cols:
-                        display_df[c] = display_df[c].apply(lambda v: f"{v:.1f}%" if v > 0 else "—")
-                    display_df["Total %"] = display_df["Total %"].apply(lambda v: f"{v:.1f}%")
-                    st.dataframe(display_df, use_container_width=True, hide_index=True)
+                    # ── Data Table ──
+                    with st.expander("📋 Monthly Data Table"):
+                        display_df = df_plot[["Label"] + cat_cols + ["Total"]].copy()
+                        display_df = display_df.iloc[::-1]  # newest first
+                        display_df.columns = ["Month"] + cat_cols + ["Total %"]
+                        for c in cat_cols:
+                            display_df[c] = display_df[c].apply(lambda v: f"{v:.1f}%" if v > 0 else "—")
+                        display_df["Total %"] = display_df["Total %"].apply(lambda v: f"{v:.1f}%")
+                        st.dataframe(display_df, use_container_width=True, hide_index=True)
 
-            st.caption(
-                f"Data from {len(df_plot)} of {history['total_months']} monthly factsheets "
-                f"({history['date_range']['start'][:7]} to {history['date_range']['end'][:7]}). "
-                f"Quality: {history['quality_summary']['good']} good, "
-                f"{history['quality_summary']['approximate']} approximate, "
-                f"{history['quality_summary']['incomplete']} incomplete."
-            )
+                st.caption(
+                    f"Showing {len(df_plot)} months with verified data "
+                    f"(filtered from {history['total_months']} total). "
+                    f"Months with suspect extraction (swapped categories, missing data) "
+                    f"are excluded for accuracy."
+                )
     else:
         st.info("Allocation history data not available.")
 
