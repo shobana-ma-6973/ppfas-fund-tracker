@@ -756,15 +756,12 @@ def main():
                 cats = r["categories"]
                 hist_rows.append({
                     "Date": pd.to_datetime(r["date"]),
+                    "Label": pd.to_datetime(r["date"]).strftime("%b %Y"),
                     **{c: cats.get(c, 0) for c in cat_cols},
+                    "Total": r["category_total"],
                     "Quality": r["quality"],
                 })
             df_hist = pd.DataFrame(hist_rows)
-
-            # Normalize to 100%
-            row_totals = df_hist[cat_cols].sum(axis=1).replace(0, 1)
-            for c in cat_cols:
-                df_hist[c] = (df_hist[c] / row_totals * 100).round(2)
 
             color_map = {
                 "Indian Equity": "#2E86AB",
@@ -774,36 +771,78 @@ def main():
                 "Cash & Equivalents": "#3B1F2B",
             }
 
-            fig_area = px.area(
-                df_hist, x="Date", y=cat_cols,
-                title="Category Allocation Over Time (Normalized to 100%)",
-                color_discrete_map=color_map,
-            )
-            fig_area.update_layout(
-                yaxis_title="Allocation (%)", xaxis_title="",
-                legend_title="Category", hovermode="x unified",
-                height=500, plot_bgcolor="white",
-            )
-            st.plotly_chart(fig_area, use_container_width=True)
-
-            # Category trend lines
-            with st.expander("📈 Individual Category Trends"):
-                selected_cat = st.multiselect(
-                    "Select categories:", cat_cols, default=["Indian Equity", "Overseas Equity"]
+            # Quality filter — default to good + approximate only
+            qual_col1, qual_col2 = st.columns([2, 1])
+            with qual_col1:
+                quality_filter = st.multiselect(
+                    "Data quality filter",
+                    ["good", "approximate", "incomplete", "overcounted"],
+                    default=["good", "approximate"],
+                    help="'good' = 95-105%, 'approximate' = 90-95%. Incomplete months have missing categories."
                 )
-                if selected_cat:
-                    fig_line = px.line(
-                        df_hist, x="Date", y=selected_cat,
+            with qual_col2:
+                chart_type = st.radio(
+                    "Chart type", ["Line Chart", "Stacked Area"],
+                    horizontal=True, index=0,
+                )
+
+            df_plot = df_hist[df_hist["Quality"].isin(quality_filter)].copy()
+
+            if df_plot.empty:
+                st.warning("No data matches the selected quality filters.")
+            else:
+                # For stacked area, normalize to 100%
+                if chart_type == "Stacked Area":
+                    row_totals = df_plot[cat_cols].sum(axis=1).replace(0, 1)
+                    df_norm = df_plot.copy()
+                    for c in cat_cols:
+                        df_norm[c] = (df_norm[c] / row_totals * 100).round(2)
+
+                    fig = px.area(
+                        df_norm, x="Date", y=cat_cols,
                         color_discrete_map=color_map,
                     )
-                    fig_line.update_layout(
+                    fig.update_layout(
                         yaxis_title="Allocation (%)", xaxis_title="",
-                        height=400, plot_bgcolor="white",
+                        legend_title="Category", hovermode="x unified",
+                        height=500, plot_bgcolor="white",
+                        yaxis=dict(range=[0, 100]),
                     )
-                    st.plotly_chart(fig_line, use_container_width=True)
+                else:
+                    # Line chart — show actual percentages (more readable)
+                    # Only show categories that have data
+                    active_cats = [c for c in cat_cols if df_plot[c].sum() > 0]
+
+                    fig = go.Figure()
+                    for cat in active_cats:
+                        fig.add_trace(go.Scatter(
+                            x=df_plot["Date"], y=df_plot[cat],
+                            mode="lines+markers",
+                            name=cat,
+                            line=dict(color=color_map[cat], width=2),
+                            marker=dict(size=4),
+                            hovertemplate="%{y:.1f}%<extra>" + cat + "</extra>",
+                        ))
+                    fig.update_layout(
+                        yaxis_title="Allocation (%)", xaxis_title="",
+                        legend_title="Category", hovermode="x unified",
+                        height=500, plot_bgcolor="white",
+                        yaxis=dict(range=[0, max(df_plot[active_cats].max()) * 1.1]),
+                    )
+
+                st.plotly_chart(fig, use_container_width=True)
+
+                # Summary table
+                with st.expander("📋 Data Table"):
+                    display_df = df_plot[["Label"] + cat_cols + ["Total", "Quality"]].copy()
+                    display_df.columns = ["Month"] + cat_cols + ["Total %", "Quality"]
+                    for c in cat_cols:
+                        display_df[c] = display_df[c].apply(lambda v: f"{v:.1f}%" if v > 0 else "—")
+                    display_df["Total %"] = display_df["Total %"].apply(lambda v: f"{v:.1f}%")
+                    st.dataframe(display_df, use_container_width=True, hide_index=True)
 
             st.caption(
-                f"Data from {history['total_months']} monthly factsheets "
+                f"Data from {len(df_plot)} of {history['total_months']} monthly factsheets "
                 f"({history['date_range']['start'][:7]} to {history['date_range']['end'][:7]}). "
                 f"Quality: {history['quality_summary']['good']} good, "
                 f"{history['quality_summary']['approximate']} approximate, "
