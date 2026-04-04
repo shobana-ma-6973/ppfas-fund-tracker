@@ -757,17 +757,14 @@ def main():
                 ie = cats.get("Indian Equity", 0)
                 oe = cats.get("Overseas Equity", 0)
                 dm = cats.get("Debt & Money Market", 0)
-                # Flag suspect data: Indian Equity should be 50-85%, Overseas < Indian
-                # These heuristics catch swapped columns and garbled extractions
                 is_reliable = (
-                    50 <= ie <= 85
-                    and oe < ie
-                    and dm < 30
+                    50 <= ie <= 85 and oe < ie and dm < 30
                     and r["category_total"] >= 90
                 )
                 hist_rows.append({
                     "Date": pd.to_datetime(r["date"]),
                     "Label": pd.to_datetime(r["date"]).strftime("%b %Y"),
+                    "Quarter": pd.to_datetime(r["date"]).to_period("Q").strftime("Q%q %Y"),
                     **{c: cats.get(c, 0) for c in cat_cols},
                     "Total": r["category_total"],
                     "Quality": r["quality"],
@@ -781,105 +778,176 @@ def main():
                 "Overseas Equity": "#A23B72",
                 "REITs & InvITs": "#F18F01",
                 "Debt & Money Market": "#C73E1D",
-                "Cash & Equivalents": "#3B1F2B",
+                "Cash & Equivalents": "#5C5470",
+            }
+            cat_labels_short = {
+                "Indian Equity": "Indian Eq.",
+                "Overseas Equity": "Overseas Eq.",
+                "REITs & InvITs": "REITs",
+                "Debt & Money Market": "Debt",
+                "Cash & Equivalents": "Cash",
             }
 
             if df_reliable.empty:
                 st.warning("No reliable allocation data available.")
             else:
-                # ── Current Snapshot (latest month) ──
                 latest = df_reliable.iloc[-1]
-                st.markdown(f"**Latest: {latest['Label']}**")
-                snap_cols = st.columns(5)
-                for i, cat in enumerate(cat_cols):
-                    val = latest[cat]
-                    if val > 0:
-                        snap_cols[i].metric(cat, f"{val:.1f}%")
-                    else:
-                        snap_cols[i].metric(cat, "—")
+
+                # ════════════════════════════════════════════════
+                # 1. CURRENT ALLOCATION — Donut + Metric Cards
+                # ════════════════════════════════════════════════
+                st.markdown(f"##### Current Allocation — {latest['Label']}")
+
+                donut_col, metrics_col = st.columns([1, 1])
+
+                with donut_col:
+                    # Donut chart
+                    donut_cats = [c for c in cat_cols if latest[c] > 0]
+                    donut_vals = [latest[c] for c in donut_cats]
+                    donut_colors = [color_map[c] for c in donut_cats]
+
+                    fig_donut = go.Figure(go.Pie(
+                        labels=[cat_labels_short[c] for c in donut_cats],
+                        values=donut_vals,
+                        hole=0.55,
+                        marker=dict(colors=donut_colors),
+                        textinfo="label+percent",
+                        textposition="outside",
+                        textfont=dict(size=13),
+                        hovertemplate="<b>%{label}</b><br>%{value:.1f}%<extra></extra>",
+                        pull=[0.03] * len(donut_cats),
+                    ))
+                    fig_donut.update_layout(
+                        showlegend=False,
+                        height=300,
+                        margin=dict(t=10, b=10, l=10, r=10),
+                        annotations=[dict(
+                            text=f"<b>{latest['Label']}</b>",
+                            x=0.5, y=0.5, font_size=14, showarrow=False,
+                        )],
+                    )
+                    st.plotly_chart(fig_donut, use_container_width=True)
+
+                with metrics_col:
+                    # Compare vs 1 year ago
+                    from dateutil.relativedelta import relativedelta
+                    one_year_ago = latest["Date"] - pd.DateOffset(years=1)
+                    prev_rows = df_reliable[df_reliable["Date"] <= one_year_ago]
+                    has_prev = not prev_rows.empty
+                    prev = prev_rows.iloc[-1] if has_prev else None
+
+                    for cat in cat_cols:
+                        val = latest[cat]
+                        if val > 0:
+                            delta = None
+                            if has_prev and prev[cat] > 0:
+                                delta = f"{val - prev[cat]:+.1f}% vs 1Y ago"
+                            st.metric(cat, f"{val:.1f}%", delta=delta)
 
                 st.divider()
 
-                # ── Date range selector ──
-                min_date = df_reliable["Date"].min().to_pydatetime()
-                max_date = df_reliable["Date"].max().to_pydatetime()
+                # ════════════════════════════════════════════════
+                # 2. HISTORICAL TREND — Stacked Bar Chart (Quarterly)
+                # ════════════════════════════════════════════════
+                st.markdown("##### Historical Allocation Trend")
 
-                range_col1, range_col2 = st.columns([1, 3])
-                with range_col1:
-                    range_preset = st.radio(
-                        "Time range",
-                        ["1Y", "2Y", "3Y", "All"],
-                        index=1,
-                        horizontal=True,
-                    )
-                from dateutil.relativedelta import relativedelta
-                if range_preset == "1Y":
-                    start_date = max_date - relativedelta(years=1)
-                elif range_preset == "2Y":
-                    start_date = max_date - relativedelta(years=2)
-                elif range_preset == "3Y":
-                    start_date = max_date - relativedelta(years=3)
+                range_preset = st.radio(
+                    "Time range", ["1Y", "2Y", "3Y", "5Y", "All"],
+                    index=2, horizontal=True, key="hist_range",
+                )
+                max_date = df_reliable["Date"].max().to_pydatetime()
+                min_date = df_reliable["Date"].min().to_pydatetime()
+                range_map = {"1Y": 1, "2Y": 2, "3Y": 3, "5Y": 5}
+                if range_preset in range_map:
+                    start_date = max_date - relativedelta(years=range_map[range_preset])
                 else:
                     start_date = min_date
 
                 df_plot = df_reliable[df_reliable["Date"] >= pd.Timestamp(start_date)].copy()
 
                 if not df_plot.empty:
-                    # ── Main chart: separate subplots per category ──
-                    from plotly.subplots import make_subplots
+                    # Use last month of each quarter for quarterly view
+                    df_plot["QKey"] = df_plot["Date"].dt.to_period("Q")
+                    df_quarterly = df_plot.groupby("QKey").last().reset_index(drop=True)
 
-                    # Group: top chart = Indian + Overseas (large %), bottom = Debt + Cash + REITs (small %)
-                    fig = make_subplots(
-                        rows=2, cols=1,
-                        shared_xaxes=True,
-                        vertical_spacing=0.08,
-                        row_heights=[0.55, 0.45],
-                        subplot_titles=("Equity Allocation", "Debt, Cash & Others"),
-                    )
+                    # 100% Stacked Horizontal Bar — Morningstar style
+                    fig_bar = go.Figure()
+                    for cat in cat_cols:
+                        if df_quarterly[cat].sum() > 0:
+                            fig_bar.add_trace(go.Bar(
+                                y=df_quarterly["Label"],
+                                x=df_quarterly[cat],
+                                name=cat_labels_short[cat],
+                                orientation="h",
+                                marker_color=color_map[cat],
+                                text=df_quarterly[cat].apply(
+                                    lambda v: f"{v:.0f}%" if v >= 3 else ""
+                                ),
+                                textposition="inside",
+                                textfont=dict(color="white", size=11),
+                                hovertemplate=f"<b>{cat}</b>: " + "%{x:.1f}%<extra></extra>",
+                            ))
 
-                    # Top: Indian Equity + Overseas Equity
-                    for cat in ["Indian Equity", "Overseas Equity"]:
-                        fig.add_trace(go.Scatter(
-                            x=df_plot["Date"], y=df_plot[cat],
-                            mode="lines+markers",
-                            name=cat,
-                            line=dict(color=color_map[cat], width=2.5),
-                            marker=dict(size=5),
-                            hovertemplate="%{y:.1f}%<extra>" + cat + "</extra>",
-                        ), row=1, col=1)
-
-                    # Bottom: Debt, Cash, REITs
-                    for cat in ["Debt & Money Market", "Cash & Equivalents", "REITs & InvITs"]:
-                        if df_plot[cat].sum() > 0:
-                            fig.add_trace(go.Scatter(
-                                x=df_plot["Date"], y=df_plot[cat],
-                                mode="lines+markers",
-                                name=cat,
-                                line=dict(color=color_map[cat], width=2.5),
-                                marker=dict(size=5),
-                                fill="tozeroy",
-                                hovertemplate="%{y:.1f}%<extra>" + cat + "</extra>",
-                            ), row=2, col=1)
-
-                    fig.update_layout(
-                        height=600,
-                        hovermode="x unified",
+                    fig_bar.update_layout(
+                        barmode="stack",
+                        height=max(350, len(df_quarterly) * 32 + 80),
                         plot_bgcolor="white",
-                        legend=dict(orientation="h", yanchor="bottom", y=1.04, xanchor="center", x=0.5),
-                        margin=dict(t=60, b=30),
+                        xaxis=dict(
+                            title="Allocation (%)", range=[0, 100],
+                            gridcolor="#eee", dtick=20,
+                        ),
+                        yaxis=dict(title="", autorange="reversed"),
+                        legend=dict(
+                            orientation="h", yanchor="bottom", y=1.02,
+                            xanchor="center", x=0.5,
+                            font=dict(size=12),
+                        ),
+                        margin=dict(t=40, b=40, l=80, r=20),
+                        hovermode="y unified",
                     )
-                    fig.update_yaxes(title_text="Allocation (%)", row=1, col=1,
-                                     gridcolor="#eee", range=[0, max(85, df_plot["Indian Equity"].max() * 1.1)])
-                    fig.update_yaxes(title_text="Allocation (%)", row=2, col=1,
-                                     gridcolor="#eee", range=[0, max(20, df_plot[["Debt & Money Market", "Cash & Equivalents", "REITs & InvITs"]].max().max() * 1.3)])
-                    fig.update_xaxes(gridcolor="#eee")
+                    st.plotly_chart(fig_bar, use_container_width=True)
 
-                    st.plotly_chart(fig, use_container_width=True)
+                    # ═══════════════════════════════════════════
+                    # 3. CATEGORY SPARKLINES — Compact trend cards
+                    # ═══════════════════════════════════════════
+                    with st.expander("📈 Individual Category Trends"):
+                        active_cats = [c for c in cat_cols if df_plot[c].sum() > 0]
+                        spark_cols = st.columns(min(len(active_cats), 3))
+                        for idx, cat in enumerate(active_cats):
+                            with spark_cols[idx % len(spark_cols)]:
+                                curr_val = df_plot[cat].iloc[-1]
+                                first_val = df_plot[cat].iloc[0]
+                                change = curr_val - first_val
 
-                    # ── Data Table ──
+                                fig_spark = go.Figure(go.Scatter(
+                                    x=df_plot["Date"], y=df_plot[cat],
+                                    mode="lines",
+                                    line=dict(color=color_map[cat], width=2),
+                                    fill="tozeroy",
+                                    fillcolor=color_map[cat] + "20",
+                                    hovertemplate="%{x|%b %Y}: %{y:.1f}%<extra></extra>",
+                                ))
+                                fig_spark.update_layout(
+                                    height=150, margin=dict(t=30, b=5, l=5, r=5),
+                                    title=dict(
+                                        text=f"<b>{cat_labels_short[cat]}</b>  {curr_val:.1f}%  "
+                                             f"<span style='color:{'green' if change >= 0 else 'red'}'>"
+                                             f"({change:+.1f}%)</span>",
+                                        font=dict(size=12), x=0.02,
+                                    ),
+                                    xaxis=dict(visible=False),
+                                    yaxis=dict(visible=False),
+                                    plot_bgcolor="white",
+                                    showlegend=False,
+                                )
+                                st.plotly_chart(fig_spark, use_container_width=True)
+
+                    # ═══════════════════════════════════════════
+                    # 4. DATA TABLE
+                    # ═══════════════════════════════════════════
                     with st.expander("📋 Monthly Data Table"):
                         display_df = df_plot[["Label"] + cat_cols + ["Total"]].copy()
-                        display_df = display_df.iloc[::-1]  # newest first
+                        display_df = display_df.iloc[::-1]
                         display_df.columns = ["Month"] + cat_cols + ["Total %"]
                         for c in cat_cols:
                             display_df[c] = display_df[c].apply(lambda v: f"{v:.1f}%" if v > 0 else "—")
@@ -889,8 +957,7 @@ def main():
                 st.caption(
                     f"Showing {len(df_plot)} months with verified data "
                     f"(filtered from {history['total_months']} total). "
-                    f"Months with suspect extraction (swapped categories, missing data) "
-                    f"are excluded for accuracy."
+                    f"Quarterly bars use the last available month per quarter."
                 )
     else:
         st.info("Allocation history data not available.")
