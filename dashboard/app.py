@@ -817,6 +817,8 @@ def main():
                     # Use last month of each quarter for quarterly view
                     df_plot["QKey"] = df_plot["Date"].dt.year.astype(str) + "Q" + ((df_plot["Date"].dt.month - 1) // 3 + 1).astype(str)
                     df_quarterly = df_plot.groupby("QKey", sort=False).last().reset_index(drop=True)
+                    # Reverse: newest first (top of chart)
+                    df_quarterly = df_quarterly.iloc[::-1].reset_index(drop=True)
 
                     # 100% Stacked Horizontal Bar — Morningstar style
                     fig_bar = go.Figure()
@@ -844,7 +846,7 @@ def main():
                             title="Allocation (%)", range=[0, 100],
                             gridcolor="#eee", dtick=20,
                         ),
-                        yaxis=dict(title="", autorange="reversed"),
+                        yaxis=dict(title=""),
                         legend=dict(
                             orientation="h", yanchor="bottom", y=1.02,
                             xanchor="center", x=0.5,
