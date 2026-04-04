@@ -919,12 +919,16 @@ def main():
                                 first_val = df_plot[cat].iloc[0]
                                 change = curr_val - first_val
 
+                                # Convert hex color to rgba with transparency
+                                _hc = color_map[cat].lstrip("#")
+                                _r, _g, _b = int(_hc[:2], 16), int(_hc[2:4], 16), int(_hc[4:6], 16)
+
                                 fig_spark = go.Figure(go.Scatter(
                                     x=df_plot["Date"], y=df_plot[cat],
                                     mode="lines",
                                     line=dict(color=color_map[cat], width=2),
                                     fill="tozeroy",
-                                    fillcolor=color_map[cat] + "20",
+                                    fillcolor=f"rgba({_r},{_g},{_b},0.12)",
                                     hovertemplate="%{x|%b %Y}: %{y:.1f}%<extra></extra>",
                                 ))
                                 fig_spark.update_layout(
