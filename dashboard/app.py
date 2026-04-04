@@ -764,7 +764,7 @@ def main():
                 hist_rows.append({
                     "Date": pd.to_datetime(r["date"]),
                     "Label": pd.to_datetime(r["date"]).strftime("%b %Y"),
-                    "Quarter": pd.to_datetime(r["date"]).to_period("Q").strftime("Q%q %Y"),
+                    "Quarter": f"Q{(pd.to_datetime(r['date']).month - 1) // 3 + 1} {pd.to_datetime(r['date']).year}",
                     **{c: cats.get(c, 0) for c in cat_cols},
                     "Total": r["category_total"],
                     "Quality": r["quality"],
@@ -867,8 +867,8 @@ def main():
 
                 if not df_plot.empty:
                     # Use last month of each quarter for quarterly view
-                    df_plot["QKey"] = df_plot["Date"].dt.to_period("Q")
-                    df_quarterly = df_plot.groupby("QKey").last().reset_index(drop=True)
+                    df_plot["QKey"] = df_plot["Date"].dt.year.astype(str) + "Q" + ((df_plot["Date"].dt.month - 1) // 3 + 1).astype(str)
+                    df_quarterly = df_plot.groupby("QKey", sort=False).last().reset_index(drop=True)
 
                     # 100% Stacked Horizontal Bar — Morningstar style
                     fig_bar = go.Figure()
