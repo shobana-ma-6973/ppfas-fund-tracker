@@ -794,63 +794,11 @@ def main():
                 latest = df_reliable.iloc[-1]
 
                 # ════════════════════════════════════════════════
-                # 1. CURRENT ALLOCATION — Donut + Metric Cards
-                # ════════════════════════════════════════════════
-                st.markdown(f"##### Current Allocation — {latest['Label']}")
-
-                donut_col, metrics_col = st.columns([1, 1])
-
-                with donut_col:
-                    # Donut chart
-                    donut_cats = [c for c in cat_cols if latest[c] > 0]
-                    donut_vals = [latest[c] for c in donut_cats]
-                    donut_colors = [color_map[c] for c in donut_cats]
-
-                    fig_donut = go.Figure(go.Pie(
-                        labels=[cat_labels_short[c] for c in donut_cats],
-                        values=donut_vals,
-                        hole=0.55,
-                        marker=dict(colors=donut_colors),
-                        textinfo="label+percent",
-                        textposition="outside",
-                        textfont=dict(size=13),
-                        hovertemplate="<b>%{label}</b><br>%{value:.1f}%<extra></extra>",
-                        pull=[0.03] * len(donut_cats),
-                    ))
-                    fig_donut.update_layout(
-                        showlegend=False,
-                        height=300,
-                        margin=dict(t=10, b=10, l=10, r=10),
-                        annotations=[dict(
-                            text=f"<b>{latest['Label']}</b>",
-                            x=0.5, y=0.5, font_size=14, showarrow=False,
-                        )],
-                    )
-                    st.plotly_chart(fig_donut, use_container_width=True)
-
-                with metrics_col:
-                    # Compare vs 1 year ago
-                    from dateutil.relativedelta import relativedelta
-                    one_year_ago = latest["Date"] - pd.DateOffset(years=1)
-                    prev_rows = df_reliable[df_reliable["Date"] <= one_year_ago]
-                    has_prev = not prev_rows.empty
-                    prev = prev_rows.iloc[-1] if has_prev else None
-
-                    for cat in cat_cols:
-                        val = latest[cat]
-                        if val > 0:
-                            delta = None
-                            if has_prev and prev[cat] > 0:
-                                delta = f"{val - prev[cat]:+.1f}% vs 1Y ago"
-                            st.metric(cat, f"{val:.1f}%", delta=delta)
-
-                st.divider()
-
-                # ════════════════════════════════════════════════
-                # 2. HISTORICAL TREND — Stacked Bar Chart (Quarterly)
+                # HISTORICAL TREND — Stacked Bar Chart (Quarterly)
                 # ════════════════════════════════════════════════
                 st.markdown("##### Historical Allocation Trend")
 
+                from dateutil.relativedelta import relativedelta
                 range_preset = st.radio(
                     "Time range", ["1Y", "2Y", "3Y", "5Y", "All"],
                     index=2, horizontal=True, key="hist_range",
